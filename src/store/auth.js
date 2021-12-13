@@ -22,6 +22,7 @@ export default {
     SET_LOADING(state, isLoading) {
       state.isLoading = isLoading
     },
+
     SET_LOGIN_ALERT(state, alert) {
       state.loginAlert = alert
     }
@@ -49,15 +50,14 @@ export default {
     async login({ dispatch, commit }, credentials) {
       await commit('SET_LOADING', true)
       commit('SET_LOGIN_ALERT', null)
-      await axios.post('otentikasi/signin', credentials).then(function (response) {
+      await axios.post('login', credentials).then(function (response) {
         // console.log(response)
-        dispatch('attempt', response.data.token)
         // setTimeout(() => {, 5000)})
-        setTimeout(() => {
-          router.push({ path: 'dashboard' })
-          commit('SET_LOADING', false)
-        }, 500)
-      }).catch(error => {
+        // setTimeout(() => {
+          
+          // }, 500)
+        return dispatch('attempt', response.data.token)
+        }).catch(error => {
         console.log(error)
         commit('SET_LOADING', false)
         commit('SET_LOGIN_ALERT', true)
@@ -75,7 +75,7 @@ export default {
       }
 
       try {
-        await axios.get('otentikasi/me').then(function (response) {
+        await axios.get('me').then(function (response) {
           commit('SET_USER', response.data)
         })
         //    .catch( error => {
@@ -95,7 +95,7 @@ export default {
       if (state.token == null) {
         router.push({ path: 'login' })
       }
-      return await axios.post('auth/signout').then(() => {
+      return await axios.post('logout').then(() => {
         commit('SET_USER', null)
         commit('SET_TOKEN', null)
         // Vue.$toast.info('Berhasil Logout')

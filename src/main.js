@@ -4,13 +4,14 @@ import router from './router'
 import store from './store/index'
 import axios from 'axios'
 import vuetify from './plugins/vuetify'
-import "regenerator-runtime/runtime";
+import "regenerator-runtime/runtime"
 
+Vue.prototype.$http = axios
 Vue.config.productionTip = false
 require('./store/subcriber')
 
-axios.defaults.baseURL = 'http://localhost/backper/public/api'
-
+axios.defaults.baseURL = 'http://localhost/backend-laravel/public/api'
+axios.defaults.headers.common['X-CSRF-TOKEN'] = null
 router.beforeEach((to, from, next) => {
   // let tes = store.state.auth.token
   // store.dispatch('auth/attempt', localStorage.getItem('token'))

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <v-navigation-drawer app clipped v-model="drawer">
+    <v-navigation-drawer app clipped v-model="drawer" dark>
       <!-- -->
       <Sidebar />
     </v-navigation-drawer>
     <v-app-bar app clipped-left elevate-on-scroll color="primary" dark>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Koperasi Bina Cipta</v-toolbar-title>
+      <v-toolbar-title>Aplikasi Anya</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -41,13 +41,14 @@
   </div>
 </template> 
 <script>
-import Sidebar from "./Sidebar";
+import Sidebar from "./TheSidebar";
 import { mapActions } from "vuex";
 
 export default {
   data: () => ({
     drawer: null,
     group: null,
+    mini: false
   }),
   components: {
     Sidebar,

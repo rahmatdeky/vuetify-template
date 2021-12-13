@@ -2,17 +2,18 @@
   <v-app :style="{ background: $vuetify.theme.themes[theme].background }">
     <v-card
       elevation=""
-      width="400"
+      width="300"
       class="ma-auto justify-center"
       :loading="loading"
+      :disabled="loading"
     >
-    <v-img
-      class="red--text align-end"
-      height="200px"
-      src="@/assets/gal-gadot-2.jpg"
-    >
-      <v-card-title>Sign In</v-card-title>
-    </v-img>    
+      <v-img
+        class="align-end"
+        height="150px"
+        src="@/assets/anya.jpg"
+      >
+        <v-card-title>Sign In</v-card-title>
+      </v-img>
       <!-- <v-card-title class="justify-center mt-5"> Login </v-card-title> -->
       <!-- <v-card-subtitle>  </v-card-subtitle> -->
       <v-card-text>
@@ -30,8 +31,8 @@
             <v-row>
               <v-col cols="12">
                 <v-text-field
-                  label="Username"
-                  v-model="form.USER_NAME"
+                  label="Email"
+                  v-model="form.email"
                   :rules="[rules.required]"
                   counter
                 ></v-text-field>
@@ -49,14 +50,20 @@
                   hint="At least 6 characters"
                   counter
                   @click:append="show = !show"
-                ></v-text-field>               
+                ></v-text-field>
               </v-col>
             </v-row>
             <v-row>
               <v-col>
-               <v-btn color="primary" elevation="2" block :loading="loading" type="submit" raised
+                <v-btn
+                  color="#33691E"
+                  elevation="2"
+                  block
+                  type="submit"
+                  class="white--text"
+                  raised
                   >LOGIN</v-btn
-                > 
+                >
               </v-col>
             </v-row>
           </v-container>
@@ -75,7 +82,7 @@ export default {
   data() {
     return {
       form: {
-        username: "",
+        email: "",
         password: "",
       },
       show: false,
@@ -124,11 +131,16 @@ export default {
       handleClick: "handleClick",
     }),
     goRegister() {
-      this.$router.push({ path: "register" })
+      this.$router.push({ path: "register" });
     },
     submit() {
       if (this.$refs.form.validate()) {
-          this.login(this.form)
+        this.login(this.form)
+          .then(() => {
+            this.$store.commit("auth/SET_LOADING", false);
+            this.$router.push({ path: "home" });
+
+          })
       }
       // this.$refs.form.validate(
       // )

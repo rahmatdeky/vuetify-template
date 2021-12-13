@@ -1,35 +1,35 @@
 <template>
   <div class="home">
     <v-card elevation="2">
-      <v-card-title> Dashboard </v-card-title>
-      <v-card-subtitle> Dasbor </v-card-subtitle>
+      <v-card-title> Home </v-card-title>
+      <v-card-subtitle> Beranda </v-card-subtitle>
       <v-card-text>
         <p>
-          Selamat datang di Aplikasi Koperasi Bina Cipta
+          Selamat datang di Aplikasi
         </p>
-        <!-- <p> {{ tes }}</p> -->
+        <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores a ex aspernatur necessitatibus, provident quae laboriosam consectetur reprehenderit eaque ipsa sequi exercitationem ipsam at molestiae atque iure nihil eligendi dignissimos.</p>
       </v-card-text>
     </v-card>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   name: 'Home',
   data () {
     return {
-      tes: ''
+      // tes: this.$store.getters['auth/user']
     }
   },
   mounted () {
-    this.fungsi()
+    // this.fungsi()
   },
   methods:{
-    fungsi () {
-    axios.get('/posts').then((response) => {
-      this.tes = response.data})}
+    // fungsi () {
+    // axios.get('/posts').then((response) => {
+    //   this.tes = response.data})}
   }
 }
 </script>
