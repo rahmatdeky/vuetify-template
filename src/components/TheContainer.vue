@@ -10,9 +10,9 @@
       <!-- Provides the application the proper gutter -->
       <v-container>
         <!-- If using vue-router -->
-        <transition name="fade" mode="out-in">
+        <!-- <transition name="fade" mode="out-in"> -->
           <router-view :key="$route.path"></router-view>
-        </transition>
+        <!-- </transition> -->
       </v-container>
     </v-main>
 
