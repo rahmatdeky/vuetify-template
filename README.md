@@ -1,4 +1,5 @@
 # vuetify-template
+hello, im building front end apps with authencation built in and dynamic menu
 
 ## Project setup
 ```
