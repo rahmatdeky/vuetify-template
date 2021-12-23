@@ -4,10 +4,17 @@
       <v-card-title> User Management </v-card-title>
       <v-card-subtitle> </v-card-subtitle>
       <v-card-text>
+        <v-skeleton-loader
+          class="mx-auto"
+          max-width=""
+          v-if="!items.length"
+          type="table-row-divider@3"
+        ></v-skeleton-loader>
+        <transition name="fade" mode="in-out">
         <v-data-table
           :headers="headers"
           :items="items"
-          :loading="!items.length"
+          v-if="items.length"
           multi-sort
           class="elevation-1"
         >
@@ -17,6 +24,7 @@
             </v-btn>
           </template>
         </v-data-table>
+        </transition>
       </v-card-text>
     </v-card>
   </div>

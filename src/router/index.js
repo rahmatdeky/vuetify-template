@@ -17,6 +17,10 @@ import Menus from '@/views/settings/Menus'
 import UploadFile from '@/views/example/UploadFile'
 import ToDo from '@/views/example/ToDo'
 
+// Barang Pindahan
+import BrowsePindahan from '@/views/barang-pindahan/Browse'
+import PerekamanPindahan from '@/views/barang-pindahan/Perekaman'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -107,6 +111,30 @@ const routes = [
           requiresAuth: true
         }
       }
+    ]
+  },
+  {
+    path: '/barang-pindahan',
+    redirect: '/barang-pindahan/browse',
+    component: Container,
+    name: 'Barang Pindahan',
+    children: [
+      {
+        path: '/barang-pindahan/browse',
+        name: 'Barang Pindahan',
+        component: BrowsePindahan,
+        meta:{
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/barang-pindahan/rekam',
+        name: 'Perekaman Barang Pindahan',
+        component: PerekamanPindahan,
+        meta:{
+          requiresAuth: true
+        }
+      },
     ]
   },
   {

@@ -7,14 +7,13 @@
 
         <v-text-field label="Deskripsi" v-model="desk" required></v-text-field>
 
-        <v-btn @click="addTodo" color="info"> Kirim </v-btn>
+        <v-btn @click="addTodo" class="mr-3" color="info"> Kirim </v-btn>
         <v-btn @click="clear">Bersihkan</v-btn>
       </v-form>
 
       <v-data-table
         :headers="headers"
         :items="todos"
-        hide-actions
         class="elevation-1"
       >
         <template v-slot:item.actions="{ item }">
