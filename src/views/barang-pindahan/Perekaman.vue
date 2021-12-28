@@ -25,21 +25,25 @@
             <v-card flat class="mb-12">
               <v-form ref="form" @submit.prevent="submit">
                 <v-container class="">
-                  <v-text-field
-                    v-model="nama_pemohon"
-                    :rules="[rules.required]"
-                    label="Nama Pemohon"
-                    required
-                  ></v-text-field>
-                  <v-spacer></v-spacer>
-                  <v-text-field
-                    v-model="identitas_pemohon"
-                    :rules="[rules.required, rules.ktp]"
-                    :counter="16"
-                    label="Identitas Pemohon (No. KTP)"
-                    required
-                  ></v-text-field>
-                  <v-spacer></v-spacer>
+                  <v-row>
+                    <v-col cols="12" md="6">
+                      <v-text-field
+                        v-model="nama_pemohon"
+                        :rules="[rules.required]"
+                        label="Nama Pemohon"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                      <v-text-field
+                        v-model="identitas_pemohon"
+                        :rules="[rules.required, rules.ktp]"
+                        :counter="16"
+                        label="Identitas Pemohon (No. KTP)"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
                   <v-textarea
                     name="input-7-4"
                     label="Alamat Pemohon"
@@ -58,20 +62,25 @@
                   <v-spacer></v-spacer>
                   <transition name="fade" mode="in-out">
                     <div v-if="fl_ppjk">
-                      <v-text-field
-                        v-model="nama_ppjk"
-                        :rules="[rules.required]"
-                        label="Nama PPJK"
-                        required
-                      ></v-text-field>
-                      <v-spacer></v-spacer>
-                      <v-text-field
-                        v-model="identitas_ppjk"
-                        :rules="[rules.required, rules.ktp]"
-                        :counter="16"
-                        label="Identitas PPJK (No. KTP)"
-                        required
-                      ></v-text-field>
+                      <v-row>
+                        <v-col cols="12" md="6">
+                          <v-text-field
+                            v-model="nama_ppjk"
+                            :rules="[rules.required]"
+                            label="Nama PPJK"
+                            required
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="6">
+                          <v-text-field
+                            v-model="identitas_ppjk"
+                            :rules="[rules.required, rules.ktp]"
+                            :counter="16"
+                            label="Identitas PPJK (No. KTP)"
+                            required
+                          ></v-text-field>
+                        </v-col>
+                      </v-row>
                     </div>
                   </transition>
                   <v-spacer></v-spacer>
@@ -83,22 +92,28 @@
                     label="Cara Pengangkutan"
                     :rules="[rules.required]"
                   ></v-select>
-                  <v-autocomplete
-                    label="Pelabuhan Muat"
-                    v-model="pelabuhan_muat"
-                    :items="pelabuhan_items"
-                    item-text="nama_pelabuhan"
-                    item-value="id_pelabuhan"
-                    :rules="[rules.required, rules.pelabuhan]"
-                  ></v-autocomplete>
-                  <v-autocomplete
-                    label="Pelabuhan Bongkar"
-                    v-model="pelabuhan_bongkar"
-                    :items="pelabuhan_items"
-                    item-text="nama_pelabuhan"
-                    item-value="id_pelabuhan"
-                    :rules="[rules.required, rules.pelabuhan]"
-                  ></v-autocomplete>
+                  <v-row>
+                    <v-col cols="12" md="6">
+                      <v-autocomplete
+                        label="Pelabuhan Muat"
+                        v-model="pelabuhan_muat"
+                        :items="pelabuhan_items"
+                        item-text="nama_pelabuhan"
+                        item-value="id_pelabuhan"
+                        :rules="[rules.required, rules.pelabuhan]"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                      <v-autocomplete
+                        label="Pelabuhan Bongkar"
+                        v-model="pelabuhan_bongkar"
+                        :items="pelabuhan_items"
+                        item-text="nama_pelabuhan"
+                        item-value="id_pelabuhan"
+                        :rules="[rules.required, rules.pelabuhan]"
+                      ></v-autocomplete>
+                    </v-col>
+                  </v-row>
                 </v-container>
               </v-form>
             </v-card>
