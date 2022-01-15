@@ -15,8 +15,11 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn> -->
 
-      <v-btn icon @click="toggle_dark_mode">
-        <v-icon>mdi-theme-light-dark</v-icon>
+      <v-btn icon @click="toggle_dark_mode" v-if="this.$vuetify.theme.dark" title="Switch to light mode">
+        <v-icon>mdi-brightness-7</v-icon>
+      </v-btn>
+      <v-btn icon @click="toggle_dark_mode" v-else title="Switch to dark mode">
+        <v-icon>mdi-brightness-3</v-icon>
       </v-btn>
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
@@ -54,6 +57,7 @@ export default {
     Sidebar,
   },
   mounted() {
+    console.log(localStorage.getItem("dark_theme"));
     const theme = localStorage.getItem("dark_theme");
     if (theme) {
       if (theme === "true") {
