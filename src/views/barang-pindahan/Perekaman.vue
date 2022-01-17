@@ -97,7 +97,7 @@
                         label="Pelabuhan Muat"
                         v-model="pelabuhan_muat"
                         :items="pelabuhan_items"
-                        item-text="nama_pelabuhan"
+                        :item-text="(item) => `${item.id_pelabuhan} - ${item.nama_pelabuhan}`"
                         item-value="id_pelabuhan"
                         :rules="[rules.required, rules.pelabuhan]"
                       ></v-autocomplete>
