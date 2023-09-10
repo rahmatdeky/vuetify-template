@@ -83,7 +83,7 @@ export default {
     }),
     logout() {
       this.signOut().then(() => {
-        this.$router.push({ path: "/login" });
+        this.$router.push({ path: "/" });
       });
     },
   },

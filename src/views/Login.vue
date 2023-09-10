@@ -9,10 +9,10 @@
     >
       <v-img
         class="align-end"
-        height="150px"
-        src="@/assets/anya.jpg"
+        height="fit-content"
+        src="@/assets/logoNU-removebg-preview.png"
       >
-        <v-card-title>Sign In</v-card-title>
+        <!-- <v-card-title>Sign In</v-card-title> -->
       </v-img>
       <!-- <v-card-title class="justify-center mt-5"> Login </v-card-title> -->
       <!-- <v-card-subtitle>  </v-card-subtitle> -->

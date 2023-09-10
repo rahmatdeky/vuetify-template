@@ -8,6 +8,10 @@
 <script>
 // import Navbar from "./components/Navbar";
 // import Sidebar from "./components/Sidebar";
+import { ChartPlugin } from '@syncfusion/ej2-vue-charts';
+import Vue from 'vue';
+
+Vue.use(ChartPlugin);
 export default {
   name: 'App'
   // components: {
