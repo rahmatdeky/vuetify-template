@@ -7,7 +7,9 @@
     <v-app-bar app clipped-left elevate-on-scroll color="primary" dark>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Aplikasi Anya</v-toolbar-title>
+      <v-toolbar-title>
+        <img width="120px" src="../assets/logoNU-removebg-preview.png" alt="">
+      </v-toolbar-title>
 
       <v-spacer></v-spacer>
 

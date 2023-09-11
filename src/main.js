@@ -41,8 +41,18 @@ router.beforeEach((to, from, next) => {
   // setTimeout(() => { let tes =store.getters.['auth/authenticated'] }, 2000);
   if(to.matched.some(record => record.meta.requiresAuth)) {
     if(tes){
-      next()
-      console.log('udah dapet token')
+      let otoritas = store.getters['auth/user']['otoritas']
+      if (to.meta.access) {
+        if (otoritas.some((access) => access.akses === to.meta.access)) {
+          next()
+        } else {
+          next({
+            path: '/unauthorize'
+          })
+        }
+      } else {
+        next()
+      }
     }else{
       next({
         path: '/login',

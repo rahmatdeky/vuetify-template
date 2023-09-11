@@ -14,6 +14,8 @@ import About from '@/views/About'
 import Login from '@/views/Login'
 
 // // Setting 
+import UserManager from '@/views/settings/users/UserManager'
+import DetailUser from '@/views/settings/users/DetailUser'
 // import ViewAllUsers from '@/views/settings/users/ViewUsers'
 // import ViewUser from '@/views/settings/users/ViewUser'
 // import Menus from '@/views/settings/Menus'
@@ -73,6 +75,31 @@ const routes = [
         component: About,
         meta: {
           requiresAuth: true
+        }
+      },
+    ]
+  },
+  {
+    path: '/setting',
+    redirect: '/setting/usermanager',
+    component: Container,
+    children: [
+      {
+        path: 'usermanager',
+        name: 'User Manager',
+        component: UserManager,
+        meta: {
+          requiresAuth: true,
+          access : 'manajemenUser'
+        }
+      },
+      {
+        path: '/setting/detailuser/:id',
+        name: 'Detail User',
+        component: DetailUser,
+        meta: {
+          requiresAuth: true,
+          access : 'manajemenUser'
         }
       },
     ]

@@ -1,19 +1,14 @@
 <template>
-    <v-list>
-      <v-list-item link to="/">
-        <v-list-item-icon>
-          <v-icon>mdi-home</v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-title>Home</v-list-item-title>
-      </v-list-item>
-      <v-list-item link to="/about">
-        <v-list-item-icon>
-          <v-icon>mdi-account-question</v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-title>Tentang</v-list-item-title>
-      </v-list-item>
+  <v-list>
+      <SidebarListItem url="/" icon="mdi-home" title="Home" />
+      <SidebarListItem url="/about" icon="mdi-account-question" title="Tentang" />
+      <SidebarListGroup v-if="Menu.some( item => item.akses === 'manajemenUser')" iconGroup="mdi-cog" titleGroup="Setting">
+        <template>
+          <div>
+            <SidebarListItem v-if="Menu.some( item => item.akses === 'manajemenUser')" url="/setting/usermanager" icon="mdi-account-multiple" title="User Manager" />
+          </div>
+        </template>
+      </SidebarListGroup>
       <!-- <v-list-item link to="/browse">
         <v-list-item-icon>
           <v-icon>mdi-magnify</v-icon>
@@ -38,14 +33,23 @@
 </template>
 
 <script>
+import SidebarListItem from './SidebarListItem.vue'
+import SidebarListGroup from './SidebarListGroup.vue'
 export default {
   data() {
     return {
-      menus: this.$store.getters["auth/user"]["menus"]
+      menus: this.$store.getters["auth/user"]["menus"],
+      Menu: this.$store.getters['auth/user']['otoritas']
     };
   },
-  // data: () => ({
-
-  // }),
+  components: {
+    SidebarListItem,
+    SidebarListGroup
+  }
 };
 </script>
+<style>
+.my-active-class {
+  color: white !important
+}
+</style>
