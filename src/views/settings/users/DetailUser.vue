@@ -64,7 +64,7 @@
                                                 <td>{{ index + 1 }}</td>
                                                 <td>{{ akses.akses }}</td>
                                                 <td>
-                                                    <v-btn icon color="error">
+                                                    <v-btn @click="deleteAkses(akses.id)" icon color="error">
                                                         <v-icon>mdi-delete</v-icon>
                                                     </v-btn>
                                                 </td>
@@ -304,6 +304,34 @@ export default {
                     text: 'Data Berhasil Disimpan'
                     })
             }).then(this.getDataUser)
+        },
+        deleteAkses(id) {
+            Swal.fire({
+                title: 'Apa Anda Yakin?',
+                text: "Anda Tidak Dapat Mengembalikannya lagi",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        var data = {
+                            id_menu: id
+                        }
+                        this.$http.post('/user/akses/delete', data)
+                        .then(() => {
+                            Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: 'Data Berhasil Disimpan'
+                            })
+                        }).then(
+                            this.getDataUser
+                        )
+                    }
+                })
         }
     }
 }

@@ -33,19 +33,19 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item style="cursor: pointer" @click="logout()" link>
-            <!-- <v-list-item-title @click="logout()" link></v-list-item-title> -->
-            <v-list-item-icon>
-              <v-icon>mdi-logout</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title >Logout</v-list-item-title>
-          </v-list-item>
           <v-list-item style="cursor: pointer" link to="/changepassword">
             <!-- <v-list-item-title @click="logout()" link></v-list-item-title> -->
             <v-list-item-icon>
               <v-icon>mdi-square-edit-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-title >Change Password</v-list-item-title>
+          </v-list-item>
+          <v-list-item style="cursor: pointer" @click="logout()" link>
+            <!-- <v-list-item-title @click="logout()" link></v-list-item-title> -->
+            <v-list-item-icon>
+              <v-icon>mdi-logout</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title >Logout</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
