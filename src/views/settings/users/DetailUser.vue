@@ -14,11 +14,11 @@
                                     <tbody>
                                         <tr>
                                             <td>Nama</td>
-                                            <td>Deky</td>
+                                            <td>{{ dataUser.name }}</td>
                                         </tr>
                                         <tr>
                                             <td>Email</td>
-                                            <td>deky@gmail.com</td>
+                                            <td>{{ dataUser.email }}</td>
                                         </tr>
                                     </tbody>
                                 </v-simple-table>
@@ -60,9 +60,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>BrowseSiswa</td>
+                                            <tr v-for="(akses, index) in dataUser.akses" :key="index">
+                                                <td>{{ index + 1 }}</td>
+                                                <td>{{ akses.akses }}</td>
                                                 <td>
                                                     <v-btn icon color="error">
                                                         <v-icon>mdi-delete</v-icon>
@@ -103,7 +103,7 @@
                                     </v-btn>
                                 </v-col>
                                 <v-col cols="6">
-                                    <v-btn class="float-right" color="primary">
+                                    <v-btn @click="sendEditUser()" class="float-right" color="primary">
                                         <v-icon>mdi-check</v-icon>
                                     </v-btn>
                                 </v-col>
@@ -121,12 +121,41 @@
                         <v-container>
                             <v-row align-self="center">
                                 <v-col>
-                                    <v-text-field label="Password Baru" dense v-model="gantiPassword.baru"></v-text-field>
+                                    <v-text-field
+                                     label="Password Baru" 
+                                     dense 
+                                     v-model="gantiPassword.baru"
+                                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                     :rules="[rules.required, rules.min]"
+                                     :type="show1 ? 'text' : 'password'"
+                                     @click:append="show1 = !show1"
+                                     ></v-text-field>
                                 </v-col>
                             </v-row>
                             <v-row align-self="center">
                                 <v-col>
-                                    <v-text-field label="Konfirmasi Password Baru" dense v-model="gantiPassword.konfirmasi"></v-text-field>
+                                    <v-text-field
+                                     label="Konfirmasi Password Baru"
+                                     dense 
+                                     v-model="gantiPassword.konfirmasi"
+                                     :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                                     :rules="[rules.required, rules.min]"
+                                     :type="show2 ? 'text' : 'password'"
+                                     @click:append="show2 = !show2"
+                                     ></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    <v-alert
+                                    class="px-3"
+                                    v-if="notMatch"
+                                    type="error"
+                                    dismissible
+                                    dense
+                                    outlined
+                                    >Password Baru dan Konfirmasi Password Baru tidak sama</v-alert
+                                    >
                                 </v-col>
                             </v-row>
                             <v-row>
@@ -136,7 +165,7 @@
                                     </v-btn>
                                 </v-col>
                                 <v-col cols="6">
-                                    <v-btn class="float-right" color="primary">
+                                    <v-btn @click="sendGantiPassword" class="float-right" color="primary">
                                         <v-icon>mdi-check</v-icon>
                                     </v-btn>
                                 </v-col>
@@ -154,13 +183,13 @@
                         <v-container>
                             <v-row align-self="center">
                                 <v-col>
-                                    <v-select :items="listAkses">
+                                    <v-select v-model="aksesAdded" :items="listAkses">
                                     </v-select>
                                 </v-col>
                             </v-row>
                             <v-row>
                                 <v-col>
-                                    <v-btn class="float-right" color="primary">
+                                    <v-btn @click="addAkses()" class="float-right" color="primary">
                                         <v-icon>mdi-check</v-icon>
                                     </v-btn>
                                 </v-col>
@@ -173,33 +202,44 @@
     </div>
 </template>
 <script>
+import Swal from 'sweetalert2'
 export default {
     data() {
         return {
+            show1: false,
+            show2: false,
             modalEditUser: false,
             modalGantiPassword: false,
             modalTambahAkses: false,
             editUser: {
                 nama: '',
-                email: ''
+                email: '',
+                id: ''
             },
             gantiPassword: {
                 baru: '',
                 konfirmasi: ''
             },
-            listAkses: [
-                'manajemenUser',
-                'browseSiswa'
-            ],
-            dataUser: []
+            listAkses: [],
+            dataUser: [],
+            rules: {
+                required: (value) => !!value || "Required.",
+                min: (v) => v.length >= 6 || "Min 6 characters",
+            },
+            notMatch: false,
+            aksesAdded: ''
         }
     },
     created() {
-        this.getDataUser()
+        this.getDataUser(),
+        this.getListAkses()
     },
     methods: {
         openModalEditUser() {
             this.modalEditUser = true
+            this.editUser.nama = this.dataUser.name
+            this.editUser.email = this.dataUser.email
+            this.editUser.id = this.dataUser.id
         },
         openModalGantiPassword() {
             this.modalGantiPassword = true
@@ -211,6 +251,59 @@ export default {
             this.$http.get('/getUser/detail/' + this.$route.params.id).then((response) => {
                 this.dataUser = response.data
             })
+        },
+        getListAkses() {
+            this.$http.get('/getUser/listAkses').then((response) => {
+                this.listAkses = response.data
+            })
+        },
+        sendEditUser () {
+            this.$http.put('/user/updateData', this.editUser)
+            .then((result) => {
+                if(result) {
+                    this.modalEditUser = false
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: 'Data Berhasil Disimpan'
+                    })
+                }
+            }).then(this.getDataUser)
+        },
+        sendGantiPassword () {
+            if (this.gantiPassword.baru === this.gantiPassword.konfirmasi) {
+                var data = {
+                    id: this.dataUser.id,
+                    baru :this.gantiPassword.baru
+                }
+                this.$http.put('/user/updatePwbyAdmin', data)
+                .then(() => {
+                    this.modalGantiPassword = false
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: 'Data Berhasil Disimpan'
+                    })
+                })
+            } else {
+                this.notMatch = true
+            }
+        },
+        addAkses () {
+            var akses = {
+                id: this.dataUser.id,
+                email: this.dataUser.email,
+                menu: this.aksesAdded
+            }
+            this.$http.post('user/addAkses', akses)
+            .then(() => {
+                this.modalTambahAkses = false
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: 'Data Berhasil Disimpan'
+                    })
+            }).then(this.getDataUser)
         }
     }
 }

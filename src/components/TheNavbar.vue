@@ -29,7 +29,7 @@
             Dropdown
           </v-btn> -->
           <v-btn icon v-bind="attrs" v-on="on">
-            <v-icon>mdi-dots-vertical</v-icon>
+            <v-avatar color="">{{ user.name }}</v-avatar>
           </v-btn>
         </template>
         <v-list>
@@ -40,6 +40,13 @@
             </v-list-item-icon>
             <v-list-item-title >Logout</v-list-item-title>
           </v-list-item>
+          <v-list-item style="cursor: pointer" link to="/changepassword">
+            <!-- <v-list-item-title @click="logout()" link></v-list-item-title> -->
+            <v-list-item-icon>
+              <v-icon>mdi-square-edit-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title >Change Password</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
     </v-app-bar>
@@ -47,7 +54,7 @@
 </template> 
 <script>
 import Sidebar from "./TheSidebar";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data: () => ({
@@ -89,5 +96,10 @@ export default {
       });
     },
   },
+  computed: {
+    ...mapGetters({
+      user: "auth/user"
+    })
+  }
 };
 </script>

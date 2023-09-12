@@ -24,6 +24,7 @@
     "echarts": "^5.4.3",
     "hchs-vue-charts": "^1.2.8",
     "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.7.27",
     "vue": "~2.6.12",
     "vue-apexcharts": "^1.6.2",
     "vue-chartjs": "^4.0.0",

@@ -19,7 +19,7 @@
                                 </v-btn>
                             </v-col>
                             <v-col>
-                                <v-btn class="float-end">
+                                <v-btn @click="openModalAddUser" class="float-end">
                                     <v-icon>mdi-plus</v-icon> Tambah User
                                 </v-btn>
                             </v-col>
@@ -66,11 +66,85 @@
                       </v-container>
                     </v-card>
                 </v-col>
+                <v-dialog max-width="600" v-model="modalAddUser">
+                    <v-card>
+                        <v-toolbar color="primary" dark>
+                            <h4>Tambah User</h4>
+                        </v-toolbar>
+                        <v-container>
+                            <v-row>
+                                <v-col align-self="center" cols="3">
+                                    <p>Nama</p>
+                                </v-col>
+                                <v-col>
+                                    <v-text-field 
+                                     :rules="[rules.required]"
+                                     v-model="dataAddUsers.nama" dense></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col align-self="center" cols="3">
+                                    <p>Email</p>
+                                </v-col>
+                                <v-col>
+                                    <v-text-field 
+                                     :rules="[rules.required]"
+                                     v-model="dataAddUsers.email" dense></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col align-self="center" cols="3">
+                                    <p>Password</p>
+                                </v-col>
+                                <v-col>
+                                    <v-text-field
+                                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                     :rules="[rules.required, rules.min]"
+                                     :type="show1 ? 'text' : 'password'"
+                                     @click:append="show1 = !show1"
+                                     v-model="dataAddUsers.password" dense></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col align-self="center" cols="3">
+                                    <p>Konfirmasi Password</p>
+                                </v-col>
+                                <v-col>
+                                    <v-text-field 
+                                     :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                                     :rules="[rules.required, rules.min]"
+                                     :type="show2 ? 'text' : 'password'"
+                                     @click:append="show2 = !show2"
+                                     v-model="dataAddUsers.konfirmPass" dense></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    <v-alert
+                                    class="px-3"
+                                    v-if="notMatch"
+                                    type="error"
+                                    dismissible
+                                    dense
+                                    outlined
+                                    >Password dan Konfirmasi Password tidak sama</v-alert
+                                    >
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="2">
+                                    <v-btn @click="submitAddUsers" color="primary">Submit</v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-card>
+                </v-dialog>
             </v-row>
         </v-container>
     </div>
 </template>
 <script>
+import Swal from 'sweetalert2'
   export default {
     data () {
       return {
@@ -79,7 +153,21 @@
         //     nama: '',
         //     email: ''
         // }
-        search: ''
+        search: '',
+        modalAddUser: false,
+        dataAddUsers: {
+            nama: '',
+            email: '',
+            password: '',
+            konfirmPass: ''
+        },
+        rules: {
+            required: (value) => !!value || "Required.",
+            min: (v) => v.length >= 6 || "Min 6 characters",
+        },
+        show1: false,
+        show2: false,
+        notMatch: false
       }
     },
     created() {
@@ -97,6 +185,26 @@
             this.$http.post(page, auth).then((response) => {
                 this.user = response.data
             })
+        },
+        openModalAddUser () {
+            this.modalAddUser = true
+        },
+        submitAddUsers () {
+            if (this.dataAddUsers.password === this.dataAddUsers.konfirmPass) {
+                this.$http.post('/user/adduser', this.dataAddUsers)
+                .then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: 'Data Berhasil Disimpan'
+                    })
+                }).then(() => {
+                    this.modalAddUser = false
+                })
+            } else {
+                this.notMatch = true
+                this.getDataUser
+            }
         }
     }
   }

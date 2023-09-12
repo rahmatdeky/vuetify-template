@@ -12,6 +12,7 @@ import Home from '@/views/Home'
 // import Browse from '@/views/Browse'
 import About from '@/views/About'
 import Login from '@/views/Login'
+import ChangePassword from '@/views/ChangePassword'
 
 // // Setting 
 import UserManager from '@/views/settings/users/UserManager'
@@ -73,6 +74,14 @@ const routes = [
         path: '/about',
         name: 'About',
         component: About,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/changepassword',
+        name: 'Change Password',
+        component: ChangePassword,
         meta: {
           requiresAuth: true
         }
