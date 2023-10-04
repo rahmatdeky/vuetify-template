@@ -6,6 +6,7 @@
         <template>
           <div>
             <SidebarListItem v-if="Menu.some( item => item.akses === 'manajemenUser')" url="/setting/usermanager" icon="mdi-account-multiple" title="User Manager" />
+            <SidebarListItem v-if="Menu.some( item => item.akses === 'settingBerita')" url="/setting/berita" icon="mdi-newspaper" title="Manajemen Berita" />
           </div>
         </template>
       </SidebarListGroup>

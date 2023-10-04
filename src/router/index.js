@@ -6,7 +6,7 @@ import TheContainer2 from '@/components/TheContainer2'
 import HomePage from '@/views/LandingPage/HomePage'
 import StrukturOrganisasi from '@/views/LandingPage/StrukturOrganisasi'
 
-// //Menu
+// Menu
 import Container from '@/components/TheContainer'
 import Home from '@/views/Home'
 // import Browse from '@/views/Browse'
@@ -14,12 +14,19 @@ import About from '@/views/About'
 import Login from '@/views/Login'
 import ChangePassword from '@/views/ChangePassword'
 
-// // Setting 
+// Setting 
 import UserManager from '@/views/settings/users/UserManager'
 import DetailUser from '@/views/settings/users/DetailUser'
+import ManajemenBerita from '@/views/settings/berita/ManajemenBerita'
+import TambahBerita from '@/views/settings/berita/TambahBerita'
+import settingDetailBerita from '@/views/settings/berita/DetailBerita'
 // import ViewAllUsers from '@/views/settings/users/ViewUsers'
 // import ViewUser from '@/views/settings/users/ViewUser'
 // import Menus from '@/views/settings/Menus'
+
+// Berita
+import BrowseBerita from '@/views/LandingPage/BrowseBerita'
+import DetailBerita from '@/views/LandingPage/DetailBerita'
 
 // // example
 // import UploadFile from '@/views/example/UploadFile'
@@ -111,6 +118,50 @@ const routes = [
           access : 'manajemenUser'
         }
       },
+      {
+        path: '/setting/berita',
+        name: 'Manajemen Berita',
+        component: ManajemenBerita,
+        meta: {
+          requiresAuth: true,
+          access : 'settingBerita'
+        }
+      },
+      {
+        path: '/setting/berita/tambah',
+        name: 'Tambah Berita',
+        component: TambahBerita,
+        meta: {
+          requiresAuth: true,
+          access : 'settingBerita'
+        }
+      },
+      {
+        path: '/setting/berita/detail/:id',
+        name: 'Setting Detail Berita',
+        component: settingDetailBerita,
+        meta: {
+          requiresAuth: true,
+          access : 'settingBerita'
+        }
+      },
+    ]
+  },
+  {
+    path: '/berita',
+    redirect: '/berita/browse',
+    component: TheContainer2,
+    children: [
+      {
+        path: '/berita/browse',
+        name: 'Browse Berita',
+        component: BrowseBerita
+      },
+      {
+        path: '/berita/detail/:id',
+        name: 'Detail Berita',
+        component: DetailBerita
+      }
     ]
   },
   // {

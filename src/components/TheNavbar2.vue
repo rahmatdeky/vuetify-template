@@ -9,6 +9,9 @@
       <v-btn link to="/struktur" text>
         Struktur Organisasi
       </v-btn>
+      <v-btn link to="/berita" text>
+        Berita
+      </v-btn>
       <v-spacer></v-spacer>
 
       <v-btn link to="/login" text>

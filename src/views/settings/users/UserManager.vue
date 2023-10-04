@@ -40,9 +40,14 @@
                                         <td>{{ item.name }}</td>
                                         <td>{{ item.email }}</td>
                                         <td>
-                                            <v-btn link :to="`/setting/detailuser/` + item.id" class="float-right" outlined color="success">
-                                                <v-icon>mdi-magnify</v-icon>
-                                            </v-btn>
+                                            <v-list-item class="float-right">
+                                                <v-btn link :to="`/setting/detailuser/` + item.id" outlined color="success">
+                                                    <v-icon>mdi-magnify</v-icon>
+                                                </v-btn>
+                                                <v-btn @click="deleteUser(item.id)" outlined color="red">
+                                                    <v-icon>mdi-delete</v-icon>
+                                                </v-btn>
+                                            </v-list-item>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -205,6 +210,33 @@ import Swal from 'sweetalert2'
                 this.notMatch = true
                 this.getDataUser
             }
+        },
+        deleteUser (id) {
+            Swal.fire({
+                title: 'Apa Anda Yakin?',
+                text: "Anda Tidak Dapat Mengembalikannya lagi",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var data = {
+                            id_user: id
+                        }
+                        this.$http.post('user/delete', data)
+                        .then(() => {
+                            Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: 'Data Berhasil Disimpan'
+                            })
+                        }).then(
+                            this.getDataUser()
+                        )
+                    }
+                })
         }
     }
   }
