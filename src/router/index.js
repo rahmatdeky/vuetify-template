@@ -13,13 +13,21 @@ import Home from '@/views/Home'
 import About from '@/views/About'
 import Login from '@/views/Login'
 import ChangePassword from '@/views/ChangePassword'
+import page404 from '@/views/404'
+import page401 from '@/views/401'
 
-// Setting 
+// User Manager
 import UserManager from '@/views/settings/users/UserManager'
 import DetailUser from '@/views/settings/users/DetailUser'
+
+// Manajemen Berita
 import ManajemenBerita from '@/views/settings/berita/ManajemenBerita'
 import TambahBerita from '@/views/settings/berita/TambahBerita'
 import settingDetailBerita from '@/views/settings/berita/DetailBerita'
+
+// Pengurus
+import BrowsePengurus from '@/views/settings/pengurus/BrowsePengurus'
+import DetailPengurus from '@/views/settings/pengurus/DetailPengurus'
 // import ViewAllUsers from '@/views/settings/users/ViewUsers'
 // import ViewUser from '@/views/settings/users/ViewUser'
 // import Menus from '@/views/settings/Menus'
@@ -39,6 +47,10 @@ import DetailBerita from '@/views/LandingPage/DetailBerita'
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '*',
+    component: page404
+  },
   {
     path: '/',
     redirect: '/page',
@@ -106,7 +118,8 @@ const routes = [
         component: UserManager,
         meta: {
           requiresAuth: true,
-          access : 'manajemenUser'
+          // access : 'manajemenUser'
+          access : 'admin'
         }
       },
       {
@@ -115,7 +128,8 @@ const routes = [
         component: DetailUser,
         meta: {
           requiresAuth: true,
-          access : 'manajemenUser'
+          // access : 'manajemenUser'
+          access : 'admin'
         }
       },
       {
@@ -124,7 +138,8 @@ const routes = [
         component: ManajemenBerita,
         meta: {
           requiresAuth: true,
-          access : 'settingBerita'
+          // access : 'settingBerita'
+          access : 'admin'
         }
       },
       {
@@ -133,7 +148,8 @@ const routes = [
         component: TambahBerita,
         meta: {
           requiresAuth: true,
-          access : 'settingBerita'
+          // access : 'settingBerita'
+          access : 'admin'
         }
       },
       {
@@ -142,7 +158,28 @@ const routes = [
         component: settingDetailBerita,
         meta: {
           requiresAuth: true,
-          access : 'settingBerita'
+          // access : 'settingBerita'
+          access : 'admin'
+        }
+      },
+      {
+        path: '/setting/pengurus',
+        name: 'Browse Pengurus',
+        component: BrowsePengurus,
+        meta: {
+          requiresAuth: true,
+          // access : 'settingPengurus'
+          access : 'admin'
+        }
+      },
+      {
+        path: '/setting/pengurus/detail/:NIK',
+        name: 'Detail Pengurus',
+        component: DetailPengurus,
+        meta: {
+          requiresAuth: true,
+          // access : 'settingPengurus'
+          access : 'admin'
         }
       },
     ]
@@ -284,6 +321,10 @@ const routes = [
     meta: {
       unrequiredAuth: true
     }
+  },
+  {
+    path: '/unauthorize',
+    component: page401
   }
 ]
 

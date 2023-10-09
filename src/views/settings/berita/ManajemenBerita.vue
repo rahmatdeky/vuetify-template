@@ -68,6 +68,7 @@
                                         prev
                                     </v-btn>
                                     <v-btn>
+                                        {{ listBerita.current_page + '/' + listBerita.last_page }}
                                     </v-btn>
                                     <v-btn @click="getListBerita(listBerita.next_page_url)" :disabled="!listBerita.next_page_url" color="primary">
                                         next

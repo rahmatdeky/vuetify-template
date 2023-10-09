@@ -45,7 +45,8 @@ router.beforeEach((to, from, next) => {
     if(tes){
       let otoritas = store.getters['auth/user']['otoritas']
       if (to.meta.access) {
-        if (otoritas.some((access) => access.akses === to.meta.access)) {
+        // if (otoritas.some((access) => access.akses === to.meta.access)) {
+        if (otoritas === to.meta.access) {
           next()
         } else {
           next({

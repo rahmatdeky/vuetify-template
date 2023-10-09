@@ -2,11 +2,21 @@
   <v-list>
       <SidebarListItem url="/" icon="mdi-home" title="Home" />
       <SidebarListItem url="/about" icon="mdi-account-question" title="Tentang" />
-      <SidebarListGroup v-if="Menu.some( item => item.akses === 'manajemenUser')" iconGroup="mdi-cog" titleGroup="Setting">
+      <!-- <SidebarListGroup v-if="Menu.some( item => item.akses === 'manajemenUser')" iconGroup="mdi-cog" titleGroup="Setting">
         <template>
           <div>
             <SidebarListItem v-if="Menu.some( item => item.akses === 'manajemenUser')" url="/setting/usermanager" icon="mdi-account-multiple" title="User Manager" />
             <SidebarListItem v-if="Menu.some( item => item.akses === 'settingBerita')" url="/setting/berita" icon="mdi-newspaper" title="Manajemen Berita" />
+          </div>
+        </template>
+      </SidebarListGroup> -->
+      <SidebarListGroup v-if="Menu === 'admin'" iconGroup="mdi-cog" titleGroup="Setting">
+        <template>
+          <div>
+            <SidebarListItem v-if="Menu === 'admin'" url="/setting/usermanager" icon="mdi-account-multiple" title="User Manager" />
+            <SidebarListItem v-if="Menu === 'admin'" url="/setting/berita" icon="mdi-newspaper" title="Manajemen Berita" />
+            <!-- <SidebarListItem v-if="Menu === 'admin'" url="/setting/pengurus" icon="mdi-account-group" title="Pengurus" />
+            <SidebarListItem v-if="Menu === 'admin'" url="/setting/lembaga" icon="mdi-home-group" title="Lembaga" /> -->
           </div>
         </template>
       </SidebarListGroup>

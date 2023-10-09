@@ -2,7 +2,8 @@
     <div>
         <v-container>
             <v-row>
-                <v-col cols="8">
+                <!-- <v-col cols="8"> -->
+                <v-col>
                     <v-card elevation="2">
                         <v-card-title>Detail User</v-card-title>
                         <v-container>
@@ -19,6 +20,10 @@
                                         <tr>
                                             <td>Email</td>
                                             <td>{{ dataUser.email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Role</td>
+                                            <td>{{ dataUser.akses }}</td>
                                         </tr>
                                     </tbody>
                                 </v-simple-table>
@@ -38,7 +43,7 @@
                         </v-container>
                     </v-card>
                 </v-col>
-                <v-col cols="4">
+                <!-- <v-col cols="4">
                     <v-card elevation="2">
                         <v-card-title>Akses</v-card-title>
                         <v-container>
@@ -75,7 +80,7 @@
                             </v-row>
                         </v-container>
                     </v-card>
-                </v-col>
+                </v-col> -->
             </v-row>
             <v-dialog persistent max-width="600px" v-model="modalEditUser">
                 <template>
@@ -94,6 +99,12 @@
                                 <v-col cols="4">Email</v-col>
                                 <v-col cols="8">
                                     <v-text-field dense v-model="editUser.email"></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row align-self="center">
+                                <v-col cols="4">Role</v-col>
+                                <v-col cols="8">
+                                    <v-select dense v-model="editUser.role" :items="listRole"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row>
@@ -174,7 +185,7 @@
                     </v-card>
                 </template>
             </v-dialog>
-            <v-dialog max-width="600px" v-model="modalTambahAkses">
+            <!-- <v-dialog max-width="600px" v-model="modalTambahAkses">
                 <template>
                     <v-card>
                         <v-toolbar color="primary" dark>
@@ -197,7 +208,7 @@
                         </v-container>
                     </v-card>
                 </template>
-            </v-dialog>
+            </v-dialog> -->
         </v-container>
     </div>
 </template>
@@ -214,7 +225,8 @@ export default {
             editUser: {
                 nama: '',
                 email: '',
-                id: ''
+                id: '',
+                role: ''
             },
             gantiPassword: {
                 baru: '',
@@ -227,7 +239,11 @@ export default {
                 min: (v) => v.length >= 6 || "Min 6 characters",
             },
             notMatch: false,
-            aksesAdded: ''
+            aksesAdded: '',
+            listRole: [
+                'admin',
+                'user'
+            ]
         }
     },
     created() {
