@@ -28,13 +28,18 @@ import settingDetailBerita from '@/views/settings/berita/DetailBerita'
 // Pengurus
 import BrowsePengurus from '@/views/settings/pengurus/BrowsePengurus'
 import DetailPengurus from '@/views/settings/pengurus/DetailPengurus'
-// import ViewAllUsers from '@/views/settings/users/ViewUsers'
-// import ViewUser from '@/views/settings/users/ViewUser'
-// import Menus from '@/views/settings/Menus'
+
+// Lembaga
+import BrowseLembaga from '@/views/settings/lembaga/BrowseLembaga'
+import DetailLembaga from '@/views/settings/lembaga/DetailLembaga'
 
 // Berita
 import BrowseBerita from '@/views/LandingPage/BrowseBerita'
 import DetailBerita from '@/views/LandingPage/DetailBerita'
+// import ViewAllUsers from '@/views/settings/users/ViewUsers'
+// import ViewUser from '@/views/settings/users/ViewUser'
+// import Menus from '@/views/settings/Menus'
+
 
 // // example
 // import UploadFile from '@/views/example/UploadFile'
@@ -176,6 +181,26 @@ const routes = [
         path: '/setting/pengurus/detail/:NIK',
         name: 'Detail Pengurus',
         component: DetailPengurus,
+        meta: {
+          requiresAuth: true,
+          // access : 'settingPengurus'
+          access : 'admin'
+        }
+      },
+      {
+        path: '/setting/lembaga',
+        name: 'Browse Lembaga',
+        component: BrowseLembaga,
+        meta: {
+          requiresAuth: true,
+          // access : 'settingPengurus'
+          access : 'admin'
+        }
+      },
+      {
+        path: '/setting/lembaga/detail/:id',
+        name: 'Detail Lembaga',
+        component: DetailLembaga,
         meta: {
           requiresAuth: true,
           // access : 'settingPengurus'
