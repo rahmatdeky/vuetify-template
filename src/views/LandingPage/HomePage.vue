@@ -81,12 +81,12 @@
                 <div class="col-12">
                     <h4 style="background-color: green; color: white;">Grafik</h4>
                     <!-- <img src="../assets/Diagram-batang.png" alt=""> -->
-                    <ejs-chart id="container" :primaryXAxis='primaryXAxis'>
+                    <!-- <ejs-chart id="container" :primaryXAxis='primaryXAxis'>
                         <e-series-collection>
                             <e-series :dataSource='seriesData' type='Line' xName='month' yName='sales' name='Sales'> </e-series>
                             <e-series :dataSource='seriesData2' type='Line' xName='month' yName='sales' name='Sales'> </e-series>
                         </e-series-collection>
-                    </ejs-chart>
+                    </ejs-chart> -->
                   </div>
                 </div>
                 <div class="row mt-3">
