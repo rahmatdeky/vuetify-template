@@ -36,6 +36,11 @@ import DetailLembaga from '@/views/settings/lembaga/DetailLembaga'
 // Berita
 import BrowseBerita from '@/views/LandingPage/BrowseBerita'
 import DetailBerita from '@/views/LandingPage/DetailBerita'
+
+// Setting Landing Page
+import SetLandingPage from '@/views/settings/landingPage/SetLandingPage'
+import SetCarousel from '@/views/settings/landingPage/SetCarousel'
+
 // import ViewAllUsers from '@/views/settings/users/ViewUsers'
 // import ViewUser from '@/views/settings/users/ViewUser'
 // import Menus from '@/views/settings/Menus'
@@ -204,6 +209,26 @@ const routes = [
         meta: {
           requiresAuth: true,
           // access : 'settingPengurus'
+          access : 'admin'
+        }
+      },
+      {
+        path: '/setting/landingpage',
+        name: 'Setting Landing page',
+        component: SetLandingPage,
+        meta: {
+          requiresAuth: true,
+          // access : 'settingLandingPage'
+          access : 'admin'
+        }
+      },
+      {
+        path: '/setting/landingpage/carousel',
+        name: 'Setting Carousel',
+        component: SetCarousel,
+        meta: {
+          requiresAuth: true,
+          // access : 'settingLandingPage'
           access : 'admin'
         }
       },

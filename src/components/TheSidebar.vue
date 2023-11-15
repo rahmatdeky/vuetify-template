@@ -17,6 +17,7 @@
             <SidebarListItem v-if="Menu === 'admin'" url="/setting/berita" icon="mdi-newspaper" title="News Management" />
             <SidebarListItem v-if="Menu === 'admin'" url="/setting/pengurus" icon="mdi-account-group" title="Pengurus" />
             <SidebarListItem v-if="Menu === 'admin'" url="/setting/lembaga" icon="mdi-home-group" title="Lembaga" />
+            <SidebarListItem v-if="Menu === 'admin'" url="/setting/landingpage" icon="mdi-desktop-classic" title="Landing Page" />
           </div>
         </template>
       </SidebarListGroup>
