@@ -132,13 +132,24 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>abi</td>
-                  <td>batam</td>
+                <tr v-for="(data, index) in dataPengurus.data" :key="index">
+                  <td>{{ index + 1 }}</td>
+                  <td>{{ data.nama_pengurus }}</td>
+                  <td>{{ data.alamat_pengurus }}</td>
                 </tr>
               </tbody>
             </table>
+            <v-btn-toggle class="float-right" rounded dense>
+                <v-btn @click="browsePengurus(dataPengurus.prev_page_url)" :disabled="!dataPengurus.prev_page_url" color="primary">
+                    prev
+                </v-btn>
+                <v-btn>
+                    {{ dataPengurus.current_page + '/' + dataPengurus.last_page }}
+                </v-btn>
+                <v-btn @click="browsePengurus(dataPengurus.next_page_url)" :disabled="!dataPengurus.next_page_url" color="primary">
+                    next
+                </v-btn>
+            </v-btn-toggle>
           </v-card>
         </v-col>
         <v-col cols="6">
@@ -153,13 +164,24 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>abi</td>
-                  <td>batam</td>
+                <tr v-for="(data, index) in dataLembaga.data" :key="index">
+                  <td>{{ index + 1 }}</td>
+                  <td>{{ data.nama_lembaga }}</td>
+                  <td>{{ data.alamat }}</td>
                 </tr>
               </tbody>
             </table>
+            <v-btn-toggle rounded dense class="float-right">
+                <v-btn @click="browseLembaga(dataLembaga.prev_page_url)" :disabled="!dataLembaga.prev_page_url" color="primary">
+                    prev
+                </v-btn>
+                <v-btn>
+                    {{ dataLembaga.current_page + '/' + dataLembaga.last_page }}
+                </v-btn>
+                <v-btn @click="browseLembaga(dataLembaga.next_page_url)" :disabled="!dataLembaga.next_page_url" color="primary">
+                    next
+                </v-btn>
+            </v-btn-toggle>
           </v-card>
         </v-col>
       </v-row>
@@ -395,6 +417,8 @@ export default {
       seri1:[],
       seri2:[],
       seri3:[],
+      dataPengurus:[],
+      dataLembaga:[],
       seriesData: [
             { month: 'Jan', sales: 35 }, { month: 'Feb', sales: 28 },
             { month: 'Mar', sales: 34 }, { month: 'Apr', sales: 32 },
@@ -478,6 +502,8 @@ export default {
   created () {
       this.getCarouselImg()
       this.getHighlight()
+      this.browsePengurus()
+      this.browseLembaga()
     },
     methods: {
       getCarouselImg () {
@@ -497,7 +523,29 @@ export default {
             this.seri2 = response.data.seri2
             this.seri3 = response.data.seri3
         })
-      }
+      },
+      browsePengurus (page) {
+          if (typeof page === 'undefined') {
+              page = '/pengurus/browse?page=1'
+          }
+          var data = {
+              search : this.search
+          }
+          this.$http.post(page, data).then((response) => {
+              this.dataPengurus = response.data
+          })
+      },
+      browseLembaga (page) {
+          if (typeof page === 'undefined') {
+              page = '/lembaga/browse?page=1'
+          }
+          var data = {
+              search: this.search
+          }
+          this.$http.post(page, data).then((response) => {
+              this.dataLembaga = response.data
+          })
+      },
     },
   provide: {
     chart: [LineSeries, Category]
