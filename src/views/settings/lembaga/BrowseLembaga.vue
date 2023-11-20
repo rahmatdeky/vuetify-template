@@ -16,7 +16,7 @@
                                 </v-btn>
                             </v-col>
                             <v-col>
-                                <v-btn @click="modalTambahLembaga = true" class="float-end">
+                                <v-btn @click="openModalTambahLembaga()" class="float-end">
                                     <v-icon>mdi-plus</v-icon> Tambah Lembaga
                                 </v-btn>
                                 <!-- <v-btn class="float-end">
@@ -104,9 +104,27 @@
                                 </v-col>
                             </v-row>
                             <v-row>
-                                <v-col cols="3">Alamat</v-col>
-                                <v-col>
+                                <v-col cols="3">Alamat (Jalan / Perum)</v-col>
+                                <v-col cols="3">
                                     <v-text-field v-model="dataTambahLembaga.alamat" dense></v-text-field>
+                                </v-col>
+                                <v-col cols="1">RT</v-col>
+                                <v-col cols="2">
+                                    <v-text-field v-model="dataTambahLembaga.RT" dense></v-text-field>
+                                </v-col>
+                                <v-col cols="1">RW</v-col>
+                                <v-col cols="2">
+                                    <v-text-field v-model="dataTambahLembaga.RW" dense></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="3">Kecamatan</v-col>
+                                <v-col cols="3">
+                                    <v-select dense :items="listKecamatan" v-model="selectedKecamatan"></v-select>
+                                </v-col>
+                                <v-col cols="3">Kelurahan / Desa</v-col>
+                                <v-col cols="3">
+                                    <v-select dense :items="filteredKelurahan" v-model="selectedKelurahan"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row>
@@ -168,23 +186,57 @@ export default {
                 kerjaSama: '',
                 nomorKontak: '',
                 email: '',
-                website: ''
+                website: '',
+                RW: '',
+                RT: ''
             },
             search: '',
-            dataLembaga: []
+            dataLembaga: [],
+            selectedKecamatan: null,
+            selectedKelurahan: null,
+            refKecamatan:[],
+            listKecamatan: [],
+            listKelurahan: []
         }
     },
     methods: {
         tambahLembaga () {
-            this.$http.post('/lembaga/tambah', this.dataTambahLembaga).then((response) => {
-                if (response) {
-                    this.modalTambahLembaga = false
-                    Swal.fire({
-                    icon: response.data.icon,
-                    title: response.data.title,
-                    text: response.data.text
-                    }).then(() => {
-                        this.browseLembaga()
+            Swal.fire({
+            title: 'Apa Anda Yakin?',
+            text: "Anda Akan Menyimpan Data ini",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const data = {
+                        namaLembaga: this.dataTambahLembaga.namaLembaga,
+                        jenjang: this.dataTambahLembaga.jenjang,
+                        jenisLembaga: this.dataTambahLembaga.jenisLembaga,
+                        alamat: this.dataTambahLembaga.alamat,
+                        namaPimpinan: this.dataTambahLembaga.namaPimpinan,
+                        kerjaSama: this.dataTambahLembaga.kerjaSama,
+                        nomorKontak: this.dataTambahLembaga.nomorKontak,
+                        email: this.dataTambahLembaga.email,
+                        website: this.dataTambahLembaga.website,
+                        RW: this.dataTambahLembaga.RW,
+                        RT: this.dataTambahLembaga.RT,
+                        kecamatan: this.selectedKecamatan,
+                        kelurahan: this.selectedKelurahan
+                    }
+                    this.$http.post('/lembaga/tambah', data).then((response) => {
+                        if (response) {
+                            this.modalTambahLembaga = false
+                            Swal.fire({
+                            icon: response.data.icon,
+                            title: response.data.title,
+                            text: response.data.text
+                            }).then(() => {
+                                this.browseLembaga()
+                            })
+                        }
                     })
                 }
             })
@@ -225,10 +277,27 @@ export default {
                     })
                 }
             })
+        },
+        openModalTambahLembaga () {
+            this.modalTambahLembaga = true
+            this.getRefKecamatan()
+        },
+        getRefKecamatan() {
+            this.$http.get('/refKecamatan').then((response) => {
+                this.refKecamatan = response.data
+                this.listKecamatan = this.refKecamatan.map(kecamatan => kecamatan.nama_kecamatan);
+                this.listKelurahan = this.refKecamatan.flatMap(kecamatan => kecamatan.kelurahan.map(kelurahan => kelurahan.nama_kelurahan));
+            })
         }
     },
     created () {
         this.browseLembaga()
+    },
+    computed: {
+        filteredKelurahan () {
+            const kecamatan = this.refKecamatan.find(kecamatan => kecamatan.nama_kecamatan === this.selectedKecamatan);
+            return kecamatan ? kecamatan.kelurahan.map(kelurahan => kelurahan.nama_kelurahan) : [];
+        }
     }
 }
 </script>

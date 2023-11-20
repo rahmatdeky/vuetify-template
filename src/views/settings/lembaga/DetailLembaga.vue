@@ -36,9 +36,27 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col>Alamat</v-col>
-                    <v-col cols="10">
+                    <v-col cols="2">Alamat (Jalan / Perum)</v-col>
+                    <v-col cols="3">
                         <input :disabled="isDisabled" v-model="dataEdit.alamat" type="text" class="form-control">
+                    </v-col>
+                    <v-col cols="1">RT</v-col>
+                    <v-col cols="2">
+                        <input v-model="dataEdit.RT" :disabled="isDisabled" type="text" class="form-control">
+                    </v-col>
+                    <v-col cols="1">RW</v-col>
+                    <v-col cols="2">
+                        <input v-model="dataEdit.RW" :disabled="isDisabled" type="text" class="form-control">
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="2">Kecamatan</v-col>
+                    <v-col cols="3">
+                        <v-select :readonly="isDisabled" dense :items="listKecamatan" v-model="selectedKecamatan"></v-select>
+                    </v-col>
+                    <v-col cols="2">Kelurahan</v-col>
+                    <v-col cols="3">
+                        <v-select :readonly="isDisabled" dense :items="filteredKelurahan" v-model="selectedKelurahan"></v-select>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -91,9 +109,16 @@ export default {
                 kerjaSama: '',
                 nomorKontak: '',
                 email: '',
-                website: ''
+                website: '',
+                RT: '',
+                RW: ''
             },
-            isDisabled: true
+            isDisabled: true,
+            selectedKecamatan: null,
+            selectedKelurahan: null,
+            refKecamatan:[],
+            listKecamatan: [],
+            listKelurahan: []
         }
     },
     methods: {
@@ -115,6 +140,10 @@ export default {
             this.dataEdit.nomorKontak = this.detailLembaga.no_kontak
             this.dataEdit.email = this.detailLembaga.email
             this.dataEdit.website = this.detailLembaga.website
+            this.dataEdit.RW = this.detailLembaga.RW
+            this.dataEdit.RT = this.detailLembaga.RT
+            this.selectedKecamatan = this.detailLembaga.kecamatan
+            this.selectedKelurahan = this.detailLembaga.kelurahan
         },
         toggleEdit () {
             this.isDisabled = !this.isDisabled
@@ -130,7 +159,23 @@ export default {
             confirmButtonText: 'Yes'
             }).then((result) => {
                 if(result.isConfirmed) {
-                    this.$http.post('/lembaga/detail/edit', this.dataEdit).then((response) => {
+                    const data = {
+                        idLembaga: this.dataEdit.idLembaga,
+                        namaLembaga: this.dataEdit.namaLembaga,
+                        jenjang: this.dataEdit.jenjang,
+                        jenisLembaga: this.dataEdit.jenisLembaga,
+                        alamat: this.dataEdit.alamat,
+                        namaPimpinan: this.dataEdit.namaPimpinan,
+                        kerjaSama: this.dataEdit.kerjaSama,
+                        nomorKontak: this.dataEdit.nomorKontak,
+                        email: this.dataEdit.email,
+                        website: this.dataEdit.website,
+                        RT: this.dataEdit.RT,
+                        RW: this.dataEdit.RW,
+                        kecamatan: this.selectedKecamatan,
+                        kelurahan: this.selectedKelurahan
+                    }
+                    this.$http.post('/lembaga/detail/edit', data).then((response) => {
                         if (response) {
                             Swal.fire({
                             icon: response.data.icon,
@@ -146,10 +191,24 @@ export default {
                     this.toggleEdit()
                 }
             })
+        },
+        getRefKecamatan() {
+            this.$http.get('/refKecamatan').then((response) => {
+                this.refKecamatan = response.data
+                this.listKecamatan = this.refKecamatan.map(kecamatan => kecamatan.nama_kecamatan);
+                this.listKelurahan = this.refKecamatan.flatMap(kecamatan => kecamatan.kelurahan.map(kelurahan => kelurahan.nama_kelurahan));
+            })
         }
     },
     created () {
         this.getDetailLembaga()
+        this.getRefKecamatan()
+    },
+    computed: {
+        filteredKelurahan () {
+            const kecamatan = this.refKecamatan.find(kecamatan => kecamatan.nama_kecamatan === this.selectedKecamatan);
+            return kecamatan ? kecamatan.kelurahan.map(kelurahan => kelurahan.nama_kelurahan) : [];
+        }
     }
 }
 </script>
