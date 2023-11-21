@@ -41,22 +41,21 @@ import DetailBerita from '@/views/LandingPage/DetailBerita'
 import SetLandingPage from '@/views/settings/landingPage/SetLandingPage'
 import SetCarousel from '@/views/settings/landingPage/SetCarousel'
 
-// import ViewAllUsers from '@/views/settings/users/ViewUsers'
-// import ViewUser from '@/views/settings/users/ViewUser'
-// import Menus from '@/views/settings/Menus'
-
-
-// // example
-// import UploadFile from '@/views/example/UploadFile'
-// import ToDo from '@/views/example/ToDo'
-
-// // Barang Pindahan
-// import BrowsePindahan from '@/views/barang-pindahan/Browse'
-// import PerekamanPindahan from '@/views/barang-pindahan/Perekaman'
-
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+    meta: {
+      unrequiredAuth: true
+    }
+  },
+  {
+    path: '/unauthorize',
+    component: page401
+  },
   {
     path: '*',
     component: page404
@@ -250,136 +249,11 @@ const routes = [
         component: DetailBerita
       }
     ]
-  },
-  // {
-  //   path: '/',
-  //   redirect: '/home',
-  //   name: 'Home',
-  //   component: Container,
-  //   children: [
-  //     {
-  //       path: '/home',
-  //       name: 'Home',
-  //       component: Home,
-  //       meta: {
-  //         requiresAuth: true
-  //       }
-  //     },
-  //     {
-  //       path: '/about',
-  //       name: 'About',
-  //       component: About,
-  //       meta: {
-  //         requiresAuth: true
-  //       }
-  //     },
-  //     {
-  //       path: '/browse',
-  //       name: 'Browse',
-  //       component: Browse,
-  //       meta: {
-  //         requiresAuth: true
-  //       }
-  //     },
-  //   ]
-  // },
-  // {
-  //   path: '/setting',
-  //   redirect: '/setting/users',
-  //   component: Container,
-  //   name: 'User Management',
-  //   children: [
-  //     {
-  //       path: '/setting/users',
-  //       name: 'User Management',
-  //       component: ViewAllUsers,
-  //       meta:{
-  //         requiresAuth: true
-  //       }
-  //     },
-  //     {
-  //       path: '/setting/users/:id',
-  //       name: 'User',
-  //       component: ViewUser,
-  //       meta:{
-  //         requiresAuth: true
-  //       }
-  //     },
-  //     {
-  //       path: '/setting/menu',
-  //       name: 'Menu Management',
-  //       component: Menus,
-  //       meta:{
-  //         requiresAuth: true
-  //       }
-  //     },
-
-  //   ]
-  // },
-  // {
-  //   path: '/example',
-  //   redirect: '/example/upload',
-  //   component: Container,
-  //   name: 'Upload File',
-  //   children: [
-  //     {
-  //       path: '/example/upload',
-  //       name: 'Upload File',
-  //       component: UploadFile,
-  //       meta:{
-  //         requiresAuth: true
-  //       }
-  //     },
-  //     {
-  //       path: '/example/todo',
-  //       name: 'To Do List',
-  //       component: ToDo,
-  //       meta:{
-  //         requiresAuth: true
-  //       }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/barang-pindahan',
-  //   redirect: '/barang-pindahan/browse',
-  //   component: Container,
-  //   name: 'Barang Pindahan',
-  //   children: [
-  //     {
-  //       path: '/barang-pindahan/browse',
-  //       name: 'Barang Pindahan',
-  //       component: BrowsePindahan,
-  //       meta:{
-  //         requiresAuth: true
-  //       }
-  //     },
-  //     {
-  //       path: '/barang-pindahan/rekam',
-  //       name: 'Perekaman Barang Pindahan',
-  //       component: PerekamanPindahan,
-  //       meta:{
-  //         requiresAuth: true
-  //       }
-  //     },
-  //   ]
-  // },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login,
-    meta: {
-      unrequiredAuth: true
-    }
-  },
-  {
-    path: '/unauthorize',
-    component: page401
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })
