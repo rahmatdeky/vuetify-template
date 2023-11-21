@@ -18,14 +18,6 @@
             <hr class="my-5">
           </v-col>
         </v-row>
-        <!-- <v-row>
-          <v-col cols="2">
-            <v-toolbar color="rgb(0, 128, 0)" class="text-white" dense>
-              <v-icon class="text-white">mdi-newspaper</v-icon>
-              Highlihgt Berita
-            </v-toolbar>
-          </v-col>
-        </v-row> -->
         <v-row>
           <v-col cols="4">
               <v-card @click="goTo(seri1.id_berita)" elevation="2">
@@ -75,41 +67,22 @@
           <hr class="my-5">
         </v-col>
       </v-row>
-      <!-- <v-row>
-        <v-col cols="2">
-          <v-toolbar color="rgb(0, 128, 0)" dense dark>
-            <v-icon class="mr-2">mdi-chart-line</v-icon>
-            Grafik A
-          </v-toolbar>
-        </v-col>
-        <v-col cols="4"></v-col>
-        <v-col cols="2">
-          <v-toolbar color="rgb(0, 128, 0)" dense dark>
-            <v-icon class="mr-2">mdi-chart-line</v-icon>
-            Grafik B
-          </v-toolbar>
-        </v-col>
-        <v-col cols="4"></v-col>
-      </v-row> -->
       <v-row>
         <v-col cols="6">
           <v-card elevation="2" class="card-top bgreen">
-            <!-- <v-toolbar color="rgb(0, 128, 0)" dense dark>
-              <v-icon class="mr-2">mdi-chart-ling</v-icon> Grafik A
-            </v-toolbar> -->
             <v-card-title>
-              <v-icon class="mr-2">mdi-chart-line</v-icon> Grafik Jumlah Anggota Pengurus
+              <v-icon class="mr-2">mdi-chart-line</v-icon> Grafik Jumlah Lembaga Pendidikan
             </v-card-title>
-            <LineChartGenerator :chart-options="chartOptions3" :chart-data="chartData3" :chart-id="chartId"
+            <LineChartGenerator :chart-options="chartOptionsLembaga" :chart-data="chartDataLembaga" :chart-id="chartId"
             :dataset-id-key="datasetIdKey" :css-classes="cssClasses" :styles="styles" :width="width" :height="height" />
           </v-card>
         </v-col>
         <v-col cols="6">
           <v-card elevation="2" class="card-top bgreen">
             <v-card-title>
-              <v-icon class="mr-2">mdi-chart-line</v-icon> Grafik Jumlah Lembaga Pendidikan
+              <v-icon class="mr-2">mdi-chart-line</v-icon> Grafik Jumlah Anggota Pengurus 
             </v-card-title>
-            <LineChartGenerator :chart-options="chartOptions3" :chart-data="chartData3" :chart-id="chartId"
+            <LineChartGenerator :chart-options="chartOptionsPengurus" :chart-data="chartDataPengurus" :chart-id="chartId"
             :dataset-id-key="datasetIdKey" :css-classes="cssClasses" :styles="styles" :width="width" :height="height" />
           </v-card>
         </v-col>
@@ -244,7 +217,7 @@
                 </div>
                 <div class="row mt-3">
                   <div class="col-6">
-                    <LineChartGenerator :chart-options="chartOptions3" :chart-data="chartData3" :chart-id="chartId"
+                    <LineChartGenerator :chart-options="chartOptionsLembaga" :chart-data="chartDataLembaga" :chart-id="chartId"
                     :dataset-id-key="datasetIdKey" :css-classes="cssClasses" :styles="styles" :width="width" :height="height" />
                   </div>
                   <div class="col-6">
@@ -419,50 +392,16 @@ export default {
       seri3:[],
       dataPengurus:[],
       dataLembaga:[],
-      seriesData: [
-            { month: 'Jan', sales: 35 }, { month: 'Feb', sales: 28 },
-            { month: 'Mar', sales: 34 }, { month: 'Apr', sales: 32 },
-            { month: 'May', sales: 40 }, { month: 'Jun', sales: 32 },
-            { month: 'Jul', sales: 35 }, { month: 'Aug', sales: 55 },
-            { month: 'Sep', sales: 38 }, { month: 'Oct', sales: 30 },
-            { month: 'Nov', sales: 25 }, { month: 'Dec', sales: 32 }
-              ],
-      seriesData2: [
-            { month: 'Jan', sales: 30 }, { month: 'Feb', sales: 20 },
-            { month: 'Mar', sales: 30 }, { month: 'Apr', sales: 30 },
-            { month: 'May', sales: 40 }, { month: 'Jun', sales: 30 },
-            { month: 'Jul', sales: 30 }, { month: 'Aug', sales: 50 },
-            { month: 'Sep', sales: 30 }, { month: 'Oct', sales: 30 },
-            { month: 'Nov', sales: 20 }, { month: 'Dec', sales: 30 }
-              ],
+      dataKecamatan: [],
         primaryXAxis: {
            valueType: 'Category'
         },
-        chartData: {
-        labels: ['Label 1', 'Label 2', 'Label 3'],
-        datasets: [
-          {
-            label: 'Data 1',
-            backgroundColor: '#f87979',
-            data: [30, 40, 20],
-          },
-          {
-            label: 'Data 2',
-            backgroundColor: '#7fb2f0',
-            data: [50, 10, 35],
-          },
-        ],
-      },
-      chartOptions: {
-        responsive: true,
-        maintainAspectRatio: false,
-      },
-      chartData2: {
-          labels: ["Babol", "Cabanatuan", "Daegu", "Jerusalem", "Fairfield", "New York", "Gangtok", "Buenos Aires", "Hafar Al-Batin", "Idlib"],
+      chartDataPengurus: {
+          labels: [],
           datasets: [
             {
               label: 'Line Chart',
-              data: [600, 1150, 342, 6050, 2522, 3241, 1259, 157, 1545, 9841],
+              data: [],
               fill: false,
               borderColor: '#2554FF',
               backgroundColor: '#2554FF',
@@ -470,19 +409,19 @@ export default {
             }
           ]
         },
-        chartOptions2: {
+        chartOptionsPengurus: {
           legend: {
             display: true
           },
           responsive: true,
           maintainAspectRatio: false
         },
-      chartData3: {
-          labels: ["Babol", "Cabanatuan", "Daegu", "Jerusalem", "Fairfield", "New York", "Gangtok", "Buenos Aires", "Hafar Al-Batin", "Idlib"],
+      chartDataLembaga: {
+          labels: [],
           datasets: [
             {
               label: 'Line Chart',
-              data: [610, 1250, 312, 6150, 2122, 3141, 1159, 117, 1145, 9141],
+              data: [],
               fill: false,
               borderColor: '#2554FF',
               backgroundColor: '#2554FF',
@@ -490,7 +429,7 @@ export default {
             }
           ]
         },
-        chartOptions3: {
+        chartOptionsLembaga: {
           legend: {
             display: true
           },
@@ -504,6 +443,9 @@ export default {
       this.getHighlight()
       this.browsePengurus()
       this.browseLembaga()
+      this.getLembaga()
+      this.getPengurus()
+      this.getKecamatan()
     },
     methods: {
       getCarouselImg () {
@@ -546,6 +488,22 @@ export default {
               this.dataLembaga = response.data
           })
       },
+      getLembaga () {
+        this.$http.get('get/lembaga').then((response) => {
+          this.chartDataLembaga.datasets[0].data = response.data.jumlah
+        })
+      },
+      getPengurus () {
+        this.$http.get('get/pengurus').then((response) => {
+          this.chartDataPengurus.datasets[0].data = response.data.jumlah
+        })
+      },
+      getKecamatan () {
+        this.$http.get('get/kecamatan').then((response) => {
+          this.chartDataLembaga.labels = response.data.kecamatan
+          this.chartDataPengurus.labels = response.data.kecamatan
+        })
+      }
     },
   provide: {
     chart: [LineSeries, Category]
