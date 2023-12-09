@@ -235,6 +235,7 @@ export default {
                             text: response.data.text
                             }).then(() => {
                                 this.browseLembaga()
+                                this.clearForm()
                             })
                         }
                     })
@@ -288,6 +289,19 @@ export default {
                 this.listKecamatan = this.refKecamatan.map(kecamatan => kecamatan.nama_kecamatan);
                 this.listKelurahan = this.refKecamatan.flatMap(kecamatan => kecamatan.kelurahan.map(kelurahan => kelurahan.nama_kelurahan));
             })
+        },
+        clearForm () {
+            this.dataTambahLembaga.namaLembaga= '',
+            this.dataTambahLembaga.jenjang= '',
+            this.dataTambahLembaga.jenisLembaga= '',
+            this.dataTambahLembaga.alamat= '',
+            this.dataTambahLembaga.namaPimpinan= '',
+            this.dataTambahLembaga.kerjaSama= '',
+            this.dataTambahLembaga.nomorKontak= '',
+            this.dataTambahLembaga.email= '',
+            this.dataTambahLembaga.website= '',
+            this.dataTambahLembaga.RW= '',
+            this.dataTambahLembaga.RT= ''
         }
     },
     created () {
