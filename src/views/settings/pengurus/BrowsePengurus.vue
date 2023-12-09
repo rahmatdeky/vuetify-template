@@ -250,6 +250,7 @@ export default {
                         if(response) {
                             this.browsePengurus()
                             this.modalTambahPengurus = false
+                            this.clearForm()
                             Swal.fire({
                             icon: response.data.icon,
                             title: response.data.title,
@@ -306,6 +307,17 @@ export default {
                 this.listKecamatan = this.refKecamatan.map(kecamatan => kecamatan.nama_kecamatan);
                 this.listKelurahan = this.refKecamatan.flatMap(kecamatan => kecamatan.kelurahan.map(kelurahan => kelurahan.nama_kelurahan));
             })
+        },
+        clearForm() {
+            this.dataPengurusBaru.nik= '',
+            this.dataPengurusBaru.namaLengkap= '',
+            this.dataPengurusBaru.alamat= '',
+            this.dataPengurusBaru.RW= '',
+            this.dataPengurusBaru.RT= '',
+            this.dataPengurusBaru.organisasi= '',
+            this.dataPengurusBaru.jabatan= '',
+            this.dataPengurusBaru.nomorHp= '',
+            this.dataPengurusBaru.email= ''
         }
     },
     created() {
