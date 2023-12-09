@@ -74,29 +74,38 @@ export default {
             formData.append('kategori', this.berita.kategori)
             formData.append('isi', this.berita.isi)
             formData.append('file', this.berita.file)
-            Swal.fire({
-                    title: 'Apa Anda Yakin?',
-                    text: "Anda Akan Menyimpan ini",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes'
-                    }).then((result) => {
-                        if(result.isConfirmed) {
-                            this.$http.post('/berita/tambah', formData).then((response) => {
-                                if(response) {
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Berhasil',
-                                        text: 'Data Berhasil Disimpan'
-                                    }).then(() => {
-                                        this.clearForm()
-                                    })
-                                }
-                            })
-                        }
-                    })
+            if (this.berita.file == null) {
+                Swal.fire({
+                icon: "error",
+                text: "Mohon Masukkan Gambar",
+                });
+                return;
+            } else {
+                Swal.fire({
+                        title: 'Apa Anda Yakin?',
+                        text: "Anda Akan Menyimpan ini",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes'
+                        }).then((result) => {
+                            if(result.isConfirmed) {
+                                this.$http.post('/berita/tambah', formData).then((response) => {
+                                    if(response) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Berhasil',
+                                            text: 'Data Berhasil Disimpan'
+                                        }).then(() => {
+                                            this.clearForm()
+                                            this.$router.push(`/setting/berita`)
+                                        })
+                                    }
+                                })
+                            }
+                        })
+            }
         },
         clearForm () {
             this.berita.judul = ''
