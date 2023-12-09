@@ -3,7 +3,7 @@
         <v-container>
             <v-row>
                 <div class="text-center">
-                    <h1><b>SUSUNAN PCNU KOTA BATAM</b></h1>
+                    <h1><b>STRUKTUR ORGANISASI PCNU KOTA BATAM</b></h1>
                     <P>Masa Khidmat: 2022 - 2027</P>
                 </div>
             </v-row>
