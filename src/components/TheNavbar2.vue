@@ -17,9 +17,6 @@
       <v-btn link to="/login" text>
         Login
       </v-btn>
-      <v-btn link to="/login" text>
-        Registrasi
-      </v-btn>
     </v-app-bar>
     <!-- <router-view :key="$route.path"></router-view> -->
   </div>
