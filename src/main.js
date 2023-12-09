@@ -28,9 +28,16 @@ Vue.prototype.$http = axios
 Vue.config.productionTip = false
 require('./store/subcriber')
 
-window.UrlGambarBerita = 'http://localhost/backendNu/public/storage/'
 
-axios.defaults.baseURL = 'http://localhost/backendNu/public/api'
+// dev
+// axios.defaults.baseURL = 'http://localhost/backendNu/public/api'
+// window.UrlGambarBerita = 'http://localhost/backendNu/public/storage/'
+
+// prod
+axios.defaults.baseURL = 'https://rahmatdeky.com/backendNu/public/api'
+window.UrlGambarBerita = 'https://rahmatdeky.com/backendNu/public/storage/'
+
+
 // axios.defaults.baseURL = 'http://localhost:8000/api'
 axios.defaults.headers.common['X-CSRF-TOKEN'] = null
 router.beforeEach((to, from, next) => {
