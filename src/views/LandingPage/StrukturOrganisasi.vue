@@ -205,7 +205,7 @@ export default {
                 },
                 {
                     jabatan: "Wakil Ketua",
-                    nama: "Habis Soleh, M.Pd.I"
+                    nama: "Habib Soleh, M.Pd.I"
                 },
             ],
             listSekretaris: [
