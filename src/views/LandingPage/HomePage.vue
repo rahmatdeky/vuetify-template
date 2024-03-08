@@ -124,16 +124,16 @@
                   <br>
                   <h4 class="text-center">Media Sosial</h4>
                   <div class="text-center">
-                    <v-btn class="" dark text color="#1D9BF0">
+                    <v-btn class="" dark text icon color="#1D9BF0">
                       <v-icon large>mdi-twitter</v-icon>
                     </v-btn>
-                    <v-btn class="" text dark color="#1867c0">
+                    <v-btn class="" text dark icon color="#1867c0">
                       <v-icon large>mdi-facebook</v-icon>
                     </v-btn>
-                    <v-btn class="" text dark color="#0AC507">
+                    <v-btn class="" text dark icon color="#0AC507">
                       <v-icon large>mdi-whatsapp</v-icon>
                     </v-btn>
-                    <v-btn class="" text dark color="#bc2a8d">
+                    <v-btn class="" text dark icon color="#bc2a8d">
                       <v-icon large>mdi-instagram</v-icon>
                     </v-btn>
                   </div>
@@ -157,6 +157,27 @@
       <v-col>
         <h2 class="display-6 mb-5 text-center mt-5 delimiter">Daftar / Login</h2>
       </v-col>
+    </v-row>
+
+          <v-container>
+            <v-row justify="center">
+              <v-col cols="6">
+                <!-- Tombol Daftar -->
+                <v-btn outlined block x-large color="success">DAFTAR &nbsp; <v-icon>mdi-account-plus</v-icon> </v-btn>
+              </v-col>
+              <v-col cols="6">
+                <!-- Tombol Login -->
+                <v-btn link to="/login" block outlined x-large color="secondary">LOGIN &nbsp; <v-icon>mdi-login</v-icon> </v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+
+    <v-row>
+      <footer class="container-fluid" style="padding:10px">
+        <div class="text-center">
+            <p class="text-white"> <img src="" class="navbar-brand" alt=""> Copyright &copy; PCNU Kota Batam</p>
+        </div>
+    </footer>
     </v-row>
 
 
