@@ -1,12 +1,17 @@
 <template>
     <!-- App.vue -->
   
-    <v-app>
+    <v-app style="background-color: #f1f1f8;">
       <Navbar2 />
+      <router-view :key="$route.path"></router-view>
+      <footer class="container-fluid" style="padding:10px">
+        <div class="text-center">
+            <p class="text-white"> <img src="" class="navbar-brand" alt=""> Copyright &copy; PCNU Kota Batam</p>
+        </div>
+    </footer>
       <!-- <Sidebar /> -->
   
       <!-- Sizes your content based upon application components -->
-      <router-view :key="$route.path"></router-view>
       <!-- Provides the application the proper gutter -->
       <!-- If using vue-router -->
       <!-- <transition name="fade" mode="out-in"> -->
@@ -16,9 +21,8 @@
         </v-container>
       </v-main> -->
   
-      <v-footer app>
-        <!-- -->
-      </v-footer>
+      <!-- <v-footer app>
+      </v-footer> -->
     </v-app>
   </template>
   
@@ -41,5 +45,5 @@
   .fade-enter, .fade-leave-to  {
     opacity: 0;
   }
-  </style>
+    </style>
   

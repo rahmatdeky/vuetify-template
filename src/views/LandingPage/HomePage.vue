@@ -140,10 +140,12 @@
                 </v-container>
               </v-col>
               <v-col>
-                <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.068105451998!2d104.0799982758933!3d1.1111193622947746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d989744afde9d5%3A0x233d79c042d15a9f!2sMasjid%20An-Nahdlah%20NU%20Center%20Kepri!5e0!3m2!1sid!2sid!4v1709365426433!5m2!1sid!2sid"
-                      width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                      referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <v-container>
+                  <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.068105451998!2d104.0799982758933!3d1.1111193622947746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d989744afde9d5%3A0x233d79c042d15a9f!2sMasjid%20An-Nahdlah%20NU%20Center%20Kepri!5e0!3m2!1sid!2sid!4v1709365426433!5m2!1sid!2sid"
+                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </v-container>
               </v-col>
             </v-row>
           </v-card>
@@ -172,13 +174,13 @@
             </v-row>
           </v-container>
 
-    <v-row>
+    <!-- <v-row>
       <footer class="container-fluid" style="padding:10px">
         <div class="text-center">
             <p class="text-white"> <img src="" class="navbar-brand" alt=""> Copyright &copy; PCNU Kota Batam</p>
         </div>
     </footer>
-    </v-row>
+    </v-row> -->
 
 
     <!-- <v-container>
