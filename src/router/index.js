@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+// Login
+import Login2 from '@/views/Login2'
+
 // HomePage
 import TheContainer2 from '@/components/TheContainer2'
 import HomePage from '@/views/LandingPage/HomePage'
@@ -11,7 +14,7 @@ import Container from '@/components/TheContainer'
 import Home from '@/views/Home'
 // import Browse from '@/views/Browse'
 import About from '@/views/About'
-import Login from '@/views/Login'
+// import Login from '@/views/Login'
 import ChangePassword from '@/views/ChangePassword'
 import page404 from '@/views/404'
 import page401 from '@/views/401'
@@ -47,7 +50,8 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: Login2,
+    // component: Login,
     meta: {
       unrequiredAuth: true
     }

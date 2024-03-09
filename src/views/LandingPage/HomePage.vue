@@ -97,7 +97,7 @@
       </v-row>
       <v-row>
         <v-col class="d-flex justify-center mt-5">
-          <v-btn outlined color="success">Lihat Berita Lainnya <v-icon>mdi-arrow-right</v-icon> </v-btn>
+          <v-btn link to="/berita" outlined color="success">Lihat Berita Lainnya <v-icon>mdi-arrow-right</v-icon> </v-btn>
         </v-col>
       </v-row>
     </v-container>

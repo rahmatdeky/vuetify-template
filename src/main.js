@@ -30,12 +30,12 @@ require('./store/subcriber')
 
 
 // dev
-// axios.defaults.baseURL = 'http://localhost/backendNu/public/api'
-// window.UrlGambarBerita = 'http://localhost/backendNu/public/storage/'
+axios.defaults.baseURL = 'http://localhost/backendNu/public/api'
+window.UrlGambarBerita = 'http://localhost/backendNu/public/storage/'
 
 // prod
-axios.defaults.baseURL = 'https://rahmatdeky.com/backendNu/public/api'
-window.UrlGambarBerita = 'https://rahmatdeky.com/backendNu/public/storage/'
+// axios.defaults.baseURL = 'https://pcnukotabatam.or.id/backendNu/public/api'
+// window.UrlGambarBerita = 'https://pcnukotabatam.or.id/backendNu/public/storage/'
 
 
 // axios.defaults.baseURL = 'http://localhost:8000/api'
