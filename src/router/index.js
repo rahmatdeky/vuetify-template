@@ -7,7 +7,8 @@ import Login2 from '@/views/Login2'
 // HomePage
 import TheContainer2 from '@/components/TheContainer2'
 import HomePage from '@/views/LandingPage/HomePage'
-import StrukturOrganisasi from '@/views/LandingPage/StrukturOrganisasi'
+// import StrukturOrganisasi from '@/views/LandingPage/StrukturOrganisasi'
+import StrukturOrganisasi2 from '@/views/LandingPage/StrukturOrganisasi2'
 
 // Menu
 import Container from '@/components/TheContainer'
@@ -38,7 +39,8 @@ import DetailLembaga from '@/views/settings/lembaga/DetailLembaga'
 
 // Berita
 import BrowseBerita from '@/views/LandingPage/BrowseBerita'
-import DetailBerita from '@/views/LandingPage/DetailBerita'
+// import DetailBerita from '@/views/LandingPage/DetailBerita'
+import DetailBerita2 from '@/views/LandingPage/DetailBerita2'
 
 // Setting Landing Page
 import SetLandingPage from '@/views/settings/landingPage/SetLandingPage'
@@ -81,7 +83,8 @@ const routes = [
       {
         path: '/struktur',
         name: 'Struktur Organisasi',
-        component: StrukturOrganisasi,
+        // component: StrukturOrganisasi,
+        component: StrukturOrganisasi2,
         meta: {
           unrequiredAuth: true
         }
@@ -250,7 +253,8 @@ const routes = [
       {
         path: '/berita/detail/:id',
         name: 'Detail Berita',
-        component: DetailBerita
+        // component: DetailBerita
+        component: DetailBerita2
       }
     ]
   }
