@@ -18,15 +18,13 @@
     </v-app-bar> -->
     <!-- <router-view :key="$route.path"></router-view> -->
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
+      <div class="container">
+          <v-img max-width="120px" src="@/assets/logoNU-removebg-preview.png"></v-img>
             <a class="navbar-brand" href="#">
                 <img src="" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#offcanvasDarkNavbar
             " aria-controls="offcanvasDarkNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon">
-              <img src="@/assets/logoNU-removebg-preview.png" alt="">
-            </span>
             </button>
             <div class="collapse navbar-collapse " id="offcanvasDarkNavbar">
                 <div class="navbar-nav ">
