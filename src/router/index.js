@@ -22,7 +22,8 @@ import page401 from '@/views/401'
 
 // User Manager
 import UserManager from '@/views/settings/users/UserManager'
-import DetailUser from '@/views/settings/users/DetailUser'
+// import DetailUser from '@/views/settings/users/DetailUser'
+import DetailUser from '@/views/settings/users/DetailUser2'
 
 // Manajemen Berita
 import ManajemenBerita from '@/views/settings/berita/ManajemenBerita'
@@ -179,7 +180,7 @@ const routes = [
         }
       },
       {
-        path: '/setting/pengurus',
+        path: '/setting/warga',
         name: 'Browse Pengurus',
         component: BrowsePengurus,
         meta: {
@@ -189,7 +190,7 @@ const routes = [
         }
       },
       {
-        path: '/setting/pengurus/detail/:NIK',
+        path: '/setting/warga/detail/:NIK',
         name: 'Detail Pengurus',
         component: DetailPengurus,
         meta: {

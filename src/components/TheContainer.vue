@@ -16,8 +16,10 @@
       </v-container>
     </v-main>
 
-    <v-footer app>
-      <!-- -->
+    <v-footer class="container-fluid" style="padding:10px" color="primary">
+      <v-col class="text-center" cols="12">
+        <p class="text-white"> <img src="" class="navbar-brand" alt=""> Copyright &copy; PCNU Kota Batam</p>
+      </v-col>
     </v-footer>
   </v-app>
 </template>

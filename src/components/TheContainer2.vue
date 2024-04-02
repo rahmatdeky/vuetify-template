@@ -8,7 +8,7 @@
         <div class="text-center">
             <p class="text-white"> <img src="" class="navbar-brand" alt=""> Copyright &copy; PCNU Kota Batam</p>
         </div>
-    </footer>
+      </footer>
       <!-- <Sidebar /> -->
   
       <!-- Sizes your content based upon application components -->

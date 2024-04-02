@@ -48,7 +48,7 @@
                                         <td>{{ data.alamat_pengurus }}</td>
                                         <td>{{ data.organisasi }}</td>
                                         <td>
-                                            <v-btn link :to="`/setting/pengurus/detail/` + data.NIK" icon color="success">
+                                            <v-btn link :to="`/setting/warga/detail/` + data.NIK" icon color="success">
                                                 <v-icon>mdi-magnify</v-icon>
                                             </v-btn>
                                             <v-btn @click="hapusPengurus(data.NIK)" icon color="red">

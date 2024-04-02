@@ -9,6 +9,9 @@
 
       <v-toolbar-title>
         <img width="120px" src="../assets/logoNU-removebg-preview.png" alt="">
+        <span class="ml-5">
+          <strong>PCNU KOTA BATAM</strong>
+        </span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -29,22 +32,27 @@
             Dropdown
           </v-btn> -->
           <v-btn icon v-bind="attrs" v-on="on">
-            <v-avatar color="">{{ user.name }}</v-avatar>
+            <v-avatar color="">
+              <v-icon>mdi-account</v-icon>
+            </v-avatar>
           </v-btn>
         </template>
         <v-list>
+          <v-list-item link to="/profile" style="cursor: pointer;">
+            <v-list-item-title>{{ this.user.name }}</v-list-item-title>
+          </v-list-item>
           <v-list-item style="cursor: pointer" link to="/changepassword">
             <!-- <v-list-item-title @click="logout()" link></v-list-item-title> -->
-            <v-list-item-icon>
+            <!-- <v-list-item-icon>
               <v-icon>mdi-square-edit-outline</v-icon>
-            </v-list-item-icon>
+            </v-list-item-icon> -->
             <v-list-item-title >Change Password</v-list-item-title>
           </v-list-item>
           <v-list-item style="cursor: pointer" @click="logout()" link>
             <!-- <v-list-item-title @click="logout()" link></v-list-item-title> -->
-            <v-list-item-icon>
+            <!-- <v-list-item-icon>
               <v-icon>mdi-logout</v-icon>
-            </v-list-item-icon>
+            </v-list-item-icon> -->
             <v-list-item-title >Logout</v-list-item-title>
           </v-list-item>
         </v-list>

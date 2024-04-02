@@ -1,7 +1,23 @@
 <template>
   <v-list>
-      <SidebarListItem url="/" icon="mdi-home" title="Home" />
-      <SidebarListItem url="/about" icon="mdi-account-question" title="About" />
+      <SidebarListItem url="/" icon="mdi-view-dashboard" title="Dashboard" />
+      <SidebarListItem v-if="Menu === 'admin'" url="/setting/berita" icon="mdi-newspaper" title="Berita" />
+      <SidebarListItem v-if="Menu === 'admin'" url="/setting/lembaga" icon="mdi-home-group" title="Lembaga" />
+      <SidebarListItem v-if="Menu === 'admin'" url="/setting/warga" icon="mdi-account-multiple" title="Warga" />
+      <SidebarListItem v-if="Menu === 'admin'" url="/setting/koin" icon="mdi-hand-coin" title="Koin NU" />
+      <SidebarListGroup v-if="Menu === 'admin'" iconGroup="mdi-cog" titleGroup="Setting">
+        <template>
+          <div>
+            <SidebarListItem v-if="Menu === 'admin'" url="/setting/usermanager" icon="" title="User Manager" />
+            <SidebarListItem v-if="Menu === 'admin'" url="/setting/referensi" icon="" title="Referensi" />
+          </div>
+        </template>
+      </SidebarListGroup>
+
+      <!-- <SidebarListItem url="/about" icon="mdi-account-question" title="About" /> -->
+
+
+      <!-- alternatif kalau pakai akses per user -->
       <!-- <SidebarListGroup v-if="Menu.some( item => item.akses === 'manajemenUser')" iconGroup="mdi-cog" titleGroup="Setting">
         <template>
           <div>
@@ -10,7 +26,9 @@
           </div>
         </template>
       </SidebarListGroup> -->
-      <SidebarListGroup v-if="Menu === 'admin'" iconGroup="mdi-cog" titleGroup="Setting">
+
+
+      <!-- <SidebarListGroup v-if="Menu === 'admin'" iconGroup="mdi-cog" titleGroup="Setting">
         <template>
           <div>
             <SidebarListItem v-if="Menu === 'admin'" url="/setting/usermanager" icon="mdi-account-multiple" title="User Manager" />
@@ -20,7 +38,7 @@
             <SidebarListItem v-if="Menu === 'admin'" url="/setting/landingpage" icon="mdi-desktop-classic" title="Landing Page" />
           </div>
         </template>
-      </SidebarListGroup>
+      </SidebarListGroup> -->
       <!-- <v-list-item link to="/browse">
         <v-list-item-icon>
           <v-icon>mdi-magnify</v-icon>
