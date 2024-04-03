@@ -3,7 +3,7 @@
         <v-container>
             <v-row>
                 <v-col cols="4">
-                    <v-card elevation="2">
+                    <v-card elevation="2" min-height="460px">
                         <v-container>
                             <v-row class="text-center ma-auto mt-5 justify-center">
                                 <v-col cols="12">
@@ -15,19 +15,37 @@
                                 <v-col>
                                     <table width="100%" class="table">
                                         <tr>
-                                            <td width="20%"><h5>Nama</h5></td>
-                                            <td width="1%"><h5>:</h5></td>
-                                            <td><h5></h5></td>
+                                            <td width="20%">
+                                                <h5>Nama</h5>
+                                            </td>
+                                            <td width="1%">
+                                                <h5>:</h5>
+                                            </td>
+                                            <td>
+                                                <h5>{{ dataUser.name }}</h5>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td><h5>Email</h5></td>
-                                            <td><h5>:</h5></td>
-                                            <td><h5></h5></td>
+                                            <td>
+                                                <h5>Email</h5>
+                                            </td>
+                                            <td>
+                                                <h5>:</h5>
+                                            </td>
+                                            <td>
+                                                <h5>{{ dataUser.email }}</h5>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td><h5>Role</h5></td>
-                                            <td><h5>:</h5></td>
-                                            <td><h5></h5></td>
+                                            <td>
+                                                <h5>Role</h5>
+                                            </td>
+                                            <td>
+                                                <h5>:</h5>
+                                            </td>
+                                            <td>
+                                                <h5>{{ dataUser.akses }}</h5>
+                                            </td>
                                         </tr>
                                     </table>
                                 </v-col>
@@ -36,18 +54,202 @@
                     </v-card>
                 </v-col>
                 <v-col cols="8">
-                    <v-card elevation="2">
+                    <v-card elevation="2" min-height="460px">
                         <v-container>
                             <v-row>
                                 <v-col>
-                                    <v-btn text>Edit Profile</v-btn>
-                                    <v-btn class="float-right" text>Ubah Password</v-btn>
+                                    <!-- alternatif pakai tabs -->
+                                    <v-tabs>
+                                        <v-tab @click="toggleEdit">Profile</v-tab>
+                                        <v-tab @click="togglePassword">Ubah Password</v-tab>
+                                    </v-tabs>
+
+                                    <!-- alternatif pakai button -->
+                                    <!-- <v-btn x-large text @click="toggleEdit2" :color="!isEdit ? 'primary' : ''">Edit
+                                        Profile</v-btn>
+                                    <v-btn x-large class="float-right" text @click="togglePassword"
+                                        :color="isPassword ? 'primary' : ''">Ubah Password</v-btn>
+                                    <hr> -->
+                                </v-col>
+                            </v-row>
+                            <v-row class="mt-0" v-if="!isPassword">
+                                <v-col class="mt-0 pt-0">
+                                    <v-container class="mt-0 pt-0">
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <h5 class="ml-1">Nama : </h5>
+                                                <div class="input-group input-group-lg">
+                                                    <input type="text" class="form-control" :disabled="isDisabled"
+                                                        v-model="editUser.nama">
+                                                </div>
+                                            </v-col>
+                                        </v-row>
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <h5 class="ml-1">Email : </h5>
+                                                <div class="input-group input-group-lg">
+                                                    <input type="email" class="form-control" value="adsadasd"
+                                                        :disabled="isDisabled" v-model="editUser.email">
+                                                </div>
+                                            </v-col>
+                                        </v-row>
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <h5 class="ml-1">Role : </h5>
+                                                <div class="input-group input-group-lg">
+                                                    <select name="" id="" class="form-control" :disabled="isDisabled"
+                                                        v-model="editUser.akses">
+                                                        <option value="admin">Admin</option>
+                                                        <option value="user">User</option>
+                                                    </select>
+                                                </div>
+                                            </v-col>
+                                        </v-row>
+
+                                        <!-- alternatif tombol didalam card -->
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <v-btn rounded @click="toggleDisabled" color="primary" class="float-right">{{ !isDisabled ? 'Simpan' : 'Edit' }}</v-btn>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
+                                </v-col>
+                            </v-row>
+                            <v-row class="mt-0" v-if="isPassword">
+                                <v-col class="mt-0 pt-0">
+                                    <v-container class="mt-0 pt-0">
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <h5 class="ml-1">Password Baru : </h5>
+                                                <!-- <div class="input-group input-group-lg">
+                                                    <input type="password" class="form-control">
+                                                </div> -->
+                                                <v-text-field outlined dense
+                                                    :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                                                    :rules="[rules.required, rules.min]"
+                                                    :type="show2 ? 'text' : 'password'"
+                                                    @click:append="show2 = !show2"></v-text-field>
+                                            </v-col>
+                                        </v-row>
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <h5 class="ml-1">Konfirmasi Password Baru : </h5>
+                                                <!-- <div class="input-group input-group-lg">
+                                                    <input class="form-control" type="password">
+                                                </div> -->
+                                                <v-text-field outlined dense
+                                                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                                    :rules="[rules.required, rules.min]"
+                                                    :type="show1 ? 'text' : 'password'"
+                                                    @click:append="show1 = !show1"></v-text-field>
+                                            </v-col>
+                                        </v-row>
+                                        <v-row>
+                                            <v-col>
+                                                <v-alert class="px-3" v-if="notMatch" type="error" dismissible dense
+                                                    outlined>Password Baru dan Konfirmasi Password Baru tidak
+                                                    sama</v-alert>
+                                            </v-col>
+                                        </v-row>
+
+                                        <!-- alternatif tombol didalam card -->
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <v-btn rounded color="primary" class="float-right">Simpan</v-btn>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
                                 </v-col>
                             </v-row>
                         </v-container>
                     </v-card>
                 </v-col>
             </v-row>
+
+            <!-- alternatif tombol diluar card -->
+            <!-- <v-row v-if="!isDisabled">
+                <v-col cols="12">
+                    <v-btn rounded color="primary" class="float-right">Simpan</v-btn>
+                </v-col>
+            </v-row>
+            <v-row v-if="isPassword">
+                <v-col cols="12">
+                    <v-btn rounded color="primary" class="float-right">Simpan</v-btn>
+                </v-col>
+            </v-row> -->
         </v-container>
     </div>
 </template>
+<script>
+export default {
+    data() {
+        return {
+            isPassword: false,
+            isDisabled: true,
+            isEdit: true,
+            show1: false,
+            show2: false,
+            editUser: {
+                nama: '',
+                email: '',
+                id: '',
+                role: ''
+            },
+            gantiPassword: {
+                baru: '',
+                konfirmasi: ''
+            },
+            listAkses: [],
+            dataUser: [],
+            rules: {
+                required: (value) => !!value || "Required.",
+                min: (v) => v.length >= 6 || "Min 6 characters",
+            },
+            notMatch: false,
+            aksesAdded: '',
+            listRole: [
+                'admin',
+                'user'
+            ]
+        }
+    },
+    methods: {
+        toggleEdit() {
+            this.isPassword = false
+            this.isEdit = !this.isEdit
+            this.isDisabled = true
+        },
+
+    // alternatif pakai tombol
+        toggleEdit2() {
+            this.isPassword = false
+            this.isEdit = !this.isEdit
+            this.isDisabled = !this.isDisabled
+        },
+        togglePassword() {
+            this.isPassword = true
+            this.isEdit = true
+            this.isDisabled = true
+        },
+        toggleDisabled() {
+            this.isDisabled = !this.isDisabled
+        },
+        getDataUser() {
+            this.$http.get('/getUser/detail/' + this.$route.params.id).then((response) => {
+                this.dataUser = response.data
+            }).then(() => {
+                this.reconData()
+            })
+        },
+        reconData() {
+            this.editUser.nama = this.dataUser.name
+            this.editUser.email = this.dataUser.email
+            this.editUser.id = this.dataUser.id
+            this.editUser.role = this.dataUser.role
+        }
+    },
+    created() {
+        this.getDataUser()
+    }
+}
+</script>

@@ -33,7 +33,8 @@
           </v-btn> -->
           <v-btn icon v-bind="attrs" v-on="on">
             <v-avatar color="">
-              <v-icon>mdi-account</v-icon>
+              <v-img height="100%" width="100%" class="rounded-circle mx-auto"
+                                        src="@/assets/anya.jpg"></v-img>
             </v-avatar>
           </v-btn>
         </template>
