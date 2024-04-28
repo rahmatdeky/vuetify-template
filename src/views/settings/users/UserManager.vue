@@ -77,70 +77,89 @@
                             <h4>Tambah User</h4>
                         </v-toolbar>
                         <v-container>
-                            <v-row>
-                                <v-col align-self="center" cols="3">
-                                    <p>Nama</p>
-                                </v-col>
-                                <v-col>
-                                    <v-text-field 
-                                     :rules="[rules.required]"
-                                     v-model="dataAddUsers.nama" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col align-self="center" cols="3">
-                                    <p>Email</p>
-                                </v-col>
-                                <v-col>
-                                    <v-text-field 
-                                     :rules="[rules.required]"
-                                     v-model="dataAddUsers.email" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col align-self="center" cols="3">
-                                    <p>Password</p>
-                                </v-col>
-                                <v-col>
-                                    <v-text-field
-                                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                                     :rules="[rules.required, rules.min]"
-                                     :type="show1 ? 'text' : 'password'"
-                                     @click:append="show1 = !show1"
-                                     v-model="dataAddUsers.password" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col align-self="center" cols="3">
-                                    <p>Konfirmasi Password</p>
-                                </v-col>
-                                <v-col>
-                                    <v-text-field 
-                                     :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                                     :rules="[rules.required, rules.min]"
-                                     :type="show2 ? 'text' : 'password'"
-                                     @click:append="show2 = !show2"
-                                     v-model="dataAddUsers.konfirmPass" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col>
-                                    <v-alert
-                                    class="px-3"
-                                    v-if="notMatch"
-                                    type="error"
-                                    dismissible
-                                    dense
-                                    outlined
-                                    >Password dan Konfirmasi Password tidak sama</v-alert
-                                    >
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="2">
-                                    <v-btn @click="submitAddUsers" color="primary">Submit</v-btn>
-                                </v-col>
-                            </v-row>
+                            <v-form ref="formAddUser" @submit.prevent="submitAddUser()">
+
+                                <v-row>
+                                    <v-col align-self="center" cols="3">
+                                        <p>Nama</p>
+                                    </v-col>
+                                    <v-col>
+                                        <v-text-field 
+                                         :rules="[rules.required, (v) => !!v || 'Required.']"
+                                         v-model="dataAddUsers.nama" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col align-self="center" cols="3">
+                                        <p>Email</p>
+                                    </v-col>
+                                    <v-col>
+                                        <v-text-field 
+                                         :rules="[rules.required]"
+                                         v-model="dataAddUsers.email" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col align-self="center" cols="3">
+                                        <p>Role</p>
+                                    </v-col>
+                                    <v-col>
+                                        <v-select :rules="[rules.required]" dense :items="listRole" v-model="dataAddUsers.role"></v-select>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col align-self="center" cols="3">
+                                        <p>Password</p>
+                                    </v-col>
+                                    <v-col>
+                                        <v-text-field
+                                         :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                         :rules="[rules.required, rules.min]"
+                                         :type="show1 ? 'text' : 'password'"
+                                         @click:append="show1 = !show1"
+                                         v-model="dataAddUsers.password" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col align-self="center" cols="3">
+                                        <p>Konfirmasi Password</p>
+                                    </v-col>
+                                    <v-col>
+                                        <v-text-field 
+                                         :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                                         :rules="[rules.required, rules.min]"
+                                         :type="show2 ? 'text' : 'password'"
+                                         @click:append="show2 = !show2"
+                                         v-model="dataAddUsers.konfirmPass" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="4">
+                                        <input type="file" class="form-control" @change="uploadGambar">
+                                    </v-col>
+                                    <v-col cols="8">
+                                        <v-img v-if="previewImage" height="200" width="200" class="rounded-circle mx-auto" :src="previewImage"></v-img>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col>
+                                        <v-alert
+                                        class="px-3"
+                                        v-if="notMatch"
+                                        type="error"
+                                        dismissible
+                                        dense
+                                        outlined
+                                        >Password dan Konfirmasi Password tidak sama</v-alert
+                                        >
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="2">
+                                        <v-btn type="submit" @click="submitAddUsers()" color="primary">Submit</v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
                         </v-container>
                     </v-card>
                 </v-dialog>
@@ -164,7 +183,9 @@ import Swal from 'sweetalert2'
             nama: '',
             email: '',
             password: '',
-            konfirmPass: ''
+            konfirmPass: '',
+            role: '',
+            file: null
         },
         rules: {
             required: (value) => !!value || "Required.",
@@ -172,7 +193,12 @@ import Swal from 'sweetalert2'
         },
         show1: false,
         show2: false,
-        notMatch: false
+        notMatch: false,
+        listRole: [
+            'admin',
+            'pengurus'
+        ],
+        previewImage: null,
       }
     },
     created() {
@@ -194,21 +220,63 @@ import Swal from 'sweetalert2'
         openModalAddUser () {
             this.modalAddUser = true
         },
+        // submitAddUsers () {
+        //     if (this.$refs.formAddUser.validate()) {
+        //         if (this.dataAddUsers.password === this.dataAddUsers.konfirmPass) {
+        //             this.$http.post('/user/adduser', this.dataAddUsers)
+        //             .then(() => {
+        //                 Swal.fire({
+        //                     icon: 'success',
+        //                     title: 'Berhasil',
+        //                     text: 'Data Berhasil Disimpan'
+        //                 })
+        //             }).then(() => {
+        //                 this.modalAddUser = false
+        //                 this.getDataUser()
+        //                 this.clearFormAddUser()
+        //             })
+        //         } else {
+        //             this.notMatch = true
+        //             this.getDataUser()
+        //         }
+        //     }
+        // },
         submitAddUsers () {
-            if (this.dataAddUsers.password === this.dataAddUsers.konfirmPass) {
-                this.$http.post('/user/adduser', this.dataAddUsers)
-                .then(() => {
+            if (this.$refs.formAddUser.validate()) {
+                if (this.dataAddUsers.password === this.dataAddUsers.konfirmPass) {
+                    const formData = new FormData()
+                    formData.append('nama', this.dataAddUsers.nama)
+                    formData.append('email', this.dataAddUsers.email)
+                    formData.append('password', this.dataAddUsers.password)
+                    formData.append('role', this.dataAddUsers.role)
+                    formData.append('file', this.dataAddUsers.file)
                     Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil',
-                        text: 'Data Berhasil Disimpan'
+                        title: 'Apa Anda Yakin?',
+                        text: "Anda Akan Menyimpan ini",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.$http.post('/user/adduser', formData)
+                            .then((response) => {
+                                if (response) {
+                                    Swal.fire({
+                                        icon: response.data.icon,
+                                        title: response.data.title,
+                                        text: response.data.text
+                                    }).then(() => {
+                                        this.modalAddUser = false
+                                        this.getDataUser()
+                                        this.clearFormAddUser()
+                                    })
+                                }
+                            })
+                        }
                     })
-                }).then(() => {
-                    this.modalAddUser = false
-                })
-            } else {
-                this.notMatch = true
-                this.getDataUser
+                }
             }
         },
         deleteUser (id) {
@@ -231,12 +299,25 @@ import Swal from 'sweetalert2'
                             icon: 'success',
                             title: 'Berhasil',
                             text: 'Data Berhasil Disimpan'
-                            })
-                        }).then(
-                            this.getDataUser()
-                        )
+                            }).then(
+                                this.getDataUser()
+                            )
+                        })
                     }
                 })
+        },
+        clearFormAddUser () {
+            this.dataAddUsers.nama = ''
+            this.dataAddUsers.email = ''
+            this.dataAddUsers.password = ''
+            this.dataAddUsers.konfirmPass = ''
+            this.dataAddUsers.role = ''
+            this.dataAddUsers.file = null
+        },
+        uploadGambar(e) {
+            this.dataAddUsers.file = e.target.files[0]
+            let preview = e.target.files[0]
+            this.previewImage = URL.createObjectURL(preview)
         }
     }
   }

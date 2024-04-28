@@ -8,7 +8,7 @@
                             <v-row class="text-center ma-auto mt-5 justify-center">
                                 <v-col cols="12">
                                     <v-img height="200px" width="200px" class="rounded-circle mx-auto"
-                                        src="@/assets/anya.jpg"></v-img>
+                                        :src="UrlGambar + dataUser.url_foto"></v-img>
                                 </v-col>
                             </v-row>
                             <v-row class="mx-7">
@@ -44,7 +44,7 @@
                                                 <h5>:</h5>
                                             </td>
                                             <td>
-                                                <h5>{{ dataUser.akses }}</h5>
+                                                <h5>{{ dataUser.role }}</h5>
                                             </td>
                                         </tr>
                                     </table>
@@ -98,7 +98,7 @@
                                                 <h5 class="ml-1">Role : </h5>
                                                 <div class="input-group input-group-lg">
                                                     <select name="" id="" class="form-control" :disabled="isDisabled"
-                                                        v-model="editUser.akses">
+                                                        v-model="editUser.role">
                                                         <option value="admin">Admin</option>
                                                         <option value="user">User</option>
                                                     </select>
@@ -210,7 +210,8 @@ export default {
             listRole: [
                 'admin',
                 'user'
-            ]
+            ],
+            UrlGambar: window.UrlGambarBerita
         }
     },
     methods: {
