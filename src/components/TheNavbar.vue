@@ -34,7 +34,7 @@
           <v-btn icon v-bind="attrs" v-on="on">
             <v-avatar color="">
               <v-img height="100%" width="100%" class="rounded-circle mx-auto"
-                                        src="@/assets/anya.jpg"></v-img>
+              :src="UrlGambar + user.url_foto"></v-img>
             </v-avatar>
           </v-btn>
         </template>
@@ -69,7 +69,8 @@ export default {
   data: () => ({
     drawer: null,
     group: null,
-    mini: false
+    mini: false,
+    UrlGambar: window.UrlGambarBerita
   }),
   components: {
     Sidebar,
