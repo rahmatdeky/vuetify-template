@@ -7,8 +7,12 @@
                         <v-container>
                             <v-row class="text-center ma-auto mt-5 justify-center">
                                 <v-col cols="12">
+                                    <v-btn color="warning" style="position: absolute; top: 50px; right: 110px; z-index: 1;">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
                                     <v-img height="200px" width="200px" class="rounded-circle mx-auto"
-                                        :src="UrlGambar + dataUser.url_foto"></v-img>
+                                        :src="UrlGambar + dataUser.url_foto">
+                                    </v-img>
                                 </v-col>
                             </v-row>
                             <v-row class="mx-7">
@@ -124,7 +128,7 @@
                                                 <!-- <div class="input-group input-group-lg">
                                                     <input type="password" class="form-control">
                                                 </div> -->
-                                                <v-text-field outlined dense
+                                                <v-text-field v-model="gantiPassword.baru" outlined dense
                                                     :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                                                     :rules="[rules.required, rules.min]"
                                                     :type="show2 ? 'text' : 'password'"
@@ -137,7 +141,7 @@
                                                 <!-- <div class="input-group input-group-lg">
                                                     <input class="form-control" type="password">
                                                 </div> -->
-                                                <v-text-field outlined dense
+                                                <v-text-field v-model="gantiPassword.konfirmasi" outlined dense
                                                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                                                     :rules="[rules.required, rules.min]"
                                                     :type="show1 ? 'text' : 'password'"
@@ -146,7 +150,7 @@
                                         </v-row>
                                         <v-row>
                                             <v-col>
-                                                <v-alert class="px-3" v-if="notMatch" type="error" dismissible dense
+                                                <v-alert class="px-3" v-if="notMatch" type="error" dense
                                                     outlined>Password Baru dan Konfirmasi Password Baru tidak
                                                     sama</v-alert>
                                             </v-col>
@@ -155,7 +159,7 @@
                                         <!-- alternatif tombol didalam card -->
                                         <v-row>
                                             <v-col cols="12">
-                                                <v-btn rounded color="primary" class="float-right">Simpan</v-btn>
+                                                <v-btn @click="sendGantiPassword()" rounded color="primary" class="float-right">Simpan</v-btn>
                                             </v-col>
                                         </v-row>
                                     </v-container>
@@ -181,6 +185,7 @@
     </div>
 </template>
 <script>
+import Swal from 'sweetalert2'
 export default {
     data() {
         return {
@@ -233,7 +238,26 @@ export default {
             this.isDisabled = true
         },
         toggleDisabled() {
-            this.isDisabled = !this.isDisabled
+            if (this.isDisabled) {
+                this.isDisabled = !this.isDisabled
+            } else {
+                Swal.fire({
+                    title: 'Apa Anda Yakin?',
+                    text: "Anda Akan Merubah ini",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.saveEdit()
+                        this.isDisabled = !this.isDisabled
+                    } else {
+                        this.isDisabled = !this.isDisabled
+                    }
+                })
+            }
         },
         getDataUser() {
             this.$http.get('/getUser/detail/' + this.$route.params.id).then((response) => {
@@ -247,6 +271,53 @@ export default {
             this.editUser.email = this.dataUser.email
             this.editUser.id = this.dataUser.id
             this.editUser.role = this.dataUser.role
+        },
+        saveEdit() {
+            this.$http.put('/user/updateData', this.editUser)
+            .then((response) => {
+                if(response) {
+                    this.modalEditUser = false
+                    Swal.fire({
+                        icon: response.data.icon,
+                        title: response.data.title,
+                        text: response.data.text
+                    })
+                }
+            }).then(this.getDataUser)
+        },
+        sendGantiPassword () {
+            if (this.gantiPassword.baru === this.gantiPassword.konfirmasi) {
+                Swal.fire({
+                    title: 'Apa Anda Yakin?',
+                    text: "Anda Akan Merubah ini",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var data = {
+                        id: this.dataUser.id,
+                        baru :this.gantiPassword.baru
+                    }
+                    this.notMatch = false
+                    this.$http.put('/user/updatePwbyAdmin', data)
+                    .then((response) => {
+                        if(response) {
+                            this.modalGantiPassword = false
+                            Swal.fire({
+                                icon: response.data.icon,
+                                title: response.data.title,
+                                text: response.data.text
+                            })
+                        }
+                    })
+                    }
+                })
+            } else {
+                this.notMatch = true
+            }
         }
     },
     created() {
