@@ -7,9 +7,10 @@
                         <v-container>
                             <v-row class="text-center ma-auto mt-5 justify-center">
                                 <v-col cols="12">
-                                    <v-btn color="warning" style="position: absolute; top: 50px; right: 110px; z-index: 1;">
+                                    <v-btn color="warning" @click="openFilePicker()" style="position: absolute; top: 50px; right: 110px; z-index: 1;">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
+                                    <input type="file" ref="changeGambar" style="display: none;" @change="gantiGambar()">
                                     <v-img height="200px" width="200px" class="rounded-circle mx-auto"
                                         :src="UrlGambar + dataUser.url_foto">
                                     </v-img>
@@ -79,89 +80,96 @@
                             <v-row class="mt-0" v-if="!isPassword">
                                 <v-col class="mt-0 pt-0">
                                     <v-container class="mt-0 pt-0">
-                                        <v-row>
-                                            <v-col cols="12">
-                                                <h5 class="ml-1">Nama : </h5>
-                                                <div class="input-group input-group-lg">
-                                                    <input type="text" class="form-control" :disabled="isDisabled"
-                                                        v-model="editUser.nama">
-                                                </div>
-                                            </v-col>
-                                        </v-row>
-                                        <v-row>
-                                            <v-col cols="12">
-                                                <h5 class="ml-1">Email : </h5>
-                                                <div class="input-group input-group-lg">
-                                                    <input type="email" class="form-control" value="adsadasd"
-                                                        :disabled="isDisabled" v-model="editUser.email">
-                                                </div>
-                                            </v-col>
-                                        </v-row>
-                                        <v-row>
-                                            <v-col cols="12">
-                                                <h5 class="ml-1">Role : </h5>
-                                                <div class="input-group input-group-lg">
-                                                    <select name="" id="" class="form-control" :disabled="isDisabled"
-                                                        v-model="editUser.role">
-                                                        <option value="admin">Admin</option>
-                                                        <option value="user">User</option>
-                                                    </select>
-                                                </div>
-                                            </v-col>
-                                        </v-row>
-
-                                        <!-- alternatif tombol didalam card -->
-                                        <v-row>
-                                            <v-col cols="12">
-                                                <v-btn rounded @click="toggleDisabled" color="primary" class="float-right">{{ !isDisabled ? 'Simpan' : 'Edit' }}</v-btn>
-                                            </v-col>
-                                        </v-row>
+                                        <v-form ref="formEditUser">
+                                            <v-row>
+                                                <v-col class="pb-0" cols="12">
+                                                    <h5 class="ml-1">Nama : </h5>
+                                                    <v-text-field v-model="editUser.nama" outlined dense :disabled="isDisabled" :rules="[rules.required]"></v-text-field>
+                                                    <!-- <div class="input-group input-group-lg">
+                                                        <input type="text" class="form-control" :disabled="isDisabled"
+                                                            v-model="editUser.nama">
+                                                    </div> -->
+                                                </v-col>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col class="py-0" cols="12">
+                                                    <h5 class="ml-1">Email : </h5>
+                                                    <v-text-field v-model="editUser.email" outlined dense :disabled="isDisabled" :rules="[rules.required]"></v-text-field>
+                                                    <!-- <div class="input-group input-group-lg">
+                                                        <input type="email" class="form-control" value="adsadasd"
+                                                            :disabled="isDisabled" v-model="editUser.email">
+                                                    </div> -->
+                                                </v-col>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col class="pt-0" cols="12">
+                                                    <h5 class="ml-1">Role : </h5>
+                                                    <v-select dense v-model="editUser.role" :items="listRole" :disabled="isDisabled" outlined></v-select>
+                                                    <!-- <div class="input-group input-group-lg">
+                                                        <select name="" id="" class="form-control" :disabled="isDisabled"
+                                                            v-model="editUser.role">
+                                                            <option value="admin">Admin</option>
+                                                            <option value="user">User</option>
+                                                        </select>
+                                                    </div> -->
+                                                </v-col>
+                                            </v-row>
+    
+                                            <!-- alternatif tombol didalam card -->
+                                            <v-row class="mt-0">
+                                                <v-col cols="12">
+                                                    <v-btn rounded @click="toggleDisabled" color="primary" class="float-right">{{ !isDisabled ? 'Simpan' : 'Edit' }}</v-btn>
+                                                </v-col>
+                                            </v-row>
+                                        </v-form>
                                     </v-container>
                                 </v-col>
                             </v-row>
                             <v-row class="mt-0" v-if="isPassword">
                                 <v-col class="mt-0 pt-0">
                                     <v-container class="mt-0 pt-0">
-                                        <v-row>
-                                            <v-col cols="12">
-                                                <h5 class="ml-1">Password Baru : </h5>
-                                                <!-- <div class="input-group input-group-lg">
-                                                    <input type="password" class="form-control">
-                                                </div> -->
-                                                <v-text-field v-model="gantiPassword.baru" outlined dense
-                                                    :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                                                    :rules="[rules.required, rules.min]"
-                                                    :type="show2 ? 'text' : 'password'"
-                                                    @click:append="show2 = !show2"></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                        <v-row>
-                                            <v-col cols="12">
-                                                <h5 class="ml-1">Konfirmasi Password Baru : </h5>
-                                                <!-- <div class="input-group input-group-lg">
-                                                    <input class="form-control" type="password">
-                                                </div> -->
-                                                <v-text-field v-model="gantiPassword.konfirmasi" outlined dense
-                                                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                                                    :rules="[rules.required, rules.min]"
-                                                    :type="show1 ? 'text' : 'password'"
-                                                    @click:append="show1 = !show1"></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                        <v-row>
-                                            <v-col>
-                                                <v-alert class="px-3" v-if="notMatch" type="error" dense
-                                                    outlined>Password Baru dan Konfirmasi Password Baru tidak
-                                                    sama</v-alert>
-                                            </v-col>
-                                        </v-row>
-
-                                        <!-- alternatif tombol didalam card -->
-                                        <v-row>
-                                            <v-col cols="12">
-                                                <v-btn @click="sendGantiPassword()" rounded color="primary" class="float-right">Simpan</v-btn>
-                                            </v-col>
-                                        </v-row>
+                                        <v-form ref="formGantiPassword">
+                                            <v-row>
+                                                <v-col cols="12">
+                                                    <h5 class="ml-1">Password Baru : </h5>
+                                                    <!-- <div class="input-group input-group-lg">
+                                                        <input type="password" class="form-control">
+                                                    </div> -->
+                                                    <v-text-field v-model="gantiPassword.baru" outlined dense
+                                                        :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                                                        :rules="[rules.required, rules.min]"
+                                                        :type="show2 ? 'text' : 'password'"
+                                                        @click:append="show2 = !show2"></v-text-field>
+                                                </v-col>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col cols="12">
+                                                    <h5 class="ml-1">Konfirmasi Password Baru : </h5>
+                                                    <!-- <div class="input-group input-group-lg">
+                                                        <input class="form-control" type="password">
+                                                    </div> -->
+                                                    <v-text-field v-model="gantiPassword.konfirmasi" outlined dense
+                                                        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                                        :rules="[rules.required, rules.min]"
+                                                        :type="show1 ? 'text' : 'password'"
+                                                        @click:append="show1 = !show1"></v-text-field>
+                                                </v-col>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col>
+                                                    <v-alert class="px-3" v-if="notMatch" type="error" dense
+                                                        outlined>Password Baru dan Konfirmasi Password Baru tidak
+                                                        sama</v-alert>
+                                                </v-col>
+                                            </v-row>
+    
+                                            <!-- alternatif tombol didalam card -->
+                                            <v-row>
+                                                <v-col cols="12">
+                                                    <v-btn @click="sendGantiPassword()" rounded color="primary" class="float-right">Simpan</v-btn>
+                                                </v-col>
+                                            </v-row>
+                                        </v-form>
                                     </v-container>
                                 </v-col>
                             </v-row>
@@ -216,7 +224,8 @@ export default {
                 'admin',
                 'user'
             ],
-            UrlGambar: window.UrlGambarBerita
+            UrlGambar: window.UrlGambarBerita,
+            editGambar: null
         }
     },
     methods: {
@@ -241,22 +250,24 @@ export default {
             if (this.isDisabled) {
                 this.isDisabled = !this.isDisabled
             } else {
-                Swal.fire({
-                    title: 'Apa Anda Yakin?',
-                    text: "Anda Akan Merubah ini",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.saveEdit()
-                        this.isDisabled = !this.isDisabled
-                    } else {
-                        this.isDisabled = !this.isDisabled
-                    }
-                })
+                if (this.$refs.formEditUser.validate()) {
+                    Swal.fire({
+                        title: 'Apa Anda Yakin?',
+                        text: "Anda Akan Merubah ini",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.saveEdit()
+                            this.isDisabled = !this.isDisabled
+                        } else {
+                            this.isDisabled = !this.isDisabled
+                        }
+                    })
+                }
             }
         },
         getDataUser() {
@@ -286,38 +297,55 @@ export default {
             }).then(this.getDataUser)
         },
         sendGantiPassword () {
-            if (this.gantiPassword.baru === this.gantiPassword.konfirmasi) {
-                Swal.fire({
-                    title: 'Apa Anda Yakin?',
-                    text: "Anda Akan Merubah ini",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var data = {
-                        id: this.dataUser.id,
-                        baru :this.gantiPassword.baru
-                    }
-                    this.notMatch = false
-                    this.$http.put('/user/updatePwbyAdmin', data)
-                    .then((response) => {
-                        if(response) {
-                            this.modalGantiPassword = false
-                            Swal.fire({
-                                icon: response.data.icon,
-                                title: response.data.title,
-                                text: response.data.text
-                            })
+            if (this.$refs.formGantiPassword.validate()) {
+                if (this.gantiPassword.baru === this.gantiPassword.konfirmasi) {
+                    Swal.fire({
+                        title: 'Apa Anda Yakin?',
+                        text: "Anda Akan Merubah ini",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var data = {
+                            id: this.dataUser.id,
+                            baru :this.gantiPassword.baru
+                        }
+                        this.notMatch = false
+                        this.$http.put('/user/updatePwbyAdmin', data)
+                        .then((response) => {
+                            if(response) {
+                                this.clearFormPassword()
+                                Swal.fire({
+                                    icon: response.data.icon,
+                                    title: response.data.title,
+                                    text: response.data.text
+                                })
+                            }
+                        })
                         }
                     })
-                    }
-                })
-            } else {
-                this.notMatch = true
+                } else {
+                    this.notMatch = true
+                }
             }
+        },
+        openFilePicker() {
+            this.$refs.changeGambar.click()
+        },
+        gantiGambar() {
+            this.editGambar = this.$refs.changeGambar.files[0]
+            const formData = new FormData()
+            formData.append('file', this.editGambar)
+            formData.append('id', this.dataUser.id)
+            this.$http.post('/user/gantiGambar', formData)
+            .then(this.getDataUser)
+        },
+        clearFormPassword() {
+            this.gantiPassword.baru = ''
+            this.gantiPassword.konfirmasi = ''
         }
     },
     created() {
