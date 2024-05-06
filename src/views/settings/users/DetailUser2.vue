@@ -340,6 +340,7 @@ export default {
             const formData = new FormData()
             formData.append('file', this.editGambar)
             formData.append('id', this.dataUser.id)
+            formData.append('url', this.dataUser.url_foto)
             this.$http.post('/user/gantiGambar', formData)
             .then(this.getDataUser)
         },

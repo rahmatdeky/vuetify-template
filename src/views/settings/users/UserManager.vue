@@ -294,14 +294,16 @@ import Swal from 'sweetalert2'
                             id_user: id
                         }
                         this.$http.post('user/delete', data)
-                        .then(() => {
-                            Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: 'Data Berhasil Disimpan'
-                            }).then(
-                                this.getDataUser()
-                            )
+                        .then((response) => {
+                            if (response) {
+                                Swal.fire({
+                                    icon: response.data.icon,
+                                    title: response.data.title,
+                                    text: response.data.text
+                                }).then(
+                                    this.getDataUser()
+                                )
+                            }
                         })
                     }
                 })
