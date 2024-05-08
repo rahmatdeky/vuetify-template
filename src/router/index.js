@@ -47,6 +47,9 @@ import DetailBerita2 from '@/views/LandingPage/DetailBerita2'
 import SetLandingPage from '@/views/settings/landingPage/SetLandingPage'
 import SetCarousel from '@/views/settings/landingPage/SetCarousel'
 
+// Setting Referensi
+import SetReferensi from '@/views/settings/referensi/SettingReferensi'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -233,6 +236,16 @@ const routes = [
         path: '/setting/landingpage/carousel',
         name: 'Setting Carousel',
         component: SetCarousel,
+        meta: {
+          requiresAuth: true,
+          // access : 'settingLandingPage'
+          access : 'admin'
+        }
+      },
+      {
+        path: '/setting/referensi',
+        name: 'Setting Referensi',
+        component: SetReferensi,
         meta: {
           requiresAuth: true,
           // access : 'settingLandingPage'
