@@ -14,32 +14,37 @@
                     Tambah Berita
                 </v-card-title>
                 <v-container>
-                    <v-row>
-                        <v-col align-self="center" cols="6">
-                            <v-text-field v-model="berita.judul" label="Judul Berita" dense></v-text-field>
-                        </v-col>
-                        <v-col>
-                            <v-text-field v-model="berita.kategori" label="Kategori" dense></v-text-field>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col>
-                            <v-textarea v-model="berita.isi" counter auto-grow filled label="Isi Berita"></v-textarea>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col cols="4">
-                            <input type="file" class="form-control" @change="uploadGambar">
-                        </v-col>
-                        <v-col cols="8">
-                            <v-img :src="previewImage"></v-img>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col>
-                            <v-btn @click="postBerita()" x-large block color="primary">Submit</v-btn>
-                        </v-col>
-                    </v-row>
+                    <v-form ref="form" @submit.prevent="postBerita()">
+                        <v-row>
+                            <v-col align-self="center" cols="6">
+                                <v-text-field v-model="berita.judul" label="Judul Berita" dense :rules="[rules.required]"></v-text-field>
+                            </v-col>
+                            <v-col>
+                                <v-select :items="listKategoriBerita" item-text="kategori" item-value="id" v-model="berita.kategori" dense label="Kategori" :rules="[rules.required]"></v-select>
+                            </v-col>
+                            <!-- <v-col>
+                                <v-text-field v-model="berita.kategori" label="Kategori" dense :rules="[rules.required]"></v-text-field>
+                            </v-col> -->
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-textarea v-model="berita.isi" counter auto-grow filled label="Isi Berita" :rules="[rules.required]"></v-textarea>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="4">
+                                <input type="file" class="form-control" @change="uploadGambar">
+                            </v-col>
+                            <v-col cols="8">
+                                <v-img :src="previewImage"></v-img>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-btn type="submit" @click="postBerita()" x-large block color="primary">Submit</v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-form>
                 </v-container>
             </v-card>
         </v-container>
@@ -56,7 +61,14 @@ export default {
                 kategori: '',
                 isi: '',
                 file: null
-            }
+            },
+            rules: {
+                required: (value) => !!value || "Required."
+            },
+            listKategoriBerita: [
+                {id: "1", kategori: "Kegiatan"},
+                {id: "2", kategori: "Dakwah"}
+            ]
         }
     },
     methods: {
@@ -69,42 +81,44 @@ export default {
             this.previewImage = URL.createObjectURL(preview)
         },
         postBerita () {
-            const formData = new FormData()
-            formData.append('judul', this.berita.judul)
-            formData.append('kategori', this.berita.kategori)
-            formData.append('isi', this.berita.isi)
-            formData.append('file', this.berita.file)
-            if (this.berita.file == null) {
-                Swal.fire({
-                icon: "error",
-                text: "Mohon Masukkan Gambar",
-                });
-                return;
-            } else {
-                Swal.fire({
-                        title: 'Apa Anda Yakin?',
-                        text: "Anda Akan Menyimpan ini",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes'
-                        }).then((result) => {
-                            if(result.isConfirmed) {
-                                this.$http.post('/berita/tambah', formData).then((response) => {
-                                    if(response) {
+            if (this.$refs.form.validate()) {
+                const formData = new FormData()
+                formData.append('judul', this.berita.judul)
+                formData.append('kategori', this.berita.kategori)
+                formData.append('isi', this.berita.isi)
+                formData.append('file', this.berita.file)
+                if (this.berita.file == null) {
+                    Swal.fire({
+                    icon: "error",
+                    text: "Mohon Masukkan Gambar",
+                    });
+                    return;
+                } else {
+                    Swal.fire({
+                            title: 'Apa Anda Yakin?',
+                            text: "Anda Akan Menyimpan ini",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes'
+                            }).then((result) => {
+                                if(result.isConfirmed) {
+                                    this.$http.post('/berita/tambah', formData).then((response) => {
                                         Swal.fire({
-                                            icon: 'success',
-                                            title: 'Berhasil',
-                                            text: 'Data Berhasil Disimpan'
+                                            icon: response.data.icon,
+                                            title: response.data.title,
+                                            text: response.data.text
                                         }).then(() => {
                                             this.clearForm()
                                             this.$router.push(`/setting/berita`)
                                         })
-                                    }
-                                })
-                            }
-                        })
+                                        // if(response) {
+                                        // }
+                                    })
+                                }
+                            })
+                }
             }
         },
         clearForm () {
