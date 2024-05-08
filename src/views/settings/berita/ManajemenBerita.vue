@@ -41,9 +41,9 @@
                                 <tbody>
                                     <tr v-for="(berita, index) in listBerita.data" :key="index">
                                         <td>{{ index + 1 }}</td>
-                                        <td>{{ berita.judul_berita }}</td>
-                                        <td>{{ berita.tanggal_berita }}</td>
-                                        <td>{{ berita.kategori }}</td>
+                                        <td>{{ berita.judul }}</td>
+                                        <td>{{ formatDate(berita.created_at) }}</td>
+                                        <td>{{ berita.id_kategori }}</td>
                                         <td>
                                             <v-item-group class="float-right">
                                                 <v-btn link :to="'/setting/berita/detail/' + berita.id_berita" outlined color="success">
@@ -207,6 +207,14 @@ export default {
                         })
                     }
                 })
+        },
+        formatDate(datetime) {
+            const date = new Date(datetime);
+            return date.toLocaleDateString('id-ID', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            });
         }
     },
     created() {
