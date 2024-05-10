@@ -16,7 +16,7 @@
                         </v-btn>
                     </v-col>
                     <v-col>
-                        <v-btn class="float-end" color="primary">
+                        <v-btn @click="openModalAddKelurahan()" class="float-end" color="primary">
                             <v-icon>mdi-plus</v-icon> Tambah
                         </v-btn>
                     </v-col>
@@ -35,7 +35,7 @@
                                 <td>1</td>
                                 <td>Tiban</td>
                                 <td>
-                                    <v-btn class="float-end" color="warning" outlined>
+                                    <v-btn @click="openModalEditKelurahan()" class="float-end" color="warning" outlined>
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
                                 </td>
@@ -45,5 +45,74 @@
                 </v-row>
             </v-container>
         </v-card>
+        <v-dialog v-model="modalAddKelurahan" width="500">
+            <v-card>
+                <v-toolbar color="primary" dark>Tambah Kelurahan</v-toolbar>
+                <v-container>
+                    <v-form>
+                        <v-row>
+                            <v-col>
+                                <v-select label="Kecamatan" :items="listKecamatan" item-text="Kecamatan" item-value="id"></v-select>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-text-field label="Nama Kelurahan"></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-btn class="float-end" color="primary" dark>Simpan</v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-form>
+                </v-container>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="modalEditKelurahan" width="500">
+            <v-card>
+                <v-toolbar color="primary" dark>Edit Kelurahan</v-toolbar>
+                <v-container>
+                    <v-form>
+                        <v-row>
+                            <v-col>
+                                <v-select label="Kecamatan" :items="listKecamatan" item-text="Kecamatan" item-value="id"></v-select>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-text-field label="Nama Kelurahan"></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-btn class="float-end" color="primary" dark>Simpan</v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-form>
+                </v-container>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
+<script>
+export default {
+    data() {
+        return {
+            modalAddKelurahan: false,
+            modalEditKelurahan: false,
+            listKecamatan: [
+                { id: 1, Kecamatan: 'Sekupang' },
+            ]
+        }
+    },
+    methods: {
+        openModalAddKelurahan() {
+            this.modalAddKelurahan = true
+        },
+        openModalEditKelurahan() {
+            this.modalEditKelurahan = true
+        }
+    }
+}
+</script>

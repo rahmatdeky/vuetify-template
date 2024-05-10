@@ -16,7 +16,7 @@
                         </v-btn>
                     </v-col>
                     <v-col>
-                        <v-btn class="float-end" color="primary">
+                        <v-btn @click="openModalAddKecamatan()" class="float-end" color="primary">
                             <v-icon>mdi-plus</v-icon> Tambah
                         </v-btn>
                     </v-col>
@@ -35,7 +35,7 @@
                                 <td>1</td>
                                 <td>Sekupang</td>
                                 <td>
-                                    <v-btn class="float-end" color="warning" outlined>
+                                    <v-btn @click="openModalEditKecamatan()" class="float-end" color="warning" outlined>
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
                                 </td>
@@ -45,5 +45,61 @@
                 </v-row>
             </v-container>
         </v-card>
+        <v-dialog v-model="modalAddKecamatan" width="500">
+            <v-card>
+                <v-toolbar color="primary" dark>Tambah Kecamatan</v-toolbar>
+                <v-container>
+                    <v-form>
+                        <v-row>
+                            <v-col>
+                                <v-text-field label="Nama Kecamatan"></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-btn class="float-end" color="primary" dark>Simpan</v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-form>
+                </v-container>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="modalEditKecamatan" width="500">
+            <v-card>
+                <v-toolbar color="primary" dark>Edit Kecamatan</v-toolbar>
+                <v-container>
+                    <v-form>
+                        <v-row>
+                            <v-col>
+                                <v-text-field label="Nama Kecamatan"></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-btn class="float-end" color="primary" dark>Simpan</v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-form>
+                </v-container>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
+<script>
+export default {
+    data() {
+        return {
+            modalAddKecamatan: false,
+            modalEditKecamatan: false
+        }
+    },
+    methods: {
+        openModalAddKecamatan() {
+            this.modalAddKecamatan = true
+        },
+        openModalEditKecamatan() {
+            this.modalEditKecamatan = true
+        }
+    }
+}
+</script>
