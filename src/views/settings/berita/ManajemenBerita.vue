@@ -4,79 +4,81 @@
             <v-row>
                 <v-col>
                     <v-card elevation="2">
-                      <v-card-title> List Berita </v-card-title>
-                      <v-container>
-                          <v-row>
-                            <v-col cols="3">
-                                <v-text-field v-model="search" label="Pencarian"></v-text-field>
-                            </v-col>
-                            <!-- <v-col cols="2">
-                                <v-text-field v-model="search" label="Email"></v-text-field>
-                            </v-col> -->
-                            <v-col align-self="center" cols="1">
-                                <v-btn @click="getListBerita()" icon>
-                                    <v-icon>mdi-magnify</v-icon>
-                                </v-btn>
-                            </v-col>
-                            <v-col>
-                                <!-- <v-btn @click="openModalTambahBerita" class="float-end">
-                                    <v-icon>mdi-plus</v-icon> Tambah Berita
-                                </v-btn> -->
-                                <v-btn link to="/setting/berita/tambah" class="float-end">
-                                    <v-icon>mdi-plus</v-icon> Tambah Berita
-                                </v-btn>
-                            </v-col>
-                          </v-row>
-                          <v-row>
-                            <v-simple-table>
-                                <thead>
-                                    <tr>
-                                        <th>NO</th>
-                                        <th>JUDUL BERITA</th>
-                                        <th>TANGGAL</th>
-                                        <th>KATEGORI</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(berita, index) in listBerita.data" :key="index">
-                                        <td>{{ index + 1 }}</td>
-                                        <td>{{ berita.judul }}</td>
-                                        <td>{{ formatDate(berita.created_at) }}</td>
-                                        <td>{{ berita.id_kategori }}</td>
-                                        <td>
-                                            <v-item-group class="float-right">
-                                                <v-btn link :to="'/setting/berita/detail/' + berita.id_berita" outlined color="success">
-                                                    <v-icon>mdi-magnify</v-icon>
-                                                </v-btn>
-                                                <v-btn @click="deleteBerita(berita.id_berita)" outlined color="red">
-                                                    <v-icon>mdi-delete</v-icon>
-                                                </v-btn>
-                                                <!-- <v-btn outlined color="warning">
+                        <v-card-title> List Berita </v-card-title>
+                        <v-container>
+                            <v-form @submit.prevent="getListBerita()">
+                                <v-row>
+                                    <v-col cols="3">
+                                        <v-text-field v-model="search" label="Pencarian"></v-text-field>
+                                    </v-col>
+                                    <v-col align-self="center" cols="1">
+                                        <v-btn type="submit" @click="getListBerita()" icon>
+                                            <v-icon>mdi-magnify</v-icon>
+                                        </v-btn>
+                                    </v-col>
+                                    <v-col>
+                                        <!-- <v-btn @click="openModalTambahBerita" class="float-end">
+                                        <v-icon>mdi-plus</v-icon> Tambah Berita
+                                    </v-btn> -->
+                                        <v-btn link to="/setting/berita/tambah" class="float-end">
+                                            <v-icon>mdi-plus</v-icon> Tambah Berita
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
+                            <v-row>
+                                <v-simple-table>
+                                    <thead>
+                                        <tr>
+                                            <th>NO</th>
+                                            <th>JUDUL BERITA</th>
+                                            <th>TANGGAL</th>
+                                            <th>KATEGORI</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(berita, index) in listBerita.data" :key="index">
+                                            <td>{{ index + 1 }}</td>
+                                            <td>{{ berita.judul }}</td>
+                                            <td>{{ formatDate(berita.created_at) }}</td>
+                                            <td>{{ berita.kategori.nama }}</td>
+                                            <td>
+                                                <v-item-group class="float-right">
+                                                    <v-btn class="mx-1" link :to="'/setting/berita/detail/' + berita.id" outlined
+                                                        color="success">
+                                                        <v-icon>mdi-magnify</v-icon>
+                                                    </v-btn>
+                                                    <v-btn @click="deleteBerita(berita.id)" outlined color="red">
+                                                        <v-icon>mdi-delete</v-icon>
+                                                    </v-btn>
+                                                    <!-- <v-btn outlined color="warning">
                                                     <v-icon>mdi-square-edit-outline</v-icon>
                                                 </v-btn> -->
-                                            </v-item-group>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </v-simple-table>
-                          </v-row>
-                          <v-row>
-                            <v-col>
-                                <v-btn-toggle rounded dense>
-                                    <v-btn @click="getListBerita(listBerita.prev_page_url)" :disabled="!listBerita.prev_page_url" color="primary">
-                                        prev
-                                    </v-btn>
-                                    <v-btn>
-                                        {{ listBerita.current_page + '/' + listBerita.last_page }}
-                                    </v-btn>
-                                    <v-btn @click="getListBerita(listBerita.next_page_url)" :disabled="!listBerita.next_page_url" color="primary">
-                                        next
-                                    </v-btn>
-                                </v-btn-toggle>
-                            </v-col>
-                          </v-row>
-                      </v-container>
+                                                </v-item-group>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </v-simple-table>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    <v-btn-toggle rounded dense>
+                                        <v-btn @click="getListBerita(listBerita.prev_page_url)"
+                                            :disabled="!listBerita.prev_page_url" color="primary">
+                                            prev
+                                        </v-btn>
+                                        <v-btn>
+                                            {{ listBerita.current_page + '/' + listBerita.last_page }}
+                                        </v-btn>
+                                        <v-btn @click="getListBerita(listBerita.next_page_url)"
+                                            :disabled="!listBerita.next_page_url" color="primary">
+                                            next
+                                        </v-btn>
+                                    </v-btn-toggle>
+                                </v-col>
+                            </v-row>
+                        </v-container>
                     </v-card>
                 </v-col>
                 <v-dialog v-model="modalTambahBerita" fullscreen persistent>
@@ -100,7 +102,8 @@
                             </v-row>
                             <v-row>
                                 <v-col>
-                                    <v-textarea v-model="berita.isi" counter auto-grow filled label="Isi Berita"></v-textarea>
+                                    <v-textarea v-model="berita.isi" counter auto-grow filled
+                                        label="Isi Berita"></v-textarea>
                                 </v-col>
                             </v-row>
                             <v-row>
@@ -132,7 +135,7 @@
 import Swal from 'sweetalert2'
 
 export default {
-    data () {
+    data() {
         return {
             modalTambahBerita: false,
             previewImage: null,
@@ -148,7 +151,7 @@ export default {
         }
     },
     methods: {
-        openModalTambahBerita () {
+        openModalTambahBerita() {
             this.modalTambahBerita = true
         },
         getImage(namaGambar) {
@@ -159,7 +162,7 @@ export default {
             let preview = e.target.files[0]
             this.previewImage = URL.createObjectURL(preview)
         },
-        postBerita () {
+        postBerita() {
             const formData = new FormData()
             formData.append('judul', this.berita.judul)
             formData.append('kategori', this.berita.kategori)
@@ -171,7 +174,7 @@ export default {
                 this.modalTambahBerita = false
             })
         },
-        getListBerita (page) {
+        getListBerita(page) {
             if (typeof page === 'undefined') {
                 page = '/berita/browse?page=1'
             }
@@ -182,7 +185,7 @@ export default {
                 this.listBerita = response.data
             })
         },
-        deleteBerita (id) {
+        deleteBerita(id) {
             Swal.fire({
                 title: 'Apa Anda Yakin?',
                 text: "Anda Tidak Dapat Mengembalikannya lagi",
@@ -191,22 +194,22 @@ export default {
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        const data = {
-                            id_berita: id
-                        }
-                        this.$http.post('/berita/delete', data).then((response) => {
-                            Swal.fire({
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const data = {
+                        id_berita: id
+                    }
+                    this.$http.post('/berita/delete', data).then((response) => {
+                        Swal.fire({
                             icon: response.data.icon,
                             title: response.data.title,
                             text: response.data.text
-                            }).then(() => {
-                                this.getListBerita()
-                            })
+                        }).then(() => {
+                            this.getListBerita()
                         })
-                    }
-                })
+                    })
+                }
+            })
         },
         formatDate(datetime) {
             const date = new Date(datetime);

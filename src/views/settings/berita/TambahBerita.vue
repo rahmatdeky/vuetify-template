@@ -20,7 +20,7 @@
                                 <v-text-field v-model="berita.judul" label="Judul Berita" dense :rules="[rules.required]"></v-text-field>
                             </v-col>
                             <v-col>
-                                <v-select :items="listKategoriBerita" item-text="kategori" item-value="id" v-model="berita.kategori" dense label="Kategori" :rules="[rules.required]"></v-select>
+                                <v-select :items="listKategoriBerita" item-text="nama" item-value="id" v-model="berita.kategori" dense label="Kategori" :rules="[rules.required]"></v-select>
                             </v-col>
                             <!-- <v-col>
                                 <v-text-field v-model="berita.kategori" label="Kategori" dense :rules="[rules.required]"></v-text-field>
@@ -65,10 +65,7 @@ export default {
             rules: {
                 required: (value) => !!value || "Required."
             },
-            listKategoriBerita: [
-                {id: "1", kategori: "Kegiatan"},
-                {id: "2", kategori: "Dakwah"}
-            ]
+            listKategoriBerita: [],
         }
     },
     methods: {
@@ -113,8 +110,6 @@ export default {
                                             this.clearForm()
                                             this.$router.push(`/setting/berita`)
                                         })
-                                        // if(response) {
-                                        // }
                                     })
                                 }
                             })
@@ -126,7 +121,15 @@ export default {
             this.berita.kategori = ''
             this.berita.isi = ''
             this.previewImage = null
+        },
+        getKategoriBerita() {
+            this.$http.post('ref/kategori/browse').then((response) => {
+                this.listKategoriBerita = response.data
+            })
         }
+    },
+    mounted () {
+        this.getKategoriBerita()
     }
 }
 </script>
