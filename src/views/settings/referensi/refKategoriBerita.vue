@@ -32,8 +32,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(data, index) in filteredItems" :key="data.id">
-                                    <td>{{ index + 1 }}</td>
+                                <tr v-for="data in filteredItems" :key="data.id">
+                                    <td>{{ data.id }}</td>
                                     <td>{{ data.nama }}</td>
                                     <td>
                                         <v-btn @click="openModalEditKategoriBerita(data.id)" class="float-end" color="warning"

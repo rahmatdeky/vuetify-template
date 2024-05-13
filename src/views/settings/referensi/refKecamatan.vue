@@ -8,7 +8,7 @@
             <v-container>
                 <v-row>
                     <v-col cols="3">
-                        <v-text-field label="Pencarian"></v-text-field>
+                        <v-text-field label="Pencarian" v-model="search"></v-text-field>
                     </v-col>
                     <v-col align-self="center" cols="1">
                         <v-btn icon>
@@ -25,17 +25,19 @@
                     <v-simple-table>
                         <thead>
                             <tr>
-                                <th>Id Kecamatan</th>
+                                <th>Kode Kecamatan</th>
+                                <th>Kode Kemendagri</th>
                                 <th>Nama Kecamatan</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Sekupang</td>
+                            <tr v-for="data in filteredItems" :key="data.kode_kecamatan">
+                                <td>{{ data.kode_kecamatan }}</td>
+                                <td>{{ data.kode_kemendagri }}</td>
+                                <td>{{ data.nama_kecamatan }}</td>
                                 <td>
-                                    <v-btn @click="openModalEditKecamatan()" class="float-end" color="warning" outlined>
+                                    <v-btn @click="openModalEditKecamatan(data.kode_kecamatan)" class="float-end" color="warning" outlined>
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
                                 </td>
@@ -49,15 +51,20 @@
             <v-card>
                 <v-toolbar color="primary" dark>Tambah Kecamatan</v-toolbar>
                 <v-container>
-                    <v-form>
+                    <v-form ref="formAddKecamatan" @submit.prevent="saveNewKecamatan()">
                         <v-row>
                             <v-col>
-                                <v-text-field label="Nama Kecamatan"></v-text-field>
+                                <v-text-field v-model="newKecamatan.kodeKemendagri" :rules="[rules.required]" label="Kode Kemendagri"></v-text-field>
                             </v-col>
                         </v-row>
                         <v-row>
                             <v-col>
-                                <v-btn class="float-end" color="primary" dark>Simpan</v-btn>
+                                <v-text-field v-model="newKecamatan.namaKecamatan" :rules="[rules.required]" label="Nama Kecamatan"></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-btn type="submit" class="float-end" color="primary" dark>Simpan</v-btn>
                             </v-col>
                         </v-row>
                     </v-form>
@@ -68,15 +75,20 @@
             <v-card>
                 <v-toolbar color="primary" dark>Edit Kecamatan</v-toolbar>
                 <v-container>
-                    <v-form>
+                    <v-form ref="formEditKecamatan" @submit.prevent="saveEditKecamatan()">
                         <v-row>
                             <v-col>
-                                <v-text-field label="Nama Kecamatan"></v-text-field>
+                                <v-text-field label="Kode Kemendagri" v-model="selectedKecamatan.kode_kemendagri" :rules="[rules.required]"></v-text-field>
                             </v-col>
                         </v-row>
                         <v-row>
                             <v-col>
-                                <v-btn class="float-end" color="primary" dark>Simpan</v-btn>
+                                <v-text-field label="Nama Kecamatan" v-model="selectedKecamatan.nama_kecamatan" :rules="[rules.required]"></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-btn type="submit" class="float-end" color="primary" dark>Simpan</v-btn>
                             </v-col>
                         </v-row>
                     </v-form>
@@ -86,20 +98,108 @@
     </div>
 </template>
 <script>
+import Swal from 'sweetalert2'
+
 export default {
     data() {
         return {
             modalAddKecamatan: false,
-            modalEditKecamatan: false
+            modalEditKecamatan: false,
+            newKecamatan: {
+                namaKecamatan: '',
+                kodeKemendagri: ''
+            },
+            rules: {
+                required: (value) => !!value || "Required."
+            },
+            dataKecamatan: [],
+            search: '',
+            selectedKecamatan: {}
         }
     },
     methods: {
         openModalAddKecamatan() {
             this.modalAddKecamatan = true
         },
-        openModalEditKecamatan() {
+        openModalEditKecamatan(id) {
             this.modalEditKecamatan = true
+            this.selectedKecamatan = this.dataKecamatan.find((data) => data.kode_kecamatan === id)
+        },
+        saveNewKecamatan() {
+            if (this.$refs.formAddKecamatan.validate()) {
+                Swal.fire({
+                    title: 'Apa Anda Yakin?',
+                    text: "Anda Akan Menyimpan ini",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.$http.post('ref/kecamatan/add', this.newKecamatan)
+                            .then((response) => {
+                                Swal.fire({
+                                    icon: response.data.icon,
+                                    title: response.data.title,
+                                    text: response.data.text
+                                }).then(() => {
+                                    this.modalAddKecamatan = false
+                                    this.getKecamatan()
+                                })
+                            })
+                    }
+                })
+            }
+        },
+        getKecamatan() {
+            this.$http.get('ref/kecamatan/browse').then((response) => {
+                this.dataKecamatan = response.data
+            })
+        },
+        saveEditKecamatan() {
+            if (this.$refs.formEditKecamatan.validate()) {
+                Swal.fire({
+                    title: 'Apa Anda Yakin?',
+                    text: "Anda Akan Menyimpan ini",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var data = {
+                            id: this.selectedKecamatan.kode_kecamatan,
+                            namaKecamatan: this.selectedKecamatan.nama_kecamatan,
+                            kodeKemendagri: this.selectedKecamatan.kode_kemendagri
+                        }
+                        this.$http.post('ref/kecamatan/edit', data)
+                            .then((response) => {
+                                Swal.fire({
+                                    icon: response.data.icon,
+                                    title: response.data.title,
+                                    text: response.data.text
+                                }).then(() => {
+                                    this.modalEditKecamatan = false
+                                    this.getKecamatan()
+                                })
+                            })
+                    }
+                })
+            }
         }
+    },
+    mounted() {
+        this.getKecamatan()
+    },
+    computed: {
+        filteredItems() {
+            return this.dataKecamatan.filter(item =>
+                item.nama_kecamatan.toLowerCase().includes(this.search.toLowerCase()) ||
+                item.kode_kemendagri.toLowerCase().includes(this.search.toLowerCase())
+            );
+        }   
     }
 }
 </script>
