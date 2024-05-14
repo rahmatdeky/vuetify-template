@@ -11,9 +11,18 @@
                                 </v-col>
                             </v-row>
                             <v-row class="px-15 py-5">
-                                <v-col cols="3" v-for="(data, index) in dataBerita.data.slice(0,4)" :key="index">
-                                    <v-card height="245px">
-                                        <v-img height="100%" :src="UrlGambarBerita + data.nama_file"></v-img>
+                                <v-col cols="3" v-for="data in dataBeritaPopuler.slice(0,4)" :key="data.id">
+                                    <v-card height="245px" @click="goTo(data.id)">
+                                        <v-img :title="data.judul" height="100%" :src="UrlGambarBerita + data.gambar" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
+                                            <v-row>
+                                                <v-col>
+                                                    <v-container class="align-end">
+                                                        <v-btn style="cursor: default; pointer-events: none;" x-small color="success" rounded>{{ data.kategori.nama }}</v-btn>
+                                                        <v-card-title class="m-0 p-0" style="word-wrap: normal; font-size: medium; overflow:hidden ; text-overflow: ellipsis; white-space: nowrap;">{{ data.judul }}</v-card-title>
+                                                    </v-container>
+                                                </v-col>
+                                            </v-row>
+                                        </v-img>
                                     </v-card>
                                 </v-col>
                             </v-row>
@@ -38,15 +47,33 @@
                                     <v-container>
                                         <v-row>
                                             <v-col cols="6" v-for="(data, index) in dataBerita.data.slice(0, 2)" :key="index">
-                                                <v-card height="245px">
-                                                    <v-img height="100%" :src="UrlGambarBerita + data.nama_file"></v-img>
+                                                <v-card height="245px" @click="goTo(data.id)">
+                                                    <v-img height="100%" :src="UrlGambarBerita + data.gambar" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
+                                                        <v-row>
+                                                            <v-col>
+                                                                <v-container class="align-end">
+                                                                    <v-btn style="cursor: default; pointer-events: none;" x-small color="success" rounded>{{ data.kategori.nama }}</v-btn>
+                                                                    <v-card-title class="m-0 p-0" style="word-wrap: normal; font-size: medium;">{{ data.judul }}</v-card-title>
+                                                                </v-container>
+                                                            </v-col>
+                                                        </v-row>
+                                                    </v-img>
                                                 </v-card>
                                             </v-col>
                                         </v-row>
                                         <v-row>
                                             <v-col cols="6" v-for="(data, index) in dataBerita.data.slice(2, 4)" :key="index">
-                                                <v-card height="245px">
-                                                    <v-img height="100%" :src="UrlGambarBerita + data.nama_file"></v-img>
+                                                <v-card height="245px" @click="goTo(data.id)">
+                                                    <v-img height="100%" :src="UrlGambarBerita + data.gambar" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
+                                                        <v-row>
+                                                            <v-col>
+                                                                <v-container class="align-end">
+                                                                    <v-btn style="cursor: default; pointer-events: none;" x-small color="success" rounded>{{ data.kategori.nama }}</v-btn>
+                                                                    <v-card-title class="m-0 p-0" style="word-wrap: normal; font-size: medium;">{{ data.judul }}</v-card-title>
+                                                                </v-container>
+                                                            </v-col>
+                                                        </v-row>
+                                                    </v-img>
                                                 </v-card>
                                             </v-col>
                                         </v-row>
@@ -56,45 +83,10 @@
                                     <v-container>
                                         <v-row>
                                             <v-col>
-                                                <v-card>
-                                                        <v-row>
+                                                <v-card min-height="514px" max-height="514px" color="rgb(241, 241, 248)" elevation="2" class="overflow-auto overflow-x-hidden py-2" >
+                                                        <v-row v-for="(data, index) in dataKategori" :key="index">
                                                             <v-col class="d-flex justify-center mx-2">
-                                                                <v-btn rounded block color="primary">tes</v-btn>
-                                                            </v-col>
-                                                        </v-row>
-                                                        <v-row>
-                                                            <v-col class="d-flex justify-center mx-2">
-                                                                <v-btn rounded block color="primary">tes</v-btn>
-                                                            </v-col>
-                                                        </v-row>
-                                                        <v-row>
-                                                            <v-col class="d-flex justify-center mx-2">
-                                                                <v-btn rounded block color="primary">tes</v-btn>
-                                                            </v-col>
-                                                        </v-row>
-                                                        <v-row>
-                                                            <v-col class="d-flex justify-center mx-2">
-                                                                <v-btn rounded block color="primary">tes</v-btn>
-                                                            </v-col>
-                                                        </v-row>
-                                                        <v-row>
-                                                            <v-col class="d-flex justify-center mx-2">
-                                                                <v-btn rounded block color="primary">tes</v-btn>
-                                                            </v-col>
-                                                        </v-row>
-                                                        <v-row>
-                                                            <v-col class="d-flex justify-center mx-2">
-                                                                <v-btn rounded block color="primary">tes</v-btn>
-                                                            </v-col>
-                                                        </v-row>
-                                                        <v-row>
-                                                            <v-col class="d-flex justify-center mx-2">
-                                                                <v-btn rounded block color="primary">tes</v-btn>
-                                                            </v-col>
-                                                        </v-row>
-                                                        <v-row>
-                                                            <v-col class="d-flex justify-center mx-2">
-                                                                <v-btn rounded block color="primary">tes</v-btn>
+                                                                <v-btn rounded block color="primary" outlined>{{ data.nama }}</v-btn>
                                                             </v-col>
                                                         </v-row>
                                                 </v-card>
@@ -178,11 +170,15 @@ export default {
     data () {
         return {
             dataBerita: [],
-            UrlGambarBerita: window.UrlGambarBerita
+            UrlGambarBerita: window.UrlGambarBerita,
+            dataBeritaPopuler: [],
+            dataKategori: []
         }
     },
     created () {
         this.getDataBerita()
+        this.getDataBeritaPopuler()
+        this.getDataKategori()
     },
     methods: {
         getDataBerita (page) {
@@ -192,6 +188,19 @@ export default {
             this.$http.get(page).then((response) => {
                 this.dataBerita = response.data
             })
+        },
+        getDataBeritaPopuler () {
+            this.$http.get('/berita/guest/populer').then((response) => {
+                this.dataBeritaPopuler = response.data
+            })
+        },
+        getDataKategori () {
+            this.$http.get('/ref/kategori/browse').then((response) => {
+                this.dataKategori = response.data
+            })
+        },
+        goTo(id) {
+            this.$router.push('/berita/detail/' + id)
         }
     }
 }
