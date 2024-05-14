@@ -41,7 +41,7 @@
                                         <td>{{ item.email }}</td>
                                         <td>
                                             <v-list-item class="float-right">
-                                                <v-btn link :to="`/setting/detailuser/` + item.id" outlined color="success">
+                                                <v-btn class="mx-1" link :to="`/setting/detailuser/` + item.id" outlined color="success">
                                                     <v-icon>mdi-magnify</v-icon>
                                                 </v-btn>
                                                 <v-btn @click="deleteUser(item.id)" outlined color="red">

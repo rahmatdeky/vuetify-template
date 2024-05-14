@@ -1,11 +1,11 @@
 <template>
   <div>
     <v-carousel height="800" hide-delimiters>
-      <v-carousel-item v-for="(item, index) in usedCarouselImage" :key="index" :src="UrlGambarBerita + item.url_gambar"
-        @click="goTo(item.id_berita)" class="carousel-item" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
+      <v-carousel-item v-for="item in dataBerita.data" :key="item.id" :src="UrlGambarBerita + item.gambar"
+        @click="goTo(item.id)" class="carousel-item" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
         <div class="carousel-text">
-          <small style="font-weight: bold; color: yellow;">{{ item.tanggal_berita }}</small>
-          <h2 style="font-weight: bold; color: white;">{{ item.judul_berita }}</h2>
+          <small style="font-weight: bold; color: yellow;">{{ item.tanggal }}</small>
+          <h2 style="font-weight: bold; color: white;">{{ item.judul }}</h2>
         </div>
       </v-carousel-item>
     </v-carousel>
@@ -18,16 +18,15 @@
       <v-row>
         <v-col cols="4">
           <v-row>
-            <v-col cols="12">
-              <v-card @click="goTo(seri1.id_berita)" elevation="2">
-                <v-img :src="UrlGambarBerita + seri1.url_gambar" height="505px" class="white--text align-end"
+            <v-col cols="12" v-for="data in dataBerita.data.slice(0, 1)" :key="data.id">
+              <v-card elevation="2" @click="goTo(data.id)">
+                <v-img :src="UrlGambarBerita + data.gambar" height="505px" class="white--text align-end"
                   gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
                   <v-row>
                     <v-col>
                       <v-container class="align-end">
-                        <v-card-subtitle class="m-0 p-0" style="color: yellow;">{{ seri1.tanggal_berita
-                          }}</v-card-subtitle>
-                        <v-card-title class="m-0 p-0" style="word-wrap: break-word;">{{ seri1.judul_berita }}</v-card-title>
+                        <v-card-subtitle class="m-0 p-0" style="color: yellow;">{{ data.tanggal }}</v-card-subtitle>
+                        <v-card-title class="m-0 p-0" style="word-wrap: break-word;">{{ data.judul }}</v-card-title>
                       </v-container>
                     </v-col>
                   </v-row>
@@ -38,16 +37,15 @@
         </v-col>
         <v-col cols="4">
           <v-row>
-            <v-col cols="12">
-              <v-card @click="goTo(seri2.id_berita)" elevation="2">
-                <v-img :src="UrlGambarBerita + seri2.url_gambar" height="505px" class="white--text align-end"
+            <v-col cols="12" v-for="data in dataBerita.data.slice(1, 2)" :key="data.id">
+              <v-card elevation="2" @click="goTo(data.id)">
+                <v-img :src="UrlGambarBerita + data.gambar" height="505px" class="white--text align-end"
                   gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
                   <v-row>
                     <v-col>
                       <v-container class="align-end">
-                        <v-card-subtitle class="m-0 p-0" style="color: yellow;">{{ seri2.tanggal_berita
-                          }}</v-card-subtitle>
-                        <v-card-title class="m-0 p-0">{{ seri2.judul_berita }}</v-card-title>
+                        <v-card-subtitle class="m-0 p-0" style="color: yellow;">{{ data.tanggal }}</v-card-subtitle>
+                        <v-card-title class="m-0 p-0">{{ data.judul }}</v-card-title>
                       </v-container>
                     </v-col>
                   </v-row>
@@ -57,35 +55,16 @@
           </v-row>
         </v-col>
         <v-col cols="4">
-          <v-row>
-            <v-col cols="12">
-              <v-card @click="goTo(seri3.id_berita)" elevation="2">
-                <v-img :src="UrlGambarBerita + seri3.url_gambar" height="240px" class="white--text align-end"
+          <v-row v-for="data in dataBerita.data.slice(2, 4)" :key="data.id">
+            <v-col cols="12" >
+              <v-card elevation="2" @click="goTo(data.id)">
+                <v-img :src="UrlGambarBerita + data.gambar" height="240px" class="white--text align-end"
                   gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
                   <v-row>
                     <v-col>
                       <v-container class="align-end">
-                        <v-card-subtitle class="m-0 p-0" style="color: yellow;">{{ seri3.tanggal_berita
-                          }}</v-card-subtitle>
-                        <v-card-title class="m-0 p-0">{{ seri3.judul_berita }}</v-card-title>
-                      </v-container>
-                    </v-col>
-                  </v-row>
-                </v-img>
-              </v-card>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12">
-              <v-card @click="goTo(seri3.id_berita)" elevation="2">
-                <v-img :src="UrlGambarBerita + seri3.url_gambar" height="240px" class="white--text align-end"
-                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
-                  <v-row>
-                    <v-col>
-                      <v-container class="align-end">
-                        <v-card-subtitle class="m-0 p-0" style="color: yellow;">{{ seri3.tanggal_berita
-                          }}</v-card-subtitle>
-                        <v-card-title class="m-0 p-0">{{ seri3.judul_berita }}</v-card-title>
+                        <v-card-subtitle class="m-0 p-0" style="color: yellow;"> {{ data.tanggal }} </v-card-subtitle>
+                        <v-card-title class="m-0 p-0"> {{ data.judul }} </v-card-title>
                       </v-container>
                     </v-col>
                   </v-row>
@@ -559,15 +538,15 @@ export default {
   data() {
     return {
       UrlGambarBerita: window.UrlGambarBerita,
-      usedCarouselImage: [],
-      seri: '',
+      // usedCarouselImage: [],
+      // seri: '',
       dataBerita: [],
-      seri1: [],
-      seri2: [],
-      seri3: [],
-      dataPengurus: [],
-      dataLembaga: [],
-      dataKecamatan: [],
+      // seri1: [],
+      // seri2: [],
+      // seri3: [],
+      // dataPengurus: [],
+      // dataLembaga: [],
+      // dataKecamatan: [],
       primaryXAxis: {
         valueType: 'Category'
       },
@@ -614,71 +593,77 @@ export default {
     };
   },
   created() {
-    this.getCarouselImg()
-    this.getHighlight()
-    this.browsePengurus()
-    this.browseLembaga()
-    this.getLembaga()
-    this.getPengurus()
-    this.getKecamatan()
+    // this.getCarouselImg()
+    // this.getHighlight()
+    // this.browsePengurus()
+    // this.browseLembaga()
+    // this.getLembaga()
+    // this.getPengurus()
+    // this.getKecamatan()
+    this.getDataBerita()
   },
   methods: {
-    getCarouselImg() {
-      this.$http.get('/page/landing/carousel/image/used').then((response) => {
-        this.usedCarouselImage = response.data
-      })
-    },
     goTo(id) {
       this.$router.push(`/berita/detail/${id}`)
     },
-    getHighlight() {
-      // this.$http.get('/page/landing/highlihgt/get').then((response) => {
-      //     console.log(response.data)
-      // })
-      this.$http.get('/page/landing/highlihgt/get').then((response) => {
-        this.seri1 = response.data.seri1
-        this.seri2 = response.data.seri2
-        this.seri3 = response.data.seri3
-      })
-    },
-    browsePengurus(page) {
-      if (typeof page === 'undefined') {
-        page = '/pengurus/browse?page=1'
-      }
-      var data = {
-        search: this.search
-      }
-      this.$http.post(page, data).then((response) => {
-        this.dataPengurus = response.data
-      })
-    },
-    browseLembaga(page) {
-      if (typeof page === 'undefined') {
-        page = '/lembaga/browse?page=1'
-      }
-      var data = {
-        search: this.search
-      }
-      this.$http.post(page, data).then((response) => {
-        this.dataLembaga = response.data
-      })
-    },
-    getLembaga() {
-      this.$http.get('get/lembaga').then((response) => {
-        this.chartDataLembaga.datasets[0].data = response.data.jumlah
-      })
-    },
-    getPengurus() {
-      this.$http.get('get/pengurus').then((response) => {
-        this.chartDataPengurus.datasets[0].data = response.data.jumlah
-      })
-    },
-    getKecamatan() {
-      this.$http.get('get/kecamatan').then((response) => {
-        this.chartDataLembaga.labels = response.data.kecamatan
-        this.chartDataPengurus.labels = response.data.kecamatan
+    getDataBerita() {
+      this.$http.get('/berita/guest/browse').then((response) => {
+        this.dataBerita = response.data
       })
     }
+    // getCarouselImg() {
+    //   this.$http.get('/page/landing/carousel/image/used').then((response) => {
+    //     this.usedCarouselImage = response.data
+    //   })
+    // },
+    // getHighlight() {
+    //   // this.$http.get('/page/landing/highlihgt/get').then((response) => {
+    //   //     console.log(response.data)
+    //   // })
+    //   this.$http.get('/page/landing/highlihgt/get').then((response) => {
+    //     this.seri1 = response.data.seri1
+    //     this.seri2 = response.data.seri2
+    //     this.seri3 = response.data.seri3
+    //   })
+    // },
+    // browsePengurus(page) {
+    //   if (typeof page === 'undefined') {
+    //     page = '/pengurus/browse?page=1'
+    //   }
+    //   var data = {
+    //     search: this.search
+    //   }
+    //   this.$http.post(page, data).then((response) => {
+    //     this.dataPengurus = response.data
+    //   })
+    // },
+    // browseLembaga(page) {
+    //   if (typeof page === 'undefined') {
+    //     page = '/lembaga/browse?page=1'
+    //   }
+    //   var data = {
+    //     search: this.search
+    //   }
+    //   this.$http.post(page, data).then((response) => {
+    //     this.dataLembaga = response.data
+    //   })
+    // },
+    // getLembaga() {
+    //   this.$http.get('get/lembaga').then((response) => {
+    //     this.chartDataLembaga.datasets[0].data = response.data.jumlah
+    //   })
+    // },
+    // getPengurus() {
+    //   this.$http.get('get/pengurus').then((response) => {
+    //     this.chartDataPengurus.datasets[0].data = response.data.jumlah
+    //   })
+    // },
+    // getKecamatan() {
+    //   this.$http.get('get/kecamatan').then((response) => {
+    //     this.chartDataLembaga.labels = response.data.kecamatan
+    //     this.chartDataPengurus.labels = response.data.kecamatan
+    //   })
+    // }
   },
   provide: {
     chart: [LineSeries, Category]
