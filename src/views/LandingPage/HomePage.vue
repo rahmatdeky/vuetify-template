@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-carousel height="800" hide-delimiters>
+    <v-carousel cycle height="800" hide-delimiters>
       <v-carousel-item v-for="item in dataBerita.data" :key="item.id" :src="UrlGambarBerita + item.gambar"
         @click="goTo(item.id)" class="carousel-item" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
         <div class="carousel-text">

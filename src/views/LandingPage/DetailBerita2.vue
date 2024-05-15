@@ -8,20 +8,20 @@
                             <v-col cols="8">
                                 <v-row>
                                     <v-col>
-                                        <h4>{{ detailBerita.judul_berita }}</h4>
-                                        <small>{{ detailBerita.tanggal_berita }}</small>
+                                        <h4>{{ detailBerita.judul }}</h4>
+                                        <small>{{ detailBerita.tanggal }}</small>
                                     </v-col>
                                 </v-row>
                                 <v-row>
                                     <v-col>
                                         <v-card height="515px">
-                                            <v-img height="100%" :src="UrlGambarBerita + detailBerita.nama_file"></v-img>
+                                            <v-img height="100%" :src="UrlGambarBerita + detailBerita.gambar"></v-img>
                                         </v-card>
                                     </v-col>
                                 </v-row>
                                 <v-row>
                                     <v-col>
-                                        <p class="text-justify">{{ detailBerita.isi_berita }}</p>
+                                        <p class="text-justify">{{ detailBerita.deskripsi }}</p>
                                     </v-col>
                                 </v-row>
                             </v-col>
@@ -33,14 +33,14 @@
                                         </div>
                                     </v-col>
                                 </v-row>
-                                <v-row v-for="(data, index) in dataBerita.data" :key="index">
+                                <v-row v-for="(data, index) in dataBeritaPopuler" :key="index">
                                     <v-col cols="2">
-                                        <v-btn link :to="'/berita/detail/' + data.id_berita" small color="primary" style="border-radius: 20%;">
+                                        <v-btn link :to="'/berita/detail/' + data.id" small color="primary" style="border-radius: 20%;">
                                         {{ index + 1 }}</v-btn>
                                     </v-col>
                                     <v-col cols="10">
-                                        <p class="my-0">{{ data.judul_berita }}</p>
-                                        <v-btn x-small text class="p-0 m-0" disabled style="color: green !important">{{ data.kategori }}</v-btn>
+                                        <p class="my-0">{{ data.judul }}</p>
+                                        <v-btn x-small text class="p-0 m-0" disabled style="color: green !important">{{ data.kategori.nama }}</v-btn>
                                     </v-col>
                                 </v-row>
                                 <v-row class="mt-15">
@@ -50,16 +50,16 @@
                                         </div>
                                     </v-col>
                                 </v-row>
-                                <v-row v-for="(data, index) in dataBerita.data" :key="index">
+                                <v-row v-for="data in dataBerita.data" :key="data.id">
                                     <v-col cols="4">
                                         <v-card height="100%">
-                                            <v-img height="100%" :src="UrlGambarBerita + data.nama_file"></v-img>
+                                            <v-img height="100%" :src="UrlGambarBerita + data.gambar"></v-img>
                                         </v-card>
                                     </v-col>
                                     <v-col cols="8">
-                                        <router-link style="text-decoration: none;" :to="'/berita/detail/' + data.id_berita">
-                                            <p class="my-0" style="color: black;">{{ data.judul_berita }}</p>
-                                            <small class="my-0" style="font-size: xx-small; color: green;">{{ data.tanggal_berita }}</small>
+                                        <router-link style="text-decoration: none;" :to="'/berita/detail/' + data.id">
+                                            <p class="my-0" style="color: black;">{{ data.judul }}</p>
+                                            <small class="my-0" style="font-size: xx-small; color: green;">{{ data.tanggal }}</small>
                                         </router-link>
                                     </v-col>
                                 </v-row>
@@ -77,12 +77,14 @@ export default {
         return {
             detailBerita: [],
             dataBerita: [],
+            dataBeritaPopuler: [],
             UrlGambarBerita: window.UrlGambarBerita
         }
     },
     created () {
         this.getDetailBerita()
         this.getDataBerita()
+        this.getDataBeritaPopuler()
     },
     methods: {
         getDetailBerita() {
@@ -96,6 +98,11 @@ export default {
             }
             this.$http.get(page).then((response) => {
                 this.dataBerita = response.data
+            })
+        },
+        getDataBeritaPopuler () {
+            this.$http.get('/berita/guest/populer').then((response) => {
+                this.dataBeritaPopuler = response.data
             })
         }
     }
