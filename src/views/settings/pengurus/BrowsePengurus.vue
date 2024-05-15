@@ -4,54 +4,56 @@
             <v-row>
                 <v-col>
                     <v-card elevation="2">
-                      <v-card-title> Daftar Pengurus </v-card-title>
+                      <v-card-title> Daftar Warga </v-card-title>
                         <v-container>
-                          <v-row>
-                            <v-col cols="3">
-                                <v-text-field v-model="search" label="Pencarian"></v-text-field>
-                            </v-col>
-                            <!-- <v-col cols="2">
-                                <v-text-field v-model="search" label="Email"></v-text-field>
-                            </v-col> -->
-                            <v-col align-self="center" cols="1">
-                                <v-btn @click="browsePengurus()" icon>
-                                    <v-icon>mdi-magnify</v-icon>
-                                </v-btn>
-                            </v-col>
-                            <v-col>
-                                <v-btn @click="openModalTambahPengurus" class="float-end">
-                                    <v-icon>mdi-plus</v-icon> Tambah Pengurus
-                                </v-btn>
-                                <!-- <v-btn class="float-end">
-                                    <v-icon>mdi-plus</v-icon> Tambah Pengurus
-                                </v-btn> -->
-                            </v-col>
-                          </v-row>
+                            <v-form @submit.prevent="browseWarga()">
+                                <v-row>
+                                  <v-col cols="3">
+                                      <v-text-field v-model="search" label="Pencarian"></v-text-field>
+                                  </v-col>
+                                  <!-- <v-col cols="2">
+                                      <v-text-field v-model="search" label="Email"></v-text-field>
+                                  </v-col> -->
+                                  <v-col align-self="center" cols="1">
+                                      <v-btn type="submit" @click="browseWarga()" icon>
+                                          <v-icon>mdi-magnify</v-icon>
+                                      </v-btn>
+                                  </v-col>
+                                  <v-col>
+                                      <v-btn @click="openModalTambahWarga" class="float-end">
+                                          <v-icon>mdi-plus</v-icon> Tambah Warga
+                                      </v-btn>
+                                      <!-- <v-btn class="float-end">
+                                          <v-icon>mdi-plus</v-icon> Tambah Warga
+                                      </v-btn> -->
+                                  </v-col>
+                                </v-row>
+                            </v-form>
                           <v-row>
                             <v-simple-table>
                                 <thead>
                                     <tr>
                                         <th>NO</th>
                                         <th>NAMA</th>
-                                        <th>NIK</th>
+                                        <th>JABATAN</th>
                                         <th>ALAMAT</th>
                                         <th>ORGANISASI</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <tr @click="redirect(data.NIK)" v-for="(data, index) in dataPengurus.data" :key="index"> -->
-                                    <tr v-for="(data, index) in dataPengurus.data" :key="index">
+                                    <!-- <tr @click="redirect(data.NIK)" v-for="(data, index) in dataWarga.data" :key="index"> -->
+                                    <tr v-for="(data, index) in dataWarga.data" :key="index">
                                         <td>{{ index + 1 }}</td>
-                                        <td>{{ data.nama_pengurus }}</td>
-                                        <td>{{ data.NIK }}</td>
-                                        <td>{{ data.alamat_pengurus }}</td>
+                                        <td>{{ data.nama }}</td>
+                                        <td>{{ data.jabatan }}</td>
+                                        <td>{{ data.alamat }}</td>
                                         <td>{{ data.organisasi }}</td>
                                         <td>
-                                            <v-btn link :to="`/setting/warga/detail/` + data.NIK" icon color="success">
+                                            <v-btn link :to="`/setting/warga/detail/` + data.nik" icon color="success">
                                                 <v-icon>mdi-magnify</v-icon>
                                             </v-btn>
-                                            <v-btn @click="hapusPengurus(data.NIK)" icon color="red">
+                                            <v-btn @click="hapusWarga(data.nik)" icon color="red">
                                                 <v-icon>mdi-delete</v-icon>
                                             </v-btn>
                                         </td>
@@ -62,13 +64,13 @@
                           <v-row>
                             <v-col>
                                 <v-btn-toggle rounded dense>
-                                    <v-btn @click="browsePengurus(dataPengurus.prev_page_url)" :disabled="!dataPengurus.prev_page_url" color="primary">
+                                    <v-btn @click="browseWarga(dataWarga.prev_page_url)" :disabled="!dataWarga.prev_page_url" color="primary">
                                         prev
                                     </v-btn>
                                     <v-btn>
-                                        {{ dataPengurus.current_page + '/' + dataPengurus.last_page }}
+                                        {{ dataWarga.current_page + '/' + dataWarga.last_page }}
                                     </v-btn>
-                                    <v-btn @click="browsePengurus(dataPengurus.next_page_url)" :disabled="!dataPengurus.next_page_url" color="primary">
+                                    <v-btn @click="browseWarga(dataWarga.next_page_url)" :disabled="!dataWarga.next_page_url" color="primary">
                                         next
                                     </v-btn>
                                 </v-btn-toggle>
@@ -77,84 +79,102 @@
                       </v-container>
                     </v-card>
                 </v-col>
-                <v-dialog persistent v-model="modalTambahPengurus" max-width="800">
+                <v-dialog persistent v-model="modalTambahWarga" max-width="800">
                     <v-card>
                         <v-toolbar color="primary" dark>
                             <v-container>
-                                <h4>Tambah Pengurus</h4>
+                                <h4>Tambah Warga</h4>
                             </v-container>
-                            <v-btn @click="modalTambahPengurus = false" icon>
+                            <v-btn @click="modalTambahWarga = false" icon>
                                 <v-icon>mdi-close</v-icon>
                             </v-btn>
                         </v-toolbar>
                         <v-container>
-                            <v-row>
-                                <v-col cols="3">NIK</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataPengurusBaru.nik" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Nama Lengkap</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataPengurusBaru.namaLengkap" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Alamat (Jalan / Perum)</v-col>
-                                <v-col cols=3>
-                                    <v-text-field v-model="dataPengurusBaru.alamat" dense></v-text-field>
-                                </v-col>
-                                <v-col cols="1">RT</v-col>
-                                <v-col cols="2">
-                                    <v-text-field v-model="dataPengurusBaru.RT" dense></v-text-field>
-                                </v-col>
-                                <v-col cols="1">RW</v-col>
-                                <v-col cols="2">
-                                    <v-text-field v-model="dataPengurusBaru.RW" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Kecamatan</v-col>
-                                <v-col cols="3">
-                                    <v-select dense :items="listKecamatan" v-model="selectedKecamatan"></v-select>
-                                </v-col>
-                                <v-col cols="3">Kelurahan / Desa</v-col>
-                                <v-col cols="3">
-                                    <v-select dense :items="filteredKelurahan" v-model="selectedKelurahan"></v-select>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Organisasi</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataPengurusBaru.organisasi" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Jabatan</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataPengurusBaru.jabatan" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Nomor Hp</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataPengurusBaru.nomorHp" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Email</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataPengurusBaru.email" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col>
-                                    <v-btn @click="tambahPengurus" class="primary float-right">
-                                        <v-icon>mdi-plus</v-icon> Simpan
-                                    </v-btn>
-                                </v-col>
-                            </v-row>
+                            <v-form ref="formTambahWarga" @submit.prevent="tambahWarga()">
+                                <v-row>
+                                    <v-col cols="3">NIK</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataWargaBaru.nik" dense :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Nama Lengkap</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataWargaBaru.namaLengkap" dense :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Alamat (Jalan / Perum)</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataWargaBaru.alamat" dense :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Kecamatan</v-col>
+                                    <v-col cols="3">
+                                        <v-select dense :items="listKecamatan" v-model="selectedKecamatan" :rules="[rules.required]"></v-select>
+                                    </v-col>
+                                    <v-col cols="3">Kelurahan / Desa</v-col>
+                                    <v-col cols="3">
+                                        <v-select dense :items="filteredKelurahan" item-text="nama_kelurahan" item-value="kode_kelurahan" v-model="selectedKelurahan" :rules="[rules.required]"></v-select>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Organisasi</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataWargaBaru.organisasi" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Nomor Hp</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataWargaBaru.nomorHp" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Jabatan</v-col>
+                                    <!-- <v-col>
+                                        <v-text-field v-model="dataWargaBaru.jabatan" dense></v-text-field>
+                                    </v-col> -->
+                                    <v-col>
+                                        <v-select dense :items="listJabatan" v-model="dataWargaBaru.jabatan" :rules="[rules.required]"></v-select>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Email</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataWargaBaru.email" dense :rules="jabatanRules"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row v-if="dataWargaBaru.jabatan == 'Pengurus'">
+                                    <v-col cols="3">Password</v-col>
+                                    <v-col>
+                                        <v-text-field dense v-model="dataWargaBaru.password" :rules="passwordRules" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'"
+                                         @click:append="show1 = !show1"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row v-if="dataWargaBaru.jabatan == 'Pengurus'">
+                                    <v-col cols="3">Konfirmasi Password</v-col>
+                                    <v-col>
+                                        <v-text-field dense v-model="dataWargaBaru.KonfirmasiPassword" :rules="passwordRules" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :type="show2 ? 'text' : 'password'"
+                                         @click:append="show2 = !show2"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                                <v-col>
+                                                    <v-alert class="px-3" v-if="notMatch" type="error" dense
+                                                        outlined>Password Baru dan Konfirmasi Password Baru tidak
+                                                        sama</v-alert>
+                                                </v-col>
+                                            </v-row>
+                                <v-row>
+                                    <v-col>
+                                        <v-btn @click="tambahWarga()" type="submit" class="primary float-right">
+                                            <v-icon>mdi-plus</v-icon> Simpan
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
                         </v-container>
                     </v-card>
                 </v-dialog>
@@ -168,19 +188,20 @@ import Swal from 'sweetalert2'
 export default {
     data () {
         return {
-            modalTambahPengurus: false,
-            dataPengurusBaru: {
+            modalTambahWarga: false,
+            dataWargaBaru: {
                 nik: '',
                 namaLengkap: '',
                 alamat: '',
-                RW: '',
-                RT: '',
                 organisasi: '',
                 jabatan: '',
                 nomorHp: '',
-                email: ''
+                email: '',
+                username: '',
+                password: '',
+                KonfirmasiPassword: ''
             },
-            dataPengurus: [],
+            dataWarga: [],
             search: '',
             // listKecamatan: [
             //     'Belakang Padang',
@@ -210,75 +231,92 @@ export default {
             //     'Bengkong': ['Bengkong Indah', 'Bengkong Laut','Tanjung Buntung', 'Sadai'],
             //     'Galang': ['Pulau Abang', 'Sijantung', 'Karas', 'Subang Mas', 'Galang Baru', 'Rempang Cate', 'Air Raja', 'Sembulang']
             // },
+            listJabatan: [
+                'Pengurus',
+                'Warga'
+            ],
             selectedKecamatan: null,
             selectedKelurahan: null,
             refKecamatan:[],
             listKecamatan: [],
-            listKelurahan: []
+            listKelurahan: [],
+            rules: {
+                required: value => !!value || 'Required.',
+                min: (v) => v.length >= 6 || "Min 6 characters",
+            },
+            show1: false,
+            show2: false,
+            notMatch: false,
         }
     },
     methods: {
-        openModalTambahPengurus () {
-            this.modalTambahPengurus = true
+        openModalTambahWarga () {
+            this.modalTambahWarga = true
             this.getRefKecamatan()
         },
-        tambahPengurus () {
-            Swal.fire({
-            title: 'Apa Anda Yakin?',
-            text: "Anda Akan Menyimpan Data ini",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const data = {
-                        nik: this.dataPengurusBaru.nik,
-                        namaLengkap: this.dataPengurusBaru.namaLengkap,
-                        alamat: this.dataPengurusBaru.alamat,
-                        RT: this.dataPengurusBaru.RT,
-                        RW: this.dataPengurusBaru.RW,
-                        organisasi: this.dataPengurusBaru.organisasi,
-                        jabatan: this.dataPengurusBaru.jabatan,
-                        nomorHp: this.dataPengurusBaru.nomorHp,
-                        email: this.dataPengurusBaru.email,
-                        kecamatan: this.selectedKecamatan,
-                        kelurahan: this.selectedKelurahan
-                    }
-                    this.$http.post('/pengurus/tambah', data).then((response) => {
-                        if(response) {
-                            this.browsePengurus()
-                            this.modalTambahPengurus = false
-                            this.clearForm()
-                            Swal.fire({
-                            icon: response.data.icon,
-                            title: response.data.title,
-                            text: response.data.text
+        tambahWarga () {
+            if (this.$refs.formTambahWarga.validate()) {
+                if (this.dataWargaBaru.password === this.dataWargaBaru.KonfirmasiPassword) {
+                    Swal.fire({
+                    title: 'Apa Anda Yakin?',
+                    text: "Anda Akan Menyimpan Data ini",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const data = {
+                                nik: this.dataWargaBaru.nik,
+                                namaLengkap: this.dataWargaBaru.namaLengkap,
+                                alamat: this.dataWargaBaru.alamat,
+                                organisasi: this.dataWargaBaru.organisasi,
+                                jabatan: this.dataWargaBaru.jabatan,
+                                nomorHp: this.dataWargaBaru.nomorHp,
+                                email: this.dataWargaBaru.email,
+                                kecamatan: this.selectedKecamatan,
+                                kelurahan: this.selectedKelurahan,
+                                password: this.dataWargaBaru.password
+                            }
+                            this.notMatch = false
+                            this.$http.post('/warga/tambah', data).then((response) => {
+                                if(response) {
+                                    this.browseWarga()
+                                    this.modalTambahWarga = false
+                                    this.clearForm()
+                                    Swal.fire({
+                                    icon: response.data.icon,
+                                    title: response.data.title,
+                                    text: response.data.text
+                                    })
+                                }
                             })
                         }
                     })
+                } else {
+                    this.notMatch = true
                 }
-            })
+            }
         },
-        browsePengurus (page) {
+        browseWarga (page) {
             if (typeof page === 'undefined') {
-                page = '/pengurus/browse?page=1'
+                page = '/warga/browse?page=1'
             }
             var data = {
                 search : this.search
             }
             this.$http.post(page, data).then((response) => {
-                this.dataPengurus = response.data
+                this.dataWarga = response.data
             })
         },
         redirect(NIK) {
-            this.$router.push(`/setting/pengurus/detail/${NIK}`)
+            this.$router.push(`/setting/warga/detail/${NIK}`)
         },
-        hapusPengurus(NIK) {
+        hapusWarga(NIK) {
             Swal.fire({
             title: 'Apa Anda Yakin?',
-            text: "Anda Akan Menghapus Pengurus Ini",
+            text: "Anda Akan Menghapus Warga Ini",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -289,44 +327,60 @@ export default {
                     const data = {
                         NIK : NIK
                     }
-                    this.$http.post('/pengurus/delete', data).then((response) => {
+                    this.$http.post('/warga/delete', data).then((response) => {
                         Swal.fire({
                         icon: response.data.icon,
                         title: response.data.title,
                         text: response.data.text
                         }).then(() => {
-                            this.browsePengurus()
+                            this.browseWarga()
                         })
                     })
                 }
             })
         },
         getRefKecamatan() {
-            this.$http.get('/refKecamatan').then((response) => {
+            this.$http.get('ref/kecamatan/browse').then((response) => {
                 this.refKecamatan = response.data
                 this.listKecamatan = this.refKecamatan.map(kecamatan => kecamatan.nama_kecamatan);
-                this.listKelurahan = this.refKecamatan.flatMap(kecamatan => kecamatan.kelurahan.map(kelurahan => kelurahan.nama_kelurahan));
+                this.listKelurahan = this.refKecamatan.flatMap(kecamatan =>
+                    kecamatan.kelurahan.map(kelurahan => ({ kode_kelurahan: kelurahan.kode_kelurahan, nama_kelurahan: kelurahan.nama_kelurahan }))
+                )
             })
         },
         clearForm() {
-            this.dataPengurusBaru.nik= '',
-            this.dataPengurusBaru.namaLengkap= '',
-            this.dataPengurusBaru.alamat= '',
-            this.dataPengurusBaru.RW= '',
-            this.dataPengurusBaru.RT= '',
-            this.dataPengurusBaru.organisasi= '',
-            this.dataPengurusBaru.jabatan= '',
-            this.dataPengurusBaru.nomorHp= '',
-            this.dataPengurusBaru.email= ''
+            this.dataWargaBaru.nik= '',
+            this.dataWargaBaru.namaLengkap= '',
+            this.dataWargaBaru.alamat= '',
+            this.dataWargaBaru.organisasi= '',
+            this.dataWargaBaru.jabatan= '',
+            this.dataWargaBaru.nomorHp= '',
+            this.dataWargaBaru.email= '',
+            this.dataWargaBaru.password= '',
+            this.dataWargaBaru.KonfirmasiPassword= '',
+            this.selectedKecamatan= '',
+            this.selectedKelurahan= ''
         }
     },
     created() {
-        this.browsePengurus()
+        this.browseWarga()
     },
     computed: {
         filteredKelurahan () {
             const kecamatan = this.refKecamatan.find(kecamatan => kecamatan.nama_kecamatan === this.selectedKecamatan);
-            return kecamatan ? kecamatan.kelurahan.map(kelurahan => kelurahan.nama_kelurahan) : [];
+            return kecamatan ? kecamatan.kelurahan.map(kelurahan => ({ kode_kelurahan: kelurahan.kode_kelurahan, nama_kelurahan: kelurahan.nama_kelurahan })) : [];
+        },
+        jabatanRules () {
+            return this.dataWargaBaru.jabatan === 'Pengurus' ? [this.rules.required] : [];
+        },
+        passwordRules () {
+            let rules = [];
+            // Aturan validasi email akan aktif hanya jika jabatan yang dipilih adalah 'Pengurus'
+            if (this.dataWargaBaru.jabatan === 'Pengurus') {
+                rules.push(this.rules.required);
+                rules.push(value => (value && value.length >= 6) || 'Min 6 characters');
+            }
+            return rules;
         }
     }
 }
