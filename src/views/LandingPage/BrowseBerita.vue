@@ -86,7 +86,7 @@
                                                 <v-card min-height="514px" max-height="514px" color="rgb(241, 241, 248)" elevation="2" class="overflow-auto overflow-x-hidden py-2" >
                                                         <v-row v-for="(data, index) in dataKategori" :key="index">
                                                             <v-col class="d-flex justify-center mx-2">
-                                                                <v-btn rounded block color="primary" outlined>{{ data.nama }}</v-btn>
+                                                                <v-btn @click="getDataBeritaByKategori(data.id)" rounded block :disabled="isActive(data.id)" :color="isActive(data.id) ? 'secondary' : 'primary'" outlined>{{ data.nama }}</v-btn>
                                                             </v-col>
                                                         </v-row>
                                                 </v-card>
@@ -172,7 +172,8 @@ export default {
             dataBerita: [],
             UrlGambarBerita: window.UrlGambarBerita,
             dataBeritaPopuler: [],
-            dataKategori: []
+            dataKategori: [],
+            activeButtonId: null
         }
     },
     created () {
@@ -201,6 +202,16 @@ export default {
         },
         goTo(id) {
             this.$router.push('/berita/detail/' + id)
+        },
+        getDataBeritaByKategori (id) {
+            if (!this.isActive(id)) {
+                this.activeButtonId = id
+                const page = `berita/guest/browse?page=1&id_kategori=${id}`
+                this.getDataBerita(page)
+            }
+        },
+        isActive(id) {
+            return this.activeButtonId === id
         }
     }
 }
