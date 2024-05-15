@@ -222,7 +222,7 @@ export default {
             aksesAdded: '',
             listRole: [
                 'admin',
-                'user'
+                'pengurus'
             ],
             UrlGambar: window.UrlGambarBerita,
             editGambar: null

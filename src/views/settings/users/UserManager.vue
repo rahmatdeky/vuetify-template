@@ -134,14 +134,6 @@
                                     </v-col>
                                 </v-row>
                                 <v-row>
-                                    <v-col cols="4">
-                                        <input type="file" class="form-control" @change="uploadGambar">
-                                    </v-col>
-                                    <v-col cols="8">
-                                        <v-img v-if="previewImage" height="200" width="200" class="rounded-circle mx-auto" :src="previewImage"></v-img>
-                                    </v-col>
-                                </v-row>
-                                <v-row>
                                     <v-col>
                                         <v-alert
                                         class="px-3"
@@ -152,6 +144,14 @@
                                         outlined
                                         >Password dan Konfirmasi Password tidak sama</v-alert
                                         >
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="4">
+                                        <input type="file" class="form-control" @change="uploadGambar">
+                                    </v-col>
+                                    <v-col cols="8">
+                                        <v-img v-if="previewImage" height="200" width="200" class="rounded-circle mx-auto" :src="previewImage"></v-img>
                                     </v-col>
                                 </v-row>
                                 <v-row>
@@ -276,6 +276,8 @@ import Swal from 'sweetalert2'
                             })
                         }
                     })
+                } else {
+                    this.notMatch = true
                 }
             }
         },
