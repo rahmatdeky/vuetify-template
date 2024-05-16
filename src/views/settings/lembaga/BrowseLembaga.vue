@@ -105,26 +105,18 @@
                             </v-row>
                             <v-row>
                                 <v-col cols="3">Alamat (Jalan / Perum)</v-col>
-                                <v-col cols="3">
+                                <v-col>
                                     <v-text-field v-model="dataTambahLembaga.alamat" dense></v-text-field>
-                                </v-col>
-                                <v-col cols="1">RT</v-col>
-                                <v-col cols="2">
-                                    <v-text-field v-model="dataTambahLembaga.RT" dense></v-text-field>
-                                </v-col>
-                                <v-col cols="1">RW</v-col>
-                                <v-col cols="2">
-                                    <v-text-field v-model="dataTambahLembaga.RW" dense></v-text-field>
                                 </v-col>
                             </v-row>
                             <v-row>
                                 <v-col cols="3">Kecamatan</v-col>
                                 <v-col cols="3">
-                                    <v-select dense :items="listKecamatan" v-model="selectedKecamatan"></v-select>
+                                    <v-select dense :items="listKecamatan" v-model="selectedKecamatan" item-text="nama_kecamatan" item-value="kode_kecamatan"></v-select>
                                 </v-col>
                                 <v-col cols="3">Kelurahan / Desa</v-col>
                                 <v-col cols="3">
-                                    <v-select dense :items="filteredKelurahan" v-model="selectedKelurahan"></v-select>
+                                    <v-select dense :items="filteredKelurahan" v-model="selectedKelurahan" item-text="nama_kelurahan" item-value="kode_kelurahan"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row>
@@ -284,10 +276,12 @@ export default {
             this.getRefKecamatan()
         },
         getRefKecamatan() {
-            this.$http.get('/refKecamatan').then((response) => {
+            this.$http.get('ref/kecamatan/browse').then((response) => {
                 this.refKecamatan = response.data
-                this.listKecamatan = this.refKecamatan.map(kecamatan => kecamatan.nama_kecamatan);
-                this.listKelurahan = this.refKecamatan.flatMap(kecamatan => kecamatan.kelurahan.map(kelurahan => kelurahan.nama_kelurahan));
+                this.listKecamatan = this.refKecamatan.map(kecamatan => ({kode_kecamatan: kecamatan.kode_kecamatan, nama_kecamatan: kecamatan.nama_kecamatan}));
+                this.listKelurahan = this.refKecamatan.flatMap(kecamatan =>
+                    kecamatan.kelurahan.map(kelurahan => ({ kode_kelurahan: kelurahan.kode_kelurahan, nama_kelurahan: kelurahan.nama_kelurahan }))
+                )
             })
         },
         clearForm () {
@@ -309,9 +303,12 @@ export default {
     },
     computed: {
         filteredKelurahan () {
-            const kecamatan = this.refKecamatan.find(kecamatan => kecamatan.nama_kecamatan === this.selectedKecamatan);
-            return kecamatan ? kecamatan.kelurahan.map(kelurahan => kelurahan.nama_kelurahan) : [];
-        }
+        const kecamatan = this.refKecamatan.find(kecamatan => kecamatan.kode_kecamatan === this.selectedKecamatan);
+        return kecamatan ? kecamatan.kelurahan.map(kelurahan => ({
+            kode_kelurahan: kelurahan.kode_kelurahan,
+            nama_kelurahan: kelurahan.nama_kelurahan
+        })) : [];
+    }
     }
 }
 </script>
