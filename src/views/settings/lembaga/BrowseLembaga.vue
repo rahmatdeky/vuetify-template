@@ -85,77 +85,79 @@
                             </v-btn>
                         </v-toolbar>
                         <v-container>
-                            <v-row>
-                                <v-col cols="3">Nama Lembaga</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataTambahLembaga.namaLembaga" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Jenjang</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataTambahLembaga.jenjang" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Jenis Lembaga Pendidikan</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataTambahLembaga.jenisLembaga" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Alamat (Jalan / Perum)</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataTambahLembaga.alamat" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Kecamatan</v-col>
-                                <v-col cols="3">
-                                    <v-select dense :items="listKecamatan" v-model="selectedKecamatan" item-text="nama_kecamatan" item-value="kode_kecamatan"></v-select>
-                                </v-col>
-                                <v-col cols="3">Kelurahan / Desa</v-col>
-                                <v-col cols="3">
-                                    <v-select dense :items="filteredKelurahan" v-model="selectedKelurahan" item-text="nama_kelurahan" item-value="kode_kelurahan"></v-select>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Nama Pimpinan</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataTambahLembaga.namaPimpinan" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Jenis Kerja Sama</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataTambahLembaga.kerjaSama" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Nomor Kontak</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataTambahLembaga.nomorKontak" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Email</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataTambahLembaga.email" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="3">Website</v-col>
-                                <v-col>
-                                    <v-text-field v-model="dataTambahLembaga.website" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col>
-                                    <v-btn @click="tambahLembaga" class="primary float-right">
-                                        <v-icon>mdi-plus</v-icon> Simpan
-                                    </v-btn>
-                                </v-col>
-                            </v-row>
+                            <v-form ref="formTambahLembaga" @submit.prevent="tambahLembaga()">
+                                <v-row>
+                                    <v-col cols="3">Nama Lembaga</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataTambahLembaga.namaLembaga" dense :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Jenjang</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataTambahLembaga.jenjang" dense :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Jenis Lembaga Pendidikan</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataTambahLembaga.jenisLembaga" dense :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Alamat (Jalan / Perum)</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataTambahLembaga.alamat" dense :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Kecamatan</v-col>
+                                    <v-col cols="3">
+                                        <v-select dense :items="listKecamatan" v-model="selectedKecamatan" item-text="nama_kecamatan" item-value="kode_kecamatan" :rules="[rules.required]"></v-select>
+                                    </v-col>
+                                    <v-col cols="3">Kelurahan / Desa</v-col>
+                                    <v-col cols="3">
+                                        <v-select dense :items="filteredKelurahan" v-model="selectedKelurahan" item-text="nama_kelurahan" item-value="kode_kelurahan" :rules="[rules.required]"></v-select>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Nama Pimpinan</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataTambahLembaga.namaPimpinan" dense :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Jenis Kerja Sama</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataTambahLembaga.kerjaSama" dense :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Nomor Kontak</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataTambahLembaga.nomorKontak" dense :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Email</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataTambahLembaga.email" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="3">Website</v-col>
+                                    <v-col>
+                                        <v-text-field v-model="dataTambahLembaga.website" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col>
+                                        <v-btn type="submit" @click="tambahLembaga()" class="primary float-right">
+                                            <v-icon>mdi-plus</v-icon> Simpan
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
                         </v-container>
                     </v-card>
                 </v-dialog>
@@ -188,51 +190,55 @@ export default {
             selectedKelurahan: null,
             refKecamatan:[],
             listKecamatan: [],
-            listKelurahan: []
+            listKelurahan: [],
+            rules: {
+                required: value => !!value || 'Required.',
+                min: (v) => v.length >= 6 || "Min 6 characters",
+            }
         }
     },
     methods: {
         tambahLembaga () {
-            Swal.fire({
-            title: 'Apa Anda Yakin?',
-            text: "Anda Akan Menyimpan Data ini",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const data = {
-                        namaLembaga: this.dataTambahLembaga.namaLembaga,
-                        jenjang: this.dataTambahLembaga.jenjang,
-                        jenisLembaga: this.dataTambahLembaga.jenisLembaga,
-                        alamat: this.dataTambahLembaga.alamat,
-                        namaPimpinan: this.dataTambahLembaga.namaPimpinan,
-                        kerjaSama: this.dataTambahLembaga.kerjaSama,
-                        nomorKontak: this.dataTambahLembaga.nomorKontak,
-                        email: this.dataTambahLembaga.email,
-                        website: this.dataTambahLembaga.website,
-                        RW: this.dataTambahLembaga.RW,
-                        RT: this.dataTambahLembaga.RT,
-                        kecamatan: this.selectedKecamatan,
-                        kelurahan: this.selectedKelurahan
-                    }
-                    this.$http.post('/lembaga/tambah', data).then((response) => {
-                        if (response) {
-                            this.modalTambahLembaga = false
-                            Swal.fire({
-                            icon: response.data.icon,
-                            title: response.data.title,
-                            text: response.data.text
-                            }).then(() => {
-                                this.browseLembaga()
-                                this.clearForm()
-                            })
+            if (this.$refs.formTambahLembaga.validate()) {
+                Swal.fire({
+                title: 'Apa Anda Yakin?',
+                text: "Anda Akan Menyimpan Data ini",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const data = {
+                            namaLembaga: this.dataTambahLembaga.namaLembaga,
+                            jenjang: this.dataTambahLembaga.jenjang,
+                            jenisLembaga: this.dataTambahLembaga.jenisLembaga,
+                            alamat: this.dataTambahLembaga.alamat,
+                            namaPimpinan: this.dataTambahLembaga.namaPimpinan,
+                            kerjaSama: this.dataTambahLembaga.kerjaSama,
+                            nomorKontak: this.dataTambahLembaga.nomorKontak,
+                            email: this.dataTambahLembaga.email,
+                            website: this.dataTambahLembaga.website,
+                            kecamatan: this.selectedKecamatan,
+                            kelurahan: this.selectedKelurahan
                         }
-                    })
-                }
-            })
+                        this.$http.post('/lembaga/tambah', data).then((response) => {
+                            if (response) {
+                                this.modalTambahLembaga = false
+                                Swal.fire({
+                                icon: response.data.icon,
+                                title: response.data.title,
+                                text: response.data.text
+                                }).then(() => {
+                                    this.browseLembaga()
+                                    this.clearForm()
+                                })
+                            }
+                        })
+                    }
+                })
+            }
         },
         browseLembaga (page) {
             if (typeof page === 'undefined') {
