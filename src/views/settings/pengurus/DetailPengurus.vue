@@ -53,7 +53,8 @@
                         <v-col class="py-0">Organisasi</v-col>
                         <v-col cols="10" class="py-0">
                             <!-- <input :disabled="isDisabled" v-model="dataEdit.organisasi" type="text" class="form-control"> -->
-                            <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.organisasi"></v-text-field>
+                            <!-- <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.organisasi"></v-text-field> -->
+                            <v-select dense :disabled="isDisabled" outlined :items="dataOrganisasi" v-model="dataEdit.organisasi" :rules="[rules.required]" item-text="nama" item-value="kode_organisasi"></v-select>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -113,6 +114,7 @@ export default {
                 required: value => !!value || 'Required.',
                 min: (v) => v.length >= 6 || "Min 6 characters",
             },
+            dataOrganisasi: []
         }
     },
     methods: {
@@ -186,11 +188,17 @@ export default {
                     kecamatan.kelurahan.map(kelurahan => ({ kode_kelurahan: kelurahan.kode_kelurahan, nama_kelurahan: kelurahan.nama_kelurahan }))
                 )
             })
+        },
+        getOrganisasi() {
+            this.$http.get('ref/organisasi/browse').then((response) => {
+                this.dataOrganisasi = response.data
+            })
         }
     },
     created() {
         this.getDetailPengurus()
         this.getRefKecamatan()
+        this.getOrganisasi()
     },
     computed: {
     filteredKelurahan () {
