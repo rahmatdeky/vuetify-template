@@ -1,18 +1,18 @@
 <template>
-    <div>
-        <div id="notfound">
-            <div class="notfound">
-                <div class="notfound-bg">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <h1>oops!</h1>
-                <h2>Error 404 : Page Not Found</h2>
-                <a href="/#">go back</a>
-            </div>
+  <div>
+    <div id="notfound">
+      <div class="notfound">
+        <div class="notfound-bg">
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
+        <h1>oops!</h1>
+        <h2>Error 404 : Page Not Found</h2>
+        <a href="/#/home">go back</a>
+      </div>
     </div>
+  </div>
 </template>
 <style>
 #notfound {
@@ -26,8 +26,8 @@
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .notfound {
@@ -42,8 +42,8 @@
   right: 0px;
   top: 50%;
   -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
   z-index: -1;
 }
 
@@ -56,28 +56,28 @@
 
 .notfound .notfound-bg > div:nth-child(1) {
   -webkit-box-shadow: 5px 5px 0px 0px #f3f3f3;
-          box-shadow: 5px 5px 0px 0px #f3f3f3;
+  box-shadow: 5px 5px 0px 0px #f3f3f3;
 }
 
 .notfound .notfound-bg > div:nth-child(2) {
   -webkit-transform: scale(1.3);
-      -ms-transform: scale(1.3);
-          transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  transform: scale(1.3);
   -webkit-box-shadow: 5px 5px 0px 0px #f3f3f3;
-          box-shadow: 5px 5px 0px 0px #f3f3f3;
+  box-shadow: 5px 5px 0px 0px #f3f3f3;
   position: relative;
   z-index: 10;
 }
 
 .notfound .notfound-bg > div:nth-child(3) {
   -webkit-box-shadow: 5px 5px 0px 0px #f3f3f3;
-          box-shadow: 5px 5px 0px 0px #f3f3f3;
+  box-shadow: 5px 5px 0px 0px #f3f3f3;
   position: relative;
   z-index: 90;
 }
 
 .notfound h1 {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 86px;
   text-transform: uppercase;
   font-weight: 700;
@@ -87,7 +87,7 @@
 }
 
 .notfound h2 {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 26px;
   margin: 0;
   font-weight: 700;
@@ -95,7 +95,7 @@
 }
 
 .notfound a {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 14px;
   text-decoration: none;
   text-transform: uppercase;
@@ -112,7 +112,7 @@
   margin-top: 20px;
 }
 
-.notfound-social>a {
+.notfound-social > a {
   display: inline-block;
   height: 40px;
   line-height: 40px;
@@ -125,18 +125,18 @@
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
-.notfound-social>a:hover {
+.notfound-social > a:hover {
   background-color: #18e06f;
 }
 
 @media only screen and (max-width: 767px) {
-    .notfound .notfound-bg {
-      width: 287px;
-      margin: auto;
-    }
+  .notfound .notfound-bg {
+    width: 287px;
+    margin: auto;
+  }
 
-    .notfound .notfound-bg > div {
-      height: 85px;
+  .notfound .notfound-bg > div {
+    height: 85px;
   }
 }
 
