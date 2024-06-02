@@ -249,7 +249,9 @@ import Swal from 'sweetalert2'
                     formData.append('email', this.dataAddUsers.email)
                     formData.append('password', this.dataAddUsers.password)
                     formData.append('role', this.dataAddUsers.role)
-                    formData.append('file', this.dataAddUsers.file)
+                    if (this.dataAddUsers.file) {
+                        formData.append('file', this.dataAddUsers.file);
+                    }
                     Swal.fire({
                         title: 'Apa Anda Yakin?',
                         text: "Anda Akan Menyimpan ini",
