@@ -50,6 +50,9 @@ import SetCarousel from '@/views/settings/landingPage/SetCarousel'
 // Setting Referensi
 import SetReferensi from '@/views/settings/referensi/SettingReferensi'
 
+// Koin NU
+import koinDashboard from '@/views/settings/koin/koinDashboard'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -246,6 +249,16 @@ const routes = [
         path: '/setting/referensi',
         name: 'Setting Referensi',
         component: SetReferensi,
+        meta: {
+          requiresAuth: true,
+          // access : 'settingLandingPage'
+          access : 'admin'
+        }
+      },
+      {
+        path: '/setting/koin',
+        name: 'Koin NU',
+        component: koinDashboard,
         meta: {
           requiresAuth: true,
           // access : 'settingLandingPage'
