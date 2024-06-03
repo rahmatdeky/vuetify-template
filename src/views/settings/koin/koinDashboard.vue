@@ -4,7 +4,6 @@
             <v-row>
                 <v-col>
                     <v-card>
-                        <!-- <v-card-title> KOIN NU </v-card-title> -->
                         <v-toolbar color="primary" dark>
                             <h5>Koin NU</h5> <v-spacer></v-spacer> <v-btn color="" dark><v-icon>mdi-plus</v-icon> Tambah
                                 Transaksi</v-btn>
@@ -16,9 +15,44 @@
                                         <v-container>
                                             <v-row>
                                                 <v-col align-self="center">
-                                                    <h5>Jumlah Saldo</h5>
+                                                    <h5 class="mb-0">Jumlah Saldo</h5>
+                                                    <small class="mt-0">{{ selectedPeriod }}</small>
                                                 </v-col>
-                                                <v-col>
+                                                <v-col cols="1">
+                                                    <v-menu v-model="menu" :close-on-content-click="false"
+                                                        transition="scale-transition" offset-y min-width="290px">
+                                                        <template v-slot:activator="{ on, attrs }">
+                                                            <v-btn class="float-end" v-bind="attrs" v-on="on" icon>
+                                                                <v-icon>mdi-dots-vertical</v-icon>
+                                                            </v-btn>
+                                                        </template>
+                                                        <v-card>
+                                                            <v-date-picker v-model="dateRange" range
+                                                                @change="updateSelectedPeriod"></v-date-picker>
+                                                            <v-card-actions>
+                                                                <v-btn text color="primary"
+                                                                    @click="menu = false">OK</v-btn>
+                                                            </v-card-actions>
+                                                        </v-card>
+                                                    </v-menu>
+                                                </v-col>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col colspan="2">
+                                                    <h1>Rp. {{ saldo }}</h1>
+                                                </v-col>
+                                            </v-row>
+                                        </v-container>
+                                    </v-card>
+                                </v-col>
+                                <v-col>
+                                    <v-card>
+                                        <v-container>
+                                            <v-row>
+                                                <v-col align-self="center">
+                                                    <h5>Pemasukan (waktu) </h5>
+                                                </v-col>
+                                                <v-col cols="1">
                                                     <v-menu bottom left class="float-end">
                                                         <template v-slot:activator="{ on, attrs }">
                                                             <v-btn class="float-end" v-bind="attrs" v-on="on" icon>
@@ -41,34 +75,9 @@
                                         <v-container>
                                             <v-row>
                                                 <v-col align-self="center">
-                                                    <h5>Pemasukan</h5>
+                                                    <h5>Pengeluaran (waktu) </h5>
                                                 </v-col>
-                                                <v-col>
-                                                    <v-menu bottom left class="float-end">
-                                                        <template v-slot:activator="{ on, attrs }">
-                                                            <v-btn class="float-end" v-bind="attrs" v-on="on" icon>
-                                                                <v-icon>mdi-dots-vertical</v-icon>
-                                                            </v-btn>
-                                                        </template>
-                                                    </v-menu>
-                                                </v-col>
-                                            </v-row>
-                                            <v-row>
-                                                <v-col colspan="2">
-                                                    <h1>Rp. 0</h1>
-                                                </v-col>
-                                            </v-row>
-                                        </v-container>
-                                    </v-card>
-                                </v-col>
-                                <v-col>
-                                    <v-card>
-                                        <v-container>
-                                            <v-row>
-                                                <v-col align-self="center">
-                                                    <h5>Pengeluaran</h5>
-                                                </v-col>
-                                                <v-col>
+                                                <v-col cols="1">
                                                     <v-menu bottom left class="float-end">
                                                         <template v-slot:activator="{ on, attrs }">
                                                             <v-btn class="float-end" v-bind="attrs" v-on="on" icon>
@@ -120,6 +129,7 @@
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>Jenis</th>
+                                                                <th>Tanggal</th>
                                                                 <th>Nominal</th>
                                                                 <th>Keterangan</th>
                                                             </tr>
@@ -138,3 +148,24 @@
         </v-container>
     </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      menu: false,
+      dateRange: [new Date().getFullYear() + '-01-01', new Date().toISOString().substr(0, 10)],
+      saldo: 0,
+      selectedPeriod: 'Tahun Ini',
+    };
+  },
+  methods: {
+    updateSelectedPeriod() {
+      const [startDate, endDate] = this.dateRange;
+      this.selectedPeriod = `${startDate} - ${endDate}`;
+    }
+  },
+  mounted() {
+    this.updateSelectedPeriod(); // Update periode saat komponen dimuat
+  }
+};
+</script>
