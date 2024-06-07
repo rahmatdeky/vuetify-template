@@ -139,7 +139,7 @@
                                 <v-row>
                                     <v-col cols="3">Nomor Hp</v-col>
                                     <v-col>
-                                        <v-text-field v-model="dataWargaBaru.nomorHp" dense></v-text-field>
+                                        <v-text-field prefix="+62" v-model="dataWargaBaru.nomorHp" dense></v-text-field>
                                     </v-col>
                                 </v-row>
                                 <v-row>
