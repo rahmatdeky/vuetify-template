@@ -1,14 +1,14 @@
 <template>
   <div>
-    <v-carousel cycle height="800" hide-delimiters>
-      <v-carousel-item v-for="item in dataBerita.data" :key="item.id" :src="UrlGambarBerita + item.gambar"
-        @click="goTo(item.id)" class="carousel-item" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
-        <div class="carousel-text">
-          <small style="font-weight: bold; color: yellow;">{{ item.tanggal }}</small>
-          <h2 style="font-weight: bold; color: white;">{{ item.judul }}</h2>
-        </div>
-      </v-carousel-item>
-    </v-carousel>
+    <v-carousel cycle hide-delimiters :height="carouselHeight" class="carousel">
+    <v-carousel-item v-for="item in dataBerita.data" :key="item.id" :src="UrlGambarBerita + item.gambar"
+      @click="goTo(item.id)" class="carousel-item" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
+      <div class="carousel-text">
+        <small style="font-weight: bold; color: yellow;">{{ item.tanggal }}</small>
+        <h2 style="font-weight: bold; color: white;">{{ item.judul }}</h2>
+      </div>
+    </v-carousel-item>
+  </v-carousel>
     <v-row>
       <v-col>
         <h2 class="display-6 mb-5 text-center mt-5 delimiter">Berita Terkini </h2>
@@ -16,11 +16,11 @@
     </v-row>
     <v-container>
       <v-row>
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4">
           <v-row>
             <v-col cols="12" v-for="data in dataBerita.data.slice(0, 1)" :key="data.id">
               <v-card elevation="2" @click="goTo(data.id)">
-                <v-img :src="UrlGambarBerita + data.gambar" height="505px" class="white--text align-end"
+                <v-img :src="UrlGambarBerita + data.gambar" class="white--text align-end card-img"
                   gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
                   <v-row>
                     <v-col>
@@ -35,11 +35,11 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4">
           <v-row>
             <v-col cols="12" v-for="data in dataBerita.data.slice(1, 2)" :key="data.id">
               <v-card elevation="2" @click="goTo(data.id)">
-                <v-img :src="UrlGambarBerita + data.gambar" height="505px" class="white--text align-end"
+                <v-img :src="UrlGambarBerita + data.gambar" class="white--text align-end card-img"
                   gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
                   <v-row>
                     <v-col>
@@ -54,7 +54,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4">
           <v-row v-for="data in dataBerita.data.slice(2, 4)" :key="data.id">
             <v-col cols="12" >
               <v-card elevation="2" @click="goTo(data.id)">
@@ -86,51 +86,51 @@
       </v-col>
     </v-row>
     <v-container>
-      <v-row>
-        <v-col>
-          <v-card>
-            <v-row>
-              <v-col>
-                <v-container>
-                  <h4>Alamat Redaksi</h4>
-                  <h5>Komplek NU Center, Jalan Abuyaltama 01 Belian</h5>
-                  <h5>Kec. Batam Kota, Kota Batam, Kepulauan Riau</h5>
-                  <h5>Telepon</h5>
-                  <h5>081372400043</h5>
-                  <br>
-                  <h4>Email</h4>
-                  <h5>Redaksi@nu.or.id</h5>
-                  <br>
-                  <h4 class="text-center">Media Sosial</h4>
-                  <div class="text-center">
-                    <v-btn class="" dark text icon color="#1D9BF0">
-                      <v-icon large>mdi-twitter</v-icon>
-                    </v-btn>
-                    <v-btn class="" text dark icon color="#1867c0">
-                      <v-icon large>mdi-facebook</v-icon>
-                    </v-btn>
-                    <v-btn class="" text dark icon color="#0AC507">
-                      <v-icon large>mdi-whatsapp</v-icon>
-                    </v-btn>
-                    <v-btn class="" text dark icon color="#bc2a8d">
-                      <v-icon large>mdi-instagram</v-icon>
-                    </v-btn>
-                  </div>
-                </v-container>
-              </v-col>
-              <v-col>
-                <v-container>
-                  <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.068105451998!2d104.0799982758933!3d1.1111193622947746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d989744afde9d5%3A0x233d79c042d15a9f!2sMasjid%20An-Nahdlah%20NU%20Center%20Kepri!5e0!3m2!1sid!2sid!4v1709365426433!5m2!1sid!2sid"
-                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </v-container>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+    <v-row>
+      <v-col>
+        <v-card class="responsive-card">
+          <v-row>
+            <v-col cols="12" md="6" class="map-container order-md-2 order-1">
+              <v-container>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.068105451998!2d104.0799982758933!3d1.1111193622947746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d989744afde9d5%3A0x233d79c042d15a9f!2sMasjid%20An-Nahdlah%20NU%20Center%20Kepri!5e0!3m2!1sid!2sid!4v1709365426433!5m2!1sid!2sid"
+                  width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </v-container>
+            </v-col>
+            <v-col cols="12" md="6" class="address-container order-md-1 order-2">
+              <v-container>
+                <h4>Alamat Redaksi</h4>
+                <h5>Komplek NU Center, Jalan Abuyaltama 01 Belian</h5>
+                <h5>Kec. Batam Kota, Kota Batam, Kepulauan Riau</h5>
+                <h5>Telepon</h5>
+                <h5>081372400043</h5>
+                <br>
+                <h4>Email</h4>
+                <h5>Redaksi@nu.or.id</h5>
+                <br>
+                <h4 class="text-center">Media Sosial</h4>
+                <div class="text-center">
+                  <v-btn class="" dark text icon color="#1D9BF0">
+                    <v-icon large>mdi-twitter</v-icon>
+                  </v-btn>
+                  <v-btn class="" text dark icon color="#1867c0">
+                    <v-icon large>mdi-facebook</v-icon>
+                  </v-btn>
+                  <v-btn class="" text dark icon color="#0AC507">
+                    <v-icon large>mdi-whatsapp</v-icon>
+                  </v-btn>
+                  <v-btn class="" text dark icon color="#bc2a8d">
+                    <v-icon large>mdi-instagram</v-icon>
+                  </v-btn>
+                </div>
+              </v-container>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 
 
 
@@ -142,11 +142,11 @@
 
           <v-container>
             <v-row justify="center">
-              <v-col cols="6">
+              <v-col cols="12" md="6" sm="4">
                 <!-- Tombol Daftar -->
                 <v-btn outlined block x-large color="success">DAFTAR &nbsp; <v-icon>mdi-account-plus</v-icon> </v-btn>
               </v-col>
-              <v-col cols="6">
+              <v-col cols="12" md="6" sm="4">
                 <!-- Tombol Login -->
                 <v-btn link to="/login" block outlined x-large color="secondary">LOGIN &nbsp; <v-icon>mdi-login</v-icon> </v-btn>
               </v-col>
@@ -601,6 +601,15 @@ export default {
     // this.getPengurus()
     // this.getKecamatan()
     this.getDataBerita()
+    window.addEventListener('resize', this.handleResize);
+  },
+  computed: {
+    carouselHeight() {
+      return window.innerWidth <= 768 ? '500px' : '800px';
+    },
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize);
   },
   methods: {
     goTo(id) {
@@ -682,5 +691,29 @@ export default {
   margin-right: 10px;
   vertical-align: middle;
   width: 25%;
+}
+.carousel {
+  height: 800px;
+}
+.card-img {
+  height: 505px
+}
+@media screen and (max-width: 768px) {
+  .delimiter:before,
+  .delimiter:after {
+    width: 10%;
+  }
+  .carousel {
+    height: 250px;
+  }
+  .card-img {
+  height: 240px
+  }
+  responsive-card .order-md-1 {
+    order: 1;
+  }
+  .responsive-card .order-md-2 {
+    order: 2;
+  }
 }
 </style>
