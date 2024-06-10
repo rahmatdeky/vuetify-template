@@ -373,7 +373,6 @@ export default {
     mounted() {
         this.updateSelectedPeriod();
         this.getRefWarga();
-        this.getKoin()
         this.getTotal()
     },
     watch: {
