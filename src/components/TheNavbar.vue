@@ -39,7 +39,7 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item link to="/profile" style="cursor: pointer;">
+          <v-list-item link :to="`/profile/` + user.id" style="cursor: pointer;">
             <v-list-item-title>{{ this.user.name }}</v-list-item-title>
           </v-list-item>
           <v-list-item style="cursor: pointer" link to="/changepassword">

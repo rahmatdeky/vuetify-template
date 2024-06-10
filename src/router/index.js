@@ -17,6 +17,7 @@ import Home from '@/views/Home'
 // import Browse from '@/views/Browse'
 import About from '@/views/About'
 import ChangePassword from '@/views/ChangePassword'
+import profile from '@/views/profile'
 import page404 from '@/views/404'
 import page401 from '@/views/401'
 
@@ -52,6 +53,8 @@ import SetReferensi from '@/views/settings/referensi/SettingReferensi'
 
 // Koin NU
 import koinDashboard from '@/views/settings/koin/koinDashboard'
+
+
 
 Vue.use(VueRouter)
 
@@ -124,6 +127,14 @@ const routes = [
         path: '/changepassword',
         name: 'Change Password',
         component: ChangePassword,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/profile/:id',
+        name: 'Profile',
+        component: profile,
         meta: {
           requiresAuth: true
         }
