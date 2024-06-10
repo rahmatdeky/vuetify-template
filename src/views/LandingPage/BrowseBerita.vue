@@ -10,8 +10,8 @@
                                     <h4 class="text-center">Berita Terpopuler</h4>
                                 </v-col>
                             </v-row>
-                            <v-row class="px-15 py-5">
-                                <v-col cols="3" v-for="data in dataBeritaPopuler.slice(0,4)" :key="data.id">
+                            <v-row class="berita-populer">
+                                <v-col cols="12" sm="6" md="3" v-for="data in dataBeritaPopuler.slice(0,4)" :key="data.id">
                                     <v-card height="245px" @click="goTo(data.id)">
                                         <v-img :title="data.judul" height="100%" :src="UrlGambarBerita + data.gambar" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
                                             <v-row>
@@ -35,18 +35,18 @@
                     <v-card>
                         <v-container>
                             <v-row class="px-15">
-                                <v-col cols="9">
+                                <v-col cols="12" md="9" sm="6">
                                     <h3 class="text-center">Berita Terbaru</h3>
                                 </v-col>
-                                <v-col cols="3">
+                                <v-col md="3" class="kategori">
                                     <h3 class="text-center">Kategori</h3>
                                 </v-col>
                             </v-row>
-                            <v-row class="px-11">
-                                <v-col cols="9">
-                                    <v-container>
-                                        <v-row>
-                                            <v-col cols="6" v-for="(data, index) in dataBerita.data.slice(0, 2)" :key="index">
+                            <v-row class="berita-terbaru">
+                                <v-col cols="12" md="9" sm="6" class="px-0 mx-0">
+                                    <v-container class="px-0 mx-0">
+                                        <v-row class="px-0 mx-0">
+                                            <v-col cols="12" md="6" sm="6" v-for="(data, index) in dataBerita.data.slice(0, 2)" :key="index">
                                                 <v-card height="245px" @click="goTo(data.id)">
                                                     <v-img height="100%" :src="UrlGambarBerita + data.gambar" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
                                                         <v-row>
@@ -61,12 +61,12 @@
                                                 </v-card>
                                             </v-col>
                                         </v-row>
-                                        <v-row>
-                                            <v-col cols="6" v-for="(data, index) in dataBerita.data.slice(2, 4)" :key="index">
+                                        <v-row class="px-0 mx-0">
+                                            <v-col cols="12" md="6" sm="6" v-for="(data, index) in dataBerita.data.slice(2, 4)" :key="index">
                                                 <v-card height="245px" @click="goTo(data.id)">
                                                     <v-img height="100%" :src="UrlGambarBerita + data.gambar" class="white--text align-end" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
                                                         <v-row>
-                                                            <v-col>
+                                                            <v-col class="">
                                                                 <v-container class="align-end">
                                                                     <v-btn style="cursor: default; pointer-events: none;" x-small color="success" rounded>{{ data.kategori.nama }}</v-btn>
                                                                     <v-card-title class="m-0 p-0" style="word-wrap: normal; font-size: medium;">{{ data.judul }}</v-card-title>
@@ -79,10 +79,13 @@
                                         </v-row>
                                     </v-container>
                                 </v-col>
-                                <v-col cols="3">
+                                <v-col md="3" class="kategori2">
+                                    <h3 class="text-center">Kategori</h3>
+                                </v-col>
+                                <v-col cols="12" md="3" sm="6">
                                     <v-container>
                                         <v-row>
-                                            <v-col>
+                                            <v-col class="px-0 mx-0">
                                                 <v-card min-height="514px" max-height="514px" color="rgb(241, 241, 248)" elevation="2" class="overflow-auto overflow-x-hidden py-2" >
                                                         <v-row v-for="(data, index) in dataKategori" :key="index">
                                                             <v-col class="d-flex justify-center mx-2">
@@ -165,6 +168,36 @@
         </v-container>
     </div> -->
 </template>
+<style>
+.berita-populer {
+    padding-left: 3.75rem;
+    padding-right: 3.75rem;
+}
+.berita-terbaru {
+    padding-left: 3.75rem;
+    padding-right: 3.75rem;
+}
+.kategori2 {
+    display: none;
+}
+@media screen and (max-width: 768px) {
+    .berita-populer {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .berita-terbaru {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .kategori {
+        display: none;
+    }
+    .kategori2 {
+        display: block;
+    }
+}
+</style>
+
 <script>
 export default {
     data () {

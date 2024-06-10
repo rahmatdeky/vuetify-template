@@ -12,8 +12,8 @@
                                 </div>
                             </v-col>
                         </v-row>
-                        <v-row class="px-15">
-                            <v-col>
+                        <v-row class="card-1">
+                            <v-col cols="12" md="6" sm="12">
                                 <v-card class="py-5" min-height="500">
                                     <h5 class="text-center">MUSTASYAR</h5>
                                     <ul class="mx-5 my-5" v-for="must in listMustasyar" :key="must">
@@ -30,7 +30,7 @@
                                 </v-card>
                             </v-col>
                         </v-row>
-                        <v-row class="px-15">
+                        <v-row class="card-1">
                             <v-col>
                                 <v-card class="py-5" min-height="950">
                                     <h5 class="text-center">SYURIAH</h5>
@@ -82,6 +82,18 @@
         </v-container>
     </div>
 </template>
+<style>
+    .card-1 {
+        padding-left: 3.75rem;
+        padding-right: 3.75rem;
+    }
+    @media screen and (max-width: 768px) {
+        .card-1 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+</style>
 <script>
 export default {
     data() {
