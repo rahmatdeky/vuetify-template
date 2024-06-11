@@ -4,7 +4,7 @@
             <v-container>
                 <v-row>
                     <v-col>
-                        <h4>Detail Pengurus</h4>
+                        <h4>Detail Lembaga</h4>
                     </v-col>
                     <v-col>
                         <v-btn class="float-right warning" v-if="isDisabled == true" @click="toggleEdit">
@@ -17,76 +17,151 @@
                         </v-btn>
                     </v-col>
                 </v-row>
-                <v-form ref="formEditLembaga">
+                <v-form ref="formEditLembaga" class="form-detail-berita-1">
                     <v-row>
                         <v-col>Nama Lembaga</v-col>
-                        <v-col cols="10">
+                        <v-col cols="10" class="pb-0">
                             <!-- <input :disabled="isDisabled" v-model="dataEdit.namaLembaga" type="text" class="form-control"> -->
                             <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.namaLembaga" :rules="[rules.required]"></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col>Jenjang</v-col>
-                        <v-col cols="10">
+                        <v-col cols="10" class="py-0">
                             <!-- <input :disabled="isDisabled" v-model="dataEdit.jenjang" type="text" class="form-control"> -->
                             <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.jenjang" :rules="[rules.required]"></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col>Jenis Lembaga</v-col>
-                        <v-col cols="10">
+                        <v-col cols="10" class="py-0">
                             <!-- <input :disabled="isDisabled" v-model="dataEdit.jenisLembaga" type="text" class="form-control"> -->
                             <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.jenisLembaga" :rules="[rules.required]"></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="2">Alamat (Jalan / Perum)</v-col>
-                        <v-col>
+                        <v-col class="py-0">
                             <!-- <input :disabled="isDisabled" v-model="dataEdit.alamat" type="text" class="form-control"> -->
                             <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.alamat" :rules="[rules.required]"></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="2">Kecamatan</v-col>
-                        <v-col>
+                        <v-col class="py-0">
                             <v-select :disabled="isDisabled" dense :items="listKecamatan" v-model="selectedKecamatan" outlined item-text="nama_kecamatan" item-value="kode_kecamatan" :rules="[rules.required]"></v-select>
                         </v-col>
                         <v-col cols="2">Kelurahan</v-col>
-                        <v-col>
+                        <v-col class="py-0">
                             <v-select :disabled="isDisabled" dense :items="filteredKelurahan" v-model="selectedKelurahan" outlined item-text="nama_kelurahan" item-value="kode_kelurahan" :rules="[rules.required]"></v-select>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col>Nama Pimpinan</v-col>
-                        <v-col cols="10">
+                        <v-col cols="10" class="py-0">
                             <!-- <input :disabled="isDisabled" v-model="dataEdit.namaPimpinan" type="text" class="form-control"> -->
                             <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.namaPimpinan" :rules="[rules.required]"></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col>Jenis Kerja Sama</v-col>
-                        <v-col cols="10">
+                        <v-col cols="10" class="py-0">
                             <!-- <input :disabled="isDisabled" v-model="dataEdit.kerjaSama" type="text" class="form-control"> -->
                             <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.kerjaSama" :rules="[rules.required]"></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col>Nomor Kontak</v-col>
-                        <v-col cols="10">
+                        <v-col cols="10" class="py-0">
                             <!-- <input :disabled="isDisabled" v-model="dataEdit.nomorKontak" type="text" class="form-control"> -->
                             <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.nomorKontak"></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col>Email</v-col>
-                        <v-col cols="10">
+                        <v-col cols="10" class="py-0">
                             <!-- <input :disabled="isDisabled" v-model="dataEdit.email" type="text" class="form-control"> -->
                             <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.email"></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col>Website</v-col>
-                        <v-col cols="10">
+                        <v-col cols="10" class="py-0">
+                            <!-- <input :disabled="isDisabled" v-model="dataEdit.website" type="text" class="form-control"> -->
+                            <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.website"></v-text-field>
+                        </v-col>
+                    </v-row>
+                </v-form>
+                <v-form ref="formEditLembaga" class="form-detail-berita-2">
+                    <v-row>
+                        <v-col cols="12" lg="2" md="2" >Nama Lembaga</v-col>
+                        <v-col cols="12" lg="10" md="10" class="pb-0">
+                            <!-- <input :disabled="isDisabled" v-model="dataEdit.namaLembaga" type="text" class="form-control"> -->
+                            <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.namaLembaga" :rules="[rules.required]"></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" lg="2" md="2">Jenjang</v-col>
+                        <v-col cols="12" lg="10" md="10" class="py-0">
+                            <!-- <input :disabled="isDisabled" v-model="dataEdit.jenjang" type="text" class="form-control"> -->
+                            <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.jenjang" :rules="[rules.required]"></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" lg="2" md="2">Jenis Lembaga</v-col>
+                        <v-col cols="12" lg="10" md="10" class="py-0">
+                            <!-- <input :disabled="isDisabled" v-model="dataEdit.jenisLembaga" type="text" class="form-control"> -->
+                            <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.jenisLembaga" :rules="[rules.required]"></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" lg="2" md="2">Alamat (Jalan / Perum)</v-col>
+                        <v-col cols="12" lg="10" md="10" class="py-0">
+                            <!-- <input :disabled="isDisabled" v-model="dataEdit.alamat" type="text" class="form-control"> -->
+                            <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.alamat" :rules="[rules.required]"></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" lg="2" md="2">Kecamatan</v-col>
+                        <v-col cols="12" lg="10" md="10" class="py-0">
+                            <v-select :disabled="isDisabled" dense :items="listKecamatan" v-model="selectedKecamatan" outlined item-text="nama_kecamatan" item-value="kode_kecamatan" :rules="[rules.required]"></v-select>
+                        </v-col>
+                        <v-col cols="12" lg="2" md="2">Kelurahan</v-col>
+                        <v-col cols="12" lg="10" md="10" class="py-0">
+                            <v-select :disabled="isDisabled" dense :items="filteredKelurahan" v-model="selectedKelurahan" outlined item-text="nama_kelurahan" item-value="kode_kelurahan" :rules="[rules.required]"></v-select>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" lg="2" md="2">Nama Pimpinan</v-col>
+                        <v-col cols="12" lg="10" md="10" class="py-0">
+                            <!-- <input :disabled="isDisabled" v-model="dataEdit.namaPimpinan" type="text" class="form-control"> -->
+                            <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.namaPimpinan" :rules="[rules.required]"></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" lg="2" md="2">Jenis Kerja Sama</v-col>
+                        <v-col cols="12" lg="10" md="10" class="py-0">
+                            <!-- <input :disabled="isDisabled" v-model="dataEdit.kerjaSama" type="text" class="form-control"> -->
+                            <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.kerjaSama" :rules="[rules.required]"></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" lg="2" md="2">Nomor Kontak</v-col>
+                        <v-col cols="12" lg="10" md="10" class="py-0">
+                            <!-- <input :disabled="isDisabled" v-model="dataEdit.nomorKontak" type="text" class="form-control"> -->
+                            <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.nomorKontak"></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" lg="2" md="2">Email</v-col>
+                        <v-col cols="12" lg="10" md="10" class="py-0">
+                            <!-- <input :disabled="isDisabled" v-model="dataEdit.email" type="text" class="form-control"> -->
+                            <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.email"></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" lg="2" md="2">Website</v-col>
+                        <v-col cols="12" lg="10" md="10" class="py-0">
                             <!-- <input :disabled="isDisabled" v-model="dataEdit.website" type="text" class="form-control"> -->
                             <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.website"></v-text-field>
                         </v-col>
@@ -96,6 +171,23 @@
         </v-card>
     </div>
 </template>
+<style>
+    .form-detail-berita-1 {
+        display: block;
+    }
+    .form-detail-berita-2 {
+        display: none;
+    }
+
+    @media screen and (max-width: 600px) {
+        .form-detail-berita-1 {
+            display: none;
+        }
+        .form-detail-berita-2 {
+            display: block;
+        }
+    }
+</style>
 <script>
 import Swal from 'sweetalert2'
 export default {

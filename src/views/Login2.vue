@@ -2,19 +2,19 @@
     <v-app style="background-image: linear-gradient(to top right, #000000, #436850);">
       <v-container fill-height>
         <v-row>
-          <v-col class="text-center" cols="7">
+          <v-col class="text-center" cols="12" md="7" sm="12" lg="7">
             <div class="d-flex justify-center align-center">
               <v-img src="@/assets/logoNU-removebg-preview.png"></v-img>
             </div>
           </v-col>
-          <v-col class="" cols="5">
+          <v-col class="" cols="12" md="5" sm="12" lg="5">
             <div class="d-flex justify-center align-center">
-              <v-card height="505px" width="90%" elevation="2" style="background-image: linear-gradient(to top, #436850, #ffffff); border-radius: 4%;" :loading="loading"
+              <v-card class="card-login" width="90%" elevation="2" style="background-image: linear-gradient(to top, #436850, #ffffff); border-radius: 4%;" :loading="loading"
       :disabled="loading">
                 <v-container>
-                  <v-row class="px-15">
+                  <v-row class="card-title">
                     <v-col>
-                      <h3>Aplikasi Pengelolaan Data Lembaga Pendidikan NU di Kota Batam</h3>
+                      <h3>PCNU BATAM</h3>
                     </v-col>
                   </v-row>
                   <v-form ref="form" @submit.prevent="submit" method="POST">
@@ -50,6 +50,22 @@
 <style>
   body {
     background-image: linear-gradient(to top right, #000000, #436850);
+  }
+  .card-login {
+    height: 505px;
+  }
+  .card-title {
+    padding-left: 3.75rem;
+    padding-right: 3.75rem;
+  }
+  @media screen and (max-width: 600px) {
+    .card-login {
+      height: 400px;
+    }
+    .card-title {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
   }
 </style>
 <script>

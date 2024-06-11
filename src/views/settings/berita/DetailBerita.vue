@@ -22,7 +22,7 @@
                 <v-container>
                     <v-row>
                         <v-col>
-                            <v-container>
+                            <v-container class="container-detail-berita-1">
                                 <v-form ref="formEditBerita">
                                     <v-row>
                                         <v-col cols="2">Judul</v-col>
@@ -64,6 +64,49 @@
                                     </v-row>
                                 </v-form>
                             </v-container>
+                            <v-container class="container-detail-berita-2">
+                                <v-form ref="formEditBerita">
+                                    <v-row>
+                                        <v-col cols="12" lg="2" md="2">Judul</v-col>
+                                        <!-- <v-col><input v-model="editBerita.judul_berita" type="text" class="form-control" :disabled="isDisabled"></v-col> -->
+                                        <v-col class="pb-0" lg="10" md="10" cols="12">
+                                            <v-textarea rows="2" v-model="editBerita.judul_berita" outlined dense :disabled="isDisabled" :rules="[rules.required]"></v-textarea>
+                                            <!-- <v-text-field v-model="editBerita.judul_berita" outlined dense :disabled="isDisabled" :rules="[rules.required]"></v-text-field> -->
+                                        </v-col>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col cols="12" lg="2" md="2">Tanggal</v-col>
+                                        <!-- <v-col><input v-model="editBerita.tanggal_berita" type="date" class="form-control" :disabled="isDisabled"></v-col> -->
+                                        <v-col class="py-0" lg="10" md="10" cols="12">
+                                            <v-text-field disabled :value="formatDate(editBerita.tanggal_berita)" outlined dense :rules="[rules.required]"></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col cols="12" lg="2" md="2">Kategori</v-col>
+                                        <!-- <v-col><input v-model="editBerita.kategori" type="text" class="form-control" :disabled="isDisabled"></v-col> -->
+                                        <v-col class="py-0">
+                                            <v-select :items="dataKategori" item-text="nama" item-value="id" v-model="editBerita.kategori" dense outlined :disabled="isDisabled" :rules="[rules.required]"></v-select>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col cols="12" lg="2" md="2">Isi</v-col>
+                                        <!-- <v-col><v-textarea :filled="isDisabled" :outlined="!isDisabled" auto-grow :readonly="isDisabled" v-model="editBerita.isi_berita" counter></v-textarea></v-col> -->
+                                        <v-col><v-textarea outlined auto-grow :disabled="isDisabled" v-model="editBerita.isi_berita" counter :rules="[rules.required]"></v-textarea></v-col>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col cols="12" lg="2" md="2">Gambar</v-col>
+                                        <v-col v-if="isDisabled" cols="12" lg="10" md="10">
+                                            <v-img :src="editBerita.url_gambar" load></v-img>
+                                        </v-col>
+                                        <v-col v-if="!isDisabled" cols="12" lg="2" md="2">
+                                            <input type="file" class="form-control" @change="uploadGambar">
+                                        </v-col>
+                                        <v-col v-if="!isDisabled" cols="12" lg="8" md="8">
+                                            <v-img :src="previewImage" load></v-img>
+                                        </v-col>
+                                    </v-row>
+                                </v-form>
+                            </v-container>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -71,6 +114,25 @@
         </v-container>
     </div>
 </template>
+<style>
+    .container-detail-berita-1 {
+        display: block;
+    }
+
+    .container-detail-berita-2 {
+        display: none;
+    }
+
+    @media screen and (max-width: 600px) {
+        .container-detail-berita-1 {
+            display: none;
+        }
+
+        .container-detail-berita-2 {
+            display: block;
+        }
+        }
+</style>
 <script>
 import Swal from 'sweetalert2'
 

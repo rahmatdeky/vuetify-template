@@ -2,7 +2,7 @@
     <div>
         <v-container>
             <v-row>
-                <v-col cols="4">
+                <v-col cols="12" lg="4" md="4">
                     <v-card elevation="2" min-height="460px">
                         <v-container>
                             <v-row class="text-center ma-auto mt-5 justify-center">
@@ -16,9 +16,9 @@
                                     </v-img>
                                 </v-col>
                             </v-row>
-                            <v-row class="mx-7">
+                            <v-row class="">
                                 <v-col>
-                                    <table width="100%" class="table">
+                                    <table width="100%" class="table identitas-1">
                                         <tr>
                                             <td width="20%">
                                                 <h5>Nama</h5>
@@ -53,18 +53,29 @@
                                             </td>
                                         </tr>
                                     </table>
+                                    <v-container class="identitas-2">
+                                        <v-row>
+                                            <v-col><h5>Nama: {{ dataUser.name }}</h5></v-col>
+                                        </v-row>
+                                        <v-row>
+                                            <v-col><h5>Email: {{ dataUser.email }}</h5></v-col>
+                                        </v-row>
+                                        <v-row>
+                                            <v-col><h5>Role: {{ dataUser.role }}</h5></v-col>
+                                        </v-row>
+                                    </v-container>
                                 </v-col>
                             </v-row>
                         </v-container>
                     </v-card>
                 </v-col>
-                <v-col cols="8">
+                <v-col cols="12" lg="8" md="8">
                     <v-card elevation="2" min-height="460px">
                         <v-container>
                             <v-row>
                                 <v-col>
                                     <!-- alternatif pakai tabs -->
-                                    <v-tabs>
+                                    <v-tabs class="d-md-flex d-flex">
                                         <v-tab @click="toggleEdit">Profile</v-tab>
                                         <v-tab @click="togglePassword">Ubah Password</v-tab>
                                     </v-tabs>
@@ -192,6 +203,22 @@
         </v-container>
     </div>
 </template>
+<style>
+.identitas-1 {
+    display: block;
+}
+.identitas-2 {
+    display: none;
+}
+@media screen and  (max-width: 600px) {  
+    .identitas-1 {
+        display: none;
+    }
+    .identitas-2 {
+        display: block;
+    }
+}
+</style>
 <script>
 import Swal from 'sweetalert2'
 export default {

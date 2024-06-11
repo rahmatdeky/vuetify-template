@@ -7,20 +7,23 @@
                       <v-card-title> User Manajer </v-card-title>
                       <v-container>
                           <v-row>
-                            <v-col cols="3">
+                            <v-col cols="9" lg="3" md="3" class="order-2 order-md-1">
                                 <v-text-field v-model="search" label="Pencarian"></v-text-field>
                             </v-col>
                             <!-- <v-col cols="2">
                                 <v-text-field v-model="search" label="Email"></v-text-field>
                             </v-col> -->
-                            <v-col align-self="center" cols="1">
+                            <v-col align-self="center" cols="1" class="order-3 order-md-2">
                                 <v-btn @click="getDataUser()" icon>
                                     <v-icon>mdi-magnify</v-icon>
                                 </v-btn>
                             </v-col>
-                            <v-col>
-                                <v-btn @click="openModalAddUser" class="float-end">
+                            <v-col class="order-1 order-md-3">
+                                <v-btn @click="openModalAddUser" class="float-end button-plus-1">
                                     <v-icon>mdi-plus</v-icon> Tambah User
+                                </v-btn>
+                                <v-btn @click="openModalAddUser" class="float-end button-plus-2" color="primary" dark title="Tambah User">
+                                    <v-icon>mdi-plus</v-icon>
                                 </v-btn>
                             </v-col>
                           </v-row>
@@ -76,7 +79,7 @@
                         <v-toolbar color="primary" dark>
                             <h4>Tambah User</h4>
                         </v-toolbar>
-                        <v-container>
+                        <v-container class="form-tambah-1">
                             <v-form ref="formAddUser" @submit.prevent="submitAddUser()">
 
                                 <v-row>
@@ -161,12 +164,141 @@
                                 </v-row>
                             </v-form>
                         </v-container>
+                        <v-container class="form-tambah-2">
+                            <v-form ref="formAddUser" @submit.prevent="submitAddUser()">
+
+                                <v-row>
+                                    <!-- <v-col align-self="center" cols="3"><p>Nama</p></v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Nama"
+                                         :rules="[rules.required, (v) => !!v || 'Required.']"
+                                         v-model="dataAddUsers.nama" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col align-self="center" cols="3">
+                                        <p>Email</p>
+                                    </v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Email"
+                                         :rules="[rules.required]"
+                                         v-model="dataAddUsers.email" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col align-self="center" cols="3">
+                                        <p>Role</p>
+                                    </v-col> -->
+                                    <v-col>
+                                        <v-select label="Role" :rules="[rules.required]" dense :items="listRole" v-model="dataAddUsers.role"></v-select>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col align-self="center" cols="3">
+                                        <p>Password</p>
+                                    </v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Password"
+                                         :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                         :rules="[rules.required, rules.min]"
+                                         :type="show1 ? 'text' : 'password'"
+                                         @click:append="show1 = !show1"
+                                         v-model="dataAddUsers.password" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col align-self="center" cols="3">
+                                        <p>Konfirmasi Password</p>
+                                    </v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Konfirmasi Password"
+                                         :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                                         :rules="[rules.required, rules.min]"
+                                         :type="show2 ? 'text' : 'password'"
+                                         @click:append="show2 = !show2"
+                                         v-model="dataAddUsers.konfirmPass" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col>
+                                        <v-alert
+                                        class="px-3"
+                                        v-if="notMatch"
+                                        type="error"
+                                        dismissible
+                                        dense
+                                        outlined
+                                        >Password dan Konfirmasi Password tidak sama</v-alert
+                                        >
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="12">
+                                        <input type="file" class="form-control" @change="uploadGambar">
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-img v-if="previewImage" height="200" width="200" class="rounded-circle mx-auto" :src="previewImage"></v-img>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col cols="12">
+                                        <v-btn type="submit" @click="submitAddUsers()" color="primary">Submit</v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
+                        </v-container>
                     </v-card>
                 </v-dialog>
             </v-row>
         </v-container>
     </div>
 </template>
+<style>
+.button-plus-1 {
+    display: flex;
+}
+
+.button-plus-2 {
+    display: none;
+}
+
+.form-tambah-1 {
+    display: flex;
+}
+
+.form-tambah-2 {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .order-md-1 {
+        order: 2;
+    }
+
+    .order-md-2 {
+        order: 3;
+    }
+
+    .order-md-3 {
+        order: 1;
+    }
+
+    .button-plus-1 {
+        display: none;
+    }
+
+    .button-plus-2 {
+        display: flex;
+    }
+    .form-tambah-1 {
+    display: none;
+}
+
+.form-tambah-2 {
+    display: flex;
+}
+}
+</style>
 <script>
 import Swal from 'sweetalert2'
   export default {

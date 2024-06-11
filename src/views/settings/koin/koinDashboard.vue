@@ -5,9 +5,9 @@
                 <v-col>
                     <v-card>
                         <v-toolbar color="primary" dark>
-                            <h5>Koin NU</h5> <v-spacer></v-spacer> <v-btn @click="openModalAddTransaksi" color=""
-                                dark><v-icon>mdi-plus</v-icon> Tambah
-                                Transaksi</v-btn>
+                            <h5>Koin NU</h5> <v-spacer></v-spacer> 
+                            <v-btn @click="openModalAddTransaksi" color="" dark class="button-tambah-1"><v-icon>mdi-plus</v-icon> Tambah Transaksi</v-btn>
+                            <v-btn @click="openModalAddTransaksi" color="" dark class="button-tambah-2" title="Tambah Transaksi"><v-icon>mdi-plus</v-icon></v-btn>
                         </v-toolbar>
                         <v-container class="px-5">
                             <v-row>
@@ -90,7 +90,7 @@
                                                 </v-col>
                                             </v-row>
                                             <v-row>
-                                                <v-col cols="3">
+                                                <v-col cols="9" lg="3" md="3">
                                                     <v-text-field v-model="search" dense
                                                         label="Pencarian"></v-text-field>
                                                 </v-col>
@@ -99,12 +99,12 @@
                                                         <v-icon>mdi-magnify</v-icon>
                                                     </v-btn>
                                                 </v-col>
-                                                <v-col cols="4"></v-col>
-                                                <v-col cols="2">
+                                                <v-col cols="12" lg="4" md="4"></v-col>
+                                                <v-col cols="12" lg="2" md="2">
                                                     <v-text-field v-model="from" label="from" type="date"
                                                         dense></v-text-field>
                                                 </v-col>
-                                                <v-col cols="2">
+                                                <v-col cols="12" lg="2" md="2">
                                                     <v-text-field v-model="to" label="to" type="date"
                                                         dense></v-text-field>
                                                 </v-col>
@@ -112,7 +112,7 @@
                                             <v-row>
                                                 <v-col cols="12">
                                                     <v-btn small dense :color="inActive ? 'primary' : 'secondary'"
-                                                        :outlined="!inActive" rounded class="mr-2"
+                                                        :outlined="!inActive" rounded class="mr-2 my-2"
                                                         @click="toggleJenis('Pemasukan')">Pemasukan</v-btn>
                                                     <v-btn small dense :color="outActive ? 'primary' : 'secondary'"
                                                         :outlined="!outActive" rounded
@@ -148,14 +148,14 @@
                                             <v-row>
                                                 <v-col>
                                                     <v-btn-toggle rounded dense>
-                                                        <v-btn @click="getKoin(koin.prev_page_url)"
+                                                        <v-btn small @click="getKoin(koinHistory.prev_page_url)"
                                                             :disabled="!koinHistory.prev_page_url" color="primary">
                                                             prev
                                                         </v-btn>
-                                                        <v-btn>
+                                                        <v-btn small>
                                                             {{ koinHistory.current_page + '/' + koinHistory.last_page }}
                                                         </v-btn>
-                                                        <v-btn @click="getKoin(koin.next_page_url)"
+                                                        <v-btn small @click="getKoin(koinHistory.next_page_url)"
                                                             :disabled="!koinHistory.next_page_url" color="primary">
                                                             next
                                                         </v-btn>
@@ -174,7 +174,7 @@
                         <v-toolbar color="primary" dark>
                             <h4>Tambah Transaksi</h4>
                         </v-toolbar>
-                        <v-container>
+                        <v-container class="form-tambah-1">
                             <v-form ref="formAddTransaksi" @submit.prevent="saveAddTransaksi()">
                                 <v-row>
                                     <v-col cols="3">Jenis</v-col>
@@ -221,12 +221,91 @@
                                 </v-row>
                             </v-form>
                         </v-container>
+                        <v-container class="form-tambah-2">
+                            <v-form ref="formAddTransaksi" @submit.prevent="saveAddTransaksi()">
+                                <v-row>
+                                    <!-- <v-col cols="3">Jenis</v-col> -->
+                                    <v-col>
+                                        <v-btn dense :color="inActiveModal ? 'primary' : 'secondary'"
+                                            :outlined="!inActiveModal" rounded class="mr-2 my-2"
+                                            @click="inActiveModal = true, outActiveModal = false">Pemasukan</v-btn>
+                                        <v-btn dense :color="outActiveModal ? 'primary' : 'secondary'"
+                                            :outlined="!outActiveModal" rounded
+                                            @click="inActiveModal = false, outActiveModal = true">Pengeluaran</v-btn>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Nominal</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Nominal" :rules="[rules.required]" v-model="addTransaksi.nominal"
+                                            type="number" dense min="0"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row v-if="inActiveModal">
+                                    <!-- <v-col cols="3">Nama Penyetor</v-col> -->
+                                    <v-col>
+                                        <model-list-select label="Nama Penyetor" dense :rules="[rules.required]" :list="refWarga"
+                                            option-value="nik" option-text="nama" placeholder="pilih warga"
+                                            v-model="addTransaksi.nik">
+                                        </model-list-select>
+                                        <v-alert v-if="!addTransaksi.nik && showValidationError" type="error" dense>
+                                            Nama penyetor harus dipilih
+                                        </v-alert>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Keterangan</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Keterangan" :rules="outActiveModal ? [rules.required] : []" dense
+                                            v-model="addTransaksi.keterangan"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row class="mt-5">
+                                    <v-col>
+                                        <v-btn class="float-end" rounded color="primary"
+                                            @click="tambahTransaksi">Simpan</v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
+                        </v-container>
                     </v-card>
                 </v-dialog>
             </v-row>
         </v-container>
     </div>
 </template>
+<style>
+.button-tambah-1 {
+    display: flex;
+}
+.button-tambah-2 {
+    display: none;
+}
+.form-tambah-1 {
+    display: flex;
+}
+.form-tambah-2 {
+    display: none;
+}
+@media screen and (max-width: 600px) {
+    .button-tambah-1 {
+        display: none;
+    }
+
+    .button-tambah-2 {
+        display: flex;
+    }
+
+    .form-tambah-1 {
+        display: none;
+    }
+
+    .form-tambah-2 {
+        display: flex;
+    }
+
+}
+</style>
 <script>
 import Swal from 'sweetalert2'
 import { ModelListSelect } from 'vue-search-select'
@@ -373,7 +452,7 @@ export default {
     mounted() {
         this.updateSelectedPeriod();
         this.getRefWarga();
-        this.getTotal()
+        this.getKoin();
     },
     watch: {
         from() {

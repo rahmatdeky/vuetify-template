@@ -7,15 +7,10 @@
             </v-toolbar>
             <v-container>
                 <v-row>
-                    <v-col cols="3">
+                    <v-col cols="12" lg="3" md="3" class="order-2 order-md-1">
                         <v-text-field v-model="search" label="Pencarian"></v-text-field>
                     </v-col>
-                    <v-col align-self="center" cols="1">
-                        <v-btn icon>
-                            <v-icon>mdi-magnify</v-icon>
-                        </v-btn>
-                    </v-col>
-                    <v-col>
+                    <v-col class="order-1 order-md-2">
                         <v-btn @click="openModalAddKelurahan()" class="float-end" color="primary">
                             <v-icon>mdi-plus</v-icon> Tambah
                         </v-btn>
@@ -97,6 +92,17 @@
         </v-dialog>
     </div>
 </template>
+<style>
+@media screen and (max-width: 600px) {
+    .order-md-1 {
+        order: 1;
+    }
+
+    .order-md-2 {
+        order: 2;
+    }
+}
+</style>
 <script>
 import Swal from 'sweetalert2'
 export default {

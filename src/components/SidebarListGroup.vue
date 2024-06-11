@@ -1,7 +1,7 @@
 <template>
     <v-list-group activeClass="my-active-class" :prepend-icon="iconGroup">
         <template v-slot:activator>
-          <v-list-item-title>{{ titleGroup }}</v-list-item-title>
+          <v-list-item-title style="text-align: left;">{{ titleGroup }}</v-list-item-title>
         </template>
         <slot></slot>
         <!-- <SidebarListItem /> -->

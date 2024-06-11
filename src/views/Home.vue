@@ -122,7 +122,7 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="8">
+                <v-col cols="12" md="8" lg="8">
                   <v-row>
                     <v-col>
                       <v-card>
@@ -145,7 +145,7 @@
                     </v-col>
                   </v-row>
                 </v-col>
-                <v-col>
+                <v-col cols="12" md="4" lg="4">
                   <v-row>
                     <v-col>
                       <v-card height="652px">

@@ -53,7 +53,7 @@ export default {
     max-height: 100%;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     .navbar-logo {
       max-height: 50px; /* Adjust the value as needed to fit within the navbar */
       width: auto;

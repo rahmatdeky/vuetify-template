@@ -8,17 +8,20 @@
                         <v-container>
                             <v-form @submit.prevent="browseLembaga()">
                                 <v-row>
-                                    <v-col cols="3">
+                                    <v-col cols="9" lg="3" md="3" class="order-2 order-md-1">
                                         <v-text-field v-model="search" label="Pencarian"></v-text-field>
                                     </v-col>
-                                    <v-col align-self="center" cols="1">
+                                    <v-col align-self="center" cols="1" class="order-3 order-md-2">
                                         <v-btn type="submit" @click="browseLembaga()" icon>
                                             <v-icon>mdi-magnify</v-icon>
                                         </v-btn>
                                     </v-col>
-                                    <v-col>
-                                        <v-btn @click="openModalTambahLembaga()" class="float-end">
+                                    <v-col class="order-1 order-md-3">
+                                        <v-btn @click="openModalTambahLembaga()" class="float-end button-plus-1">
                                             <v-icon>mdi-plus</v-icon> Tambah Lembaga
+                                        </v-btn>
+                                        <v-btn title="Tambah Lembaga" @click="openModalTambahLembaga()" class="float-end button-plus-2" color="primary" dark>
+                                            <v-icon>mdi-plus</v-icon>
                                         </v-btn>
                                         <!-- <v-btn class="float-end">
                                         <v-icon>mdi-plus</v-icon> Tambah Pengurus
@@ -89,7 +92,7 @@
                                 <v-icon>mdi-close</v-icon>
                             </v-btn>
                         </v-toolbar>
-                        <v-container>
+                        <v-container class="form-tambah-1">
                             <v-form ref="formTambahLembaga" @submit.prevent="tambahLembaga()">
                                 <v-row>
                                     <v-col cols="3">Nama Lembaga</v-col>
@@ -126,7 +129,7 @@
                                             item-text="nama_kecamatan" item-value="kode_kecamatan"
                                             :rules="[rules.required]"></v-select>
                                     </v-col>
-                                    <v-col cols="3">Kelurahan / Desa</v-col>
+                                    <v-col cols="3">Kelurahan</v-col>
                                     <v-col cols="3">
                                         <v-select dense :items="filteredKelurahan" v-model="selectedKelurahan"
                                             item-text="nama_kelurahan" item-value="kode_kelurahan"
@@ -175,12 +178,133 @@
                                 </v-row>
                             </v-form>
                         </v-container>
+                        <v-container class="form-tambah-2">
+                            <v-form ref="formTambahLembaga" @submit.prevent="tambahLembaga()">
+                                <v-row>
+                                    <!-- <v-col cols="3">Nama Lembaga</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Nama Lembaga" v-model="dataTambahLembaga.namaLembaga" dense
+                                            :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Jenjang</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Jenjang" v-model="dataTambahLembaga.jenjang" dense
+                                            :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Jenis Lembaga Pendidikan</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Jenis Lembaga Pendidikan" v-model="dataTambahLembaga.jenisLembaga" dense
+                                            :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Alamat (Jalan / Perum)</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Alamat (Jalan / Perum)" v-model="dataTambahLembaga.alamat" dense
+                                            :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Kecamatan</v-col> -->
+                                    <v-col cols="12" md="3" lg="3">
+                                        <v-select label="Kecamatan" dense :items="listKecamatan" v-model="selectedKecamatan"
+                                            item-text="nama_kecamatan" item-value="kode_kecamatan"
+                                            :rules="[rules.required]"></v-select>
+                                    </v-col>
+                                    <!-- <v-col cols="3">Kelurahan / Desa</v-col> -->
+                                    <v-col cols="12" md="3" lg="3">
+                                        <v-select label="Kelurahan" dense :items="filteredKelurahan" v-model="selectedKelurahan"
+                                            item-text="nama_kelurahan" item-value="kode_kelurahan"
+                                            :rules="[rules.required]"></v-select>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Nama Pimpinan</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Nama Pimpinan" v-model="dataTambahLembaga.namaPimpinan" dense
+                                            :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Jenis Kerja Sama</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Jenis Kerja Sama" v-model="dataTambahLembaga.kerjaSama" dense
+                                            :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Nomor Kontak</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Nomor Kontak" v-model="dataTambahLembaga.nomorKontak" dense
+                                            ></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Email</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Email" v-model="dataTambahLembaga.email" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Website</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Website" v-model="dataTambahLembaga.website" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col>
+                                        <v-btn type="submit" @click="tambahLembaga()" class="primary float-right">
+                                            <v-icon>mdi-plus</v-icon> Simpan
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
+                        </v-container>
                     </v-card>
                 </v-dialog>
             </v-row>
         </v-container>
     </div>
 </template>
+<style>
+.button-plus-1 {
+    display: flex;
+}
+
+.button-plus-2 {
+    display: none;
+}
+
+.form-tambah-1 {
+    display: flex;
+}
+
+.form-tambah-2 {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+
+    .button-plus-1 {
+        display: none;
+    }
+
+    .button-plus-2 {
+        display: flex;
+    }
+    .form-tambah-1 {
+    display: none;
+}
+
+.form-tambah-2 {
+    display: flex;
+}
+}
+</style>
 <script>
 import Swal from 'sweetalert2'
 export default {

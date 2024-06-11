@@ -8,20 +8,23 @@
                         <v-container>
                             <v-form @submit.prevent="browseWarga()">
                                 <v-row>
-                                    <v-col cols="3">
+                                    <v-col cols="9" lg="3" md="3" class="order-2 order-md-1">
                                         <v-text-field v-model="search" label="Pencarian"></v-text-field>
                                     </v-col>
                                     <!-- <v-col cols="2">
                                       <v-text-field v-model="search" label="Email"></v-text-field>
                                   </v-col> -->
-                                    <v-col align-self="center" cols="1">
+                                    <v-col align-self="center" cols="1" class="order-3 order-md-2">
                                         <v-btn type="submit" @click="browseWarga()" icon>
                                             <v-icon>mdi-magnify</v-icon>
                                         </v-btn>
                                     </v-col>
-                                    <v-col>
-                                        <v-btn @click="openModalTambahWarga" class="float-end">
+                                    <v-col class="order-1 order-md-3">
+                                        <v-btn @click="openModalTambahWarga" class="float-end button-plus-1">
                                             <v-icon>mdi-plus</v-icon> Tambah Warga
+                                        </v-btn>
+                                        <v-btn title="Tambah Warga" @click="openModalTambahWarga" class="float-end button-plus-2" color="primary" dark>
+                                            <v-icon>mdi-plus</v-icon>
                                         </v-btn>
                                         <!-- <v-btn class="float-end">
                                           <v-icon>mdi-plus</v-icon> Tambah Warga
@@ -92,7 +95,7 @@
                                 <v-icon>mdi-close</v-icon>
                             </v-btn>
                         </v-toolbar>
-                        <v-container>
+                        <v-container class="form-tambah-1">
                             <v-form ref="formTambahWarga" @submit.prevent="tambahWarga()">
                                 <v-row>
                                     <v-col cols="3">NIK</v-col>
@@ -193,12 +196,159 @@
                                 </v-row>
                             </v-form>
                         </v-container>
+                        <v-container class="form-tambah-2">
+                            <v-form ref="formTambahWarga" @submit.prevent="tambahWarga()">
+                                <v-row>
+                                    <!-- <v-col cols="3">NIK</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="NIK" v-model="dataWargaBaru.nik" dense
+                                            :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Nama Lengkap</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Nama Lengkap" v-model="dataWargaBaru.namaLengkap" dense
+                                            :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Alamat (Jalan / Perum)</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Alamat (Jalan / Perum)" v-model="dataWargaBaru.alamat" dense
+                                            :rules="[rules.required]"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Kecamatan</v-col> -->
+                                    <v-col cols="12" md="3" lg="3">
+                                        <v-select label="Kecamatan" dense :items="listKecamatan" v-model="selectedKecamatan"
+                                            :rules="[rules.required]"></v-select>
+                                    </v-col>
+                                    <!-- <v-col cols="3">Kelurahan / Desa</v-col> -->
+                                    <v-col cols="12" md="3" lg="3">
+                                        <v-select label="Kelurahan" dense :items="filteredKelurahan" item-text="nama_kelurahan"
+                                            item-value="kode_kelurahan" v-model="selectedKelurahan"
+                                            :rules="[rules.required]"></v-select>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Organisasi</v-col> -->
+                                    <v-col>
+                                        <!-- <v-text-field v-model="dataWargaBaru.organisasi" dense></v-text-field> -->
+                                        <v-select label="Organisasi" dense :items="dataOrganisasi" v-model="dataWargaBaru.organisasi" :rules="[rules.required]" item-text="nama"
+                                            item-value="kode_organisasi"></v-select>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Nomor Hp</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Nomor Hp" prefix="+62" v-model="dataWargaBaru.nomorHp" dense></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Jabatan</v-col> -->
+                                    <!-- <v-col>
+                                        <v-text-field v-model="dataWargaBaru.jabatan" dense></v-text-field>
+                                    </v-col> -->
+                                    <v-col>
+                                        <v-select label="Jabatan" dense :items="listJabatan" v-model="dataWargaBaru.jabatan"
+                                            :rules="[rules.required]"></v-select>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <!-- <v-col cols="3">Email</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Email" v-model="dataWargaBaru.email" dense
+                                            :rules="jabatanRules"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row v-if="dataWargaBaru.jabatan == 'Pengurus'">
+                                    <!-- <v-col cols="3">Password</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Password" dense v-model="dataWargaBaru.password" :rules="passwordRules"
+                                            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                            :type="show1 ? 'text' : 'password'"
+                                            @click:append="show1 = !show1"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row v-if="dataWargaBaru.jabatan == 'Pengurus'">
+                                    <!-- <v-col cols="3">Konfirmasi Password</v-col> -->
+                                    <v-col>
+                                        <v-text-field label="Konfirmasi Password" dense v-model="dataWargaBaru.KonfirmasiPassword"
+                                            :rules="passwordRules" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                                            :type="show2 ? 'text' : 'password'"
+                                            @click:append="show2 = !show2"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col>
+                                        <v-alert class="px-3" v-if="notMatch" type="error" dense outlined>Password Baru
+                                            dan Konfirmasi Password Baru tidak
+                                            sama</v-alert>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col>
+                                        <v-btn @click="tambahWarga()" type="submit" class="primary float-right">
+                                            <v-icon>mdi-plus</v-icon> Simpan
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-form>
+                        </v-container>
                     </v-card>
                 </v-dialog>
             </v-row>
         </v-container>
     </div>
 </template>
+<style>
+.button-plus-1 {
+    display: flex;
+}
+
+.button-plus-2 {
+    display: none;
+}
+
+.form-tambah-1 {
+    display: flex;
+}
+
+.form-tambah-2 {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .order-md-1 {
+        order: 2;
+    }
+
+    .order-md-2 {
+        order: 3;
+    }
+
+    .order-md-3 {
+        order: 1;
+    }
+
+    .button-plus-1 {
+        display: none;
+    }
+
+    .button-plus-2 {
+        display: flex;
+    }
+    .form-tambah-1 {
+    display: none;
+}
+
+.form-tambah-2 {
+    display: flex;
+}
+}
+</style>
 <script>
 import Swal from 'sweetalert2'
 

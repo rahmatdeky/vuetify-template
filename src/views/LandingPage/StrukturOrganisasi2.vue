@@ -87,7 +87,7 @@
         padding-left: 3.75rem;
         padding-right: 3.75rem;
     }
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 600px) {
         .card-1 {
             padding-left: 10px;
             padding-right: 10px;

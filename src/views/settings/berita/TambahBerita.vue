@@ -16,7 +16,7 @@
                 <v-container>
                     <v-form ref="form" @submit.prevent="postBerita()">
                         <v-row>
-                            <v-col align-self="center" cols="6">
+                            <v-col align-self="center" cols="12" md="6" lg="6">
                                 <v-text-field v-model="berita.judul" label="Judul Berita" dense :rules="[rules.required]"></v-text-field>
                             </v-col>
                             <v-col>
@@ -32,10 +32,10 @@
                             </v-col>
                         </v-row>
                         <v-row>
-                            <v-col cols="4">
+                            <v-col cols="12" lg="4" md="4">
                                 <input type="file" class="form-control" @change="uploadGambar">
                             </v-col>
-                            <v-col cols="8">
+                            <v-col cols="12" lg="8" md="8">
                                 <v-img :src="previewImage"></v-img>
                             </v-col>
                         </v-row>

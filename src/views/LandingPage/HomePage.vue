@@ -698,7 +698,7 @@ export default {
 .card-img {
   height: 505px
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 600px) {
   .delimiter:before,
   .delimiter:after {
     width: 10%;

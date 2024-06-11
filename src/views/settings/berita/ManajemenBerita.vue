@@ -8,20 +8,24 @@
                         <v-container>
                             <v-form @submit.prevent="getListBerita()">
                                 <v-row>
-                                    <v-col cols="3">
+                                    <v-col cols="9" md="3" lg="3" class="order-2 order-md-1">
                                         <v-text-field v-model="search" label="Pencarian"></v-text-field>
                                     </v-col>
-                                    <v-col align-self="center" cols="1">
+                                    <v-col align-self="center" cols="1" class="order-3 order-md-2">
                                         <v-btn type="submit" @click="getListBerita()" icon>
                                             <v-icon>mdi-magnify</v-icon>
                                         </v-btn>
                                     </v-col>
-                                    <v-col>
+                                    <v-col class="order-1 order-md-3">
                                         <!-- <v-btn @click="openModalTambahBerita" class="float-end">
                                         <v-icon>mdi-plus</v-icon> Tambah Berita
-                                    </v-btn> -->
-                                        <v-btn link to="/setting/berita/tambah" class="float-end">
+                                        </v-btn> -->
+                                        <v-btn link to="/setting/berita/tambah" class="float-end button-plus-1">
                                             <v-icon>mdi-plus</v-icon> Tambah Berita
+                                        </v-btn>
+                                        <v-btn title="Tambah Berita" link to="/setting/berita/tambah" class="float-end button-plus-2"
+                                            color="primary" dark>
+                                            <v-icon>mdi-plus</v-icon>
                                         </v-btn>
                                     </v-col>
                                 </v-row>
@@ -45,8 +49,8 @@
                                             <td>{{ berita.kategori.nama }}</td>
                                             <td>
                                                 <v-item-group class="float-right">
-                                                    <v-btn class="mx-1" link :to="'/setting/berita/detail/' + berita.id" outlined
-                                                        color="success">
+                                                    <v-btn class="mr-1 my-1" link :to="'/setting/berita/detail/' + berita.id"
+                                                        outlined color="success">
                                                         <v-icon>mdi-magnify</v-icon>
                                                     </v-btn>
                                                     <v-btn @click="deleteBerita(berita.id)" outlined color="red">
@@ -131,6 +135,26 @@
         </v-container>
     </div>
 </template>
+<style>
+.button-plus-1 {
+    display: flex;
+}
+
+.button-plus-2 {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+
+    .button-plus-1 {
+        display: none;
+    }
+
+    .button-plus-2 {
+        display: flex;
+    }
+}
+</style>
 <script>
 import Swal from 'sweetalert2'
 
