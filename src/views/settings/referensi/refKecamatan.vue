@@ -152,11 +152,16 @@ export default {
                                 }).then(() => {
                                     this.modalAddKecamatan = false
                                     this.getKecamatan()
+                                    this.cleanForm()
                                 })
                             })
                     }
                 })
             }
+        },
+        cleanForm() {
+            this.newKecamatan.namaKecamatan = ''
+            this.newKecamatan.kodeKemendagri = ''
         },
         getKecamatan() {
             this.$http.get('ref/kecamatan/browse').then((response) => {

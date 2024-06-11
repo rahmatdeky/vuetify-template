@@ -148,11 +148,15 @@ export default {
                                 }).then(() => {
                                     this.modalAddOrganisasi = false
                                     this.getOrganisasi()
+                                    this.cleanForm()
                                 })
                             })
                     }
                 })
             }
+        },
+        cleanForm() {
+            this.newOrganisasi.namaOrganisasi = ''
         },
         getOrganisasi() {
             this.$http.get('ref/organisasi/browse').then((response) => {

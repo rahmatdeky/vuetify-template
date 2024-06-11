@@ -137,11 +137,15 @@ export default {
                                 }).then(() => {
                                     this.modalAddKategoriBerita = false
                                     this.getKategoriBerita()
+                                    this.cleanForm()
                                 })
                             })
                     }
                 })
             }
+        },
+        cleanForm() {
+            this.newKategori.namaKategori = ''
         },
         getKategoriBerita() {
             this.$http.post('ref/kategori/browse').then((response) => {

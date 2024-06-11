@@ -282,7 +282,7 @@
     display: none;
 }
 .form-tambah-1 {
-    display: flex;
+    display: block;
 }
 .form-tambah-2 {
     display: none;
@@ -293,7 +293,7 @@
     }
 
     .button-tambah-2 {
-        display: flex;
+        display: block;
     }
 
     .form-tambah-1 {
@@ -392,11 +392,18 @@ export default {
                                 this.modalAddTransaksi = false
                                 this.getKoin()
                                 this.getTotal()
+                                this.clearForm()
                             })
                         })
                     }
                 })
             }
+        },
+        clearForm() {
+            this.addTransaksi.nominal = 0
+            this.addTransaksi.keterangan = ''
+            this.addTransaksi.nik = ''
+            this.showValidationError = false
         },
         toggleJenis(jenis) {
             if (jenis === 'Pemasukan') {

@@ -152,11 +152,16 @@ export default {
                                 }).then(() => {
                                     this.modalAddKelurahan = false
                                     this.getDataKelurahan()
+                                    this.cleanForm()
                                 })
                             })
                     }
                 })
             }
+        },
+        cleanForm() {
+            this.newKelurahan.kodeKecamatan = ''
+            this.newKelurahan.namaKelurahan = ''
         },
         getDataKecamatan() {
             this.$http.get('ref/kecamatan/browse').then((response) => {
