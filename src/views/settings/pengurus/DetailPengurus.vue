@@ -155,7 +155,7 @@ export default {
                             nik: this.dataEdit.nik,
                             nama: this.dataEdit.nama,
                             alamat: this.dataEdit.alamat,
-                            organisasi: this.dataEdit.organisasi,
+                            organisasi: this.dataEdit.organisasi.kode_organisasi,
                             jabatan: this.dataEdit.jabatan,
                             nomorHp: this.dataEdit.nomorHp,
                             email: this.dataEdit.email,
