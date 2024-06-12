@@ -50,11 +50,12 @@
                         </v-col>
                     </v-row>
                     <v-row>
-                        <v-col class="py-0" cols="12" lg="2" md="2">Organisasi</v-col>
-                        <v-col cols="12" lg="10" md="10" class="py-0">
+                        <v-col class="pt-0 pb-2" cols="12" lg="2" md="2">Organisasi</v-col>
+                        <v-col cols="12" lg="10" md="10" class="pt-0 pb-3 mb-3">
                             <!-- <input :disabled="isDisabled" v-model="dataEdit.organisasi" type="text" class="form-control"> -->
                             <!-- <v-text-field :disabled="isDisabled" outlined dense v-model="dataEdit.organisasi"></v-text-field> -->
-                            <v-select dense :disabled="isDisabled" outlined :items="dataOrganisasi" v-model="dataEdit.organisasi" :rules="[rules.required]" item-text="nama" item-value="kode_organisasi"></v-select>
+                            <!-- <v-select dense :disabled="isDisabled" outlined :items="dataOrganisasi" v-model="dataEdit.organisasi" :rules="[rules.required]" item-text="nama" item-value="kode_organisasi"></v-select> -->
+                            <model-list-select :isDisabled="isDisabled" :list="dataOrganisasi" :rules="[rules.required]" option-text="nama" option-value="kode_organisasi" v-model="dataEdit.organisasi"></model-list-select>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -85,7 +86,11 @@
 </template>
 <script>
 import Swal from 'sweetalert2'
+import {ModelListSelect} from 'vue-search-select'
 export default {
+    components: {
+        'model-list-select': ModelListSelect
+    },
     data () {
         return {
             detailPengurus:[],

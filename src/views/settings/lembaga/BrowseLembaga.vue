@@ -441,7 +441,9 @@ export default {
                 this.dataTambahLembaga.email = '',
                 this.dataTambahLembaga.website = '',
                 this.dataTambahLembaga.RW = '',
-                this.dataTambahLembaga.RT = ''
+                this.dataTambahLembaga.RT = '',
+                this.selectedKecamatan = null,
+                this.selectedKelurahan = null
         }
     },
     created() {

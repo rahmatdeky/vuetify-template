@@ -135,8 +135,9 @@
                                     <v-col cols="3">Organisasi</v-col>
                                     <v-col>
                                         <!-- <v-text-field v-model="dataWargaBaru.organisasi" dense></v-text-field> -->
-                                        <v-select dense :items="dataOrganisasi" v-model="dataWargaBaru.organisasi" :rules="[rules.required]" item-text="nama"
-                                            item-value="kode_organisasi"></v-select>
+                                        <!-- <v-select dense :items="dataOrganisasi" v-model="dataWargaBaru.organisasi" :rules="[rules.required]" item-text="nama"
+                                            item-value="kode_organisasi"></v-select> -->
+                                            <model-list-select label="Organisasi" :list="dataOrganisasi" :rules="[rules.required]" option-text="nama" option-value="kode_organisasi" v-model="dataWargaBaru.organisasi" placeholder="Pilih Organisasi"></model-list-select>
                                     </v-col>
                                 </v-row>
                                 <v-row>
@@ -236,8 +237,9 @@
                                     <!-- <v-col cols="3">Organisasi</v-col> -->
                                     <v-col>
                                         <!-- <v-text-field v-model="dataWargaBaru.organisasi" dense></v-text-field> -->
-                                        <v-select label="Organisasi" dense :items="dataOrganisasi" v-model="dataWargaBaru.organisasi" :rules="[rules.required]" item-text="nama"
-                                            item-value="kode_organisasi"></v-select>
+                                        <!-- <v-select label="Organisasi" dense :items="dataOrganisasi" v-model="dataWargaBaru.organisasi" :rules="[rules.required]" item-text="nama"
+                                            item-value="kode_organisasi"></v-select> -->
+                                            <model-list-select label="Organisasi" :list="dataOrganisasi" :rules="[rules.required]" option-text="nama" option-value="kode_organisasi" v-model="dataWargaBaru.organisasi"></model-list-select>
                                     </v-col>
                                 </v-row>
                                 <v-row>
@@ -351,8 +353,12 @@
 </style>
 <script>
 import Swal from 'sweetalert2'
+import {ModelListSelect} from 'vue-search-select'
 
 export default {
+    components: {
+        'model-list-select': ModelListSelect
+    },
     data() {
         return {
             modalTambahWarga: false,
