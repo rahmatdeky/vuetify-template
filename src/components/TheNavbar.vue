@@ -33,8 +33,8 @@
           </v-btn> -->
           <v-btn icon v-bind="attrs" v-on="on">
             <v-avatar color="">
-              <v-img height="100%" width="100%" class="rounded-circle mx-auto"
-              :src="UrlGambar + user.url_foto"></v-img>
+              <img style="background-color: white;" height="100%" width="100%" class="rounded-circle mx-auto"
+              :src="UrlGambar + user.url_foto" />
             </v-avatar>
           </v-btn>
         </template>
