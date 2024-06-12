@@ -430,12 +430,13 @@ export default {
         const labels = kecamatanData.map(item => item.nama_kecamatan);
         const data = kecamatanData.map(item => item.lembaga_count);
 
-        const totalLembaga = kecamatanData.reduce((sum, kecamatan) => sum + kecamatan.lembaga_count, 0);
-
         this.chartDataLembaga.labels = labels;
         this.chartDataLembaga.datasets[0].data = data;
-
-        this.totalLembaga = totalLembaga;
+      })
+    },
+    getTotalLembaga() {
+      this.$http.get('dashboard/lembaga/total').then((response) => {
+        this.totalLembaga = response.data
       })
     },
     setView(view) {
@@ -510,6 +511,7 @@ export default {
     this.getDashboardLembaga()
     this.updateSelectedPeriod()
     this.getTotalWarga('Warga')
+    this.getTotalLembaga()
   },
   computed: {
     activeLabel() {

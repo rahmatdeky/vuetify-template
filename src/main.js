@@ -37,6 +37,10 @@ window.UrlGambarBerita = 'http://localhost/backendNu/public/storage/'
 // axios.defaults.baseURL = 'https://pcnukotabatam.or.id/backendNu/public/api'
 // window.UrlGambarBerita = 'https://pcnukotabatam.or.id/backendNu/public/storage/'
 
+// prod2
+// axios.defaults.baseURL = 'https://rahmatdeky.com/backendNu/public/api'
+// window.UrlGambarBerita = 'https://rahmatdeky.com/backendNu/public/storage/'
+
 
 // axios.defaults.baseURL = 'http://localhost:8000/api'
 axios.defaults.headers.common['X-CSRF-TOKEN'] = null
