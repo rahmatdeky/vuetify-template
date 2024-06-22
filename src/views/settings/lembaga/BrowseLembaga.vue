@@ -93,7 +93,7 @@
                             </v-btn>
                         </v-toolbar>
                         <v-container class="form-tambah-1">
-                            <v-form ref="formTambahLembaga" @submit.prevent="tambahLembaga()">
+                            <v-form ref="formTambahLembaga1" @submit.prevent="tambahLembaga()">
                                 <v-row>
                                     <v-col cols="3">Nama Lembaga</v-col>
                                     <v-col>
@@ -179,7 +179,7 @@
                             </v-form>
                         </v-container>
                         <v-container class="form-tambah-2">
-                            <v-form ref="formTambahLembaga" @submit.prevent="tambahLembaga()">
+                            <v-form ref="formTambahLembaga2" @submit.prevent="tambahLembaga()">
                                 <v-row>
                                     <!-- <v-col cols="3">Nama Lembaga</v-col> -->
                                     <v-col>
@@ -339,7 +339,7 @@ export default {
     },
     methods: {
         tambahLembaga() {
-            if (this.$refs.formTambahLembaga.validate()) {
+            if (this.$refs.formTambahLembaga1.validate() || this.$refs.formTambahLembaga2.validate()) {
                 Swal.fire({
                     title: 'Apa Anda Yakin?',
                     text: "Anda Akan Menyimpan Data ini",

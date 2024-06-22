@@ -175,7 +175,7 @@
                             <h4>Tambah Transaksi</h4>
                         </v-toolbar>
                         <v-container class="form-tambah-1">
-                            <v-form ref="formAddTransaksi" @submit.prevent="saveAddTransaksi()">
+                            <v-form ref="formAddTransaksi1" @submit.prevent="saveAddTransaksi()">
                                 <v-row>
                                     <v-col cols="3">Jenis</v-col>
                                     <v-col>
@@ -222,7 +222,7 @@
                             </v-form>
                         </v-container>
                         <v-container class="form-tambah-2">
-                            <v-form ref="formAddTransaksi" @submit.prevent="saveAddTransaksi()">
+                            <v-form ref="formAddTransaksi2" @submit.prevent="saveAddTransaksi()">
                                 <v-row>
                                     <!-- <v-col cols="3">Jenis</v-col> -->
                                     <v-col>
@@ -365,7 +365,7 @@ export default {
             })
         },
         tambahTransaksi() {
-            if (!this.showValidationError && this.$refs.formAddTransaksi.validate()) {
+            if (!this.showValidationError && (this.$refs.formAddTransaksi1.validate() || this.$refs.formAddTransaksi2.validate())) {
                 this.showValidationError = !this.addTransaksi.nik
                 Swal.fire({
                     title: 'Apa Anda Yakin?',

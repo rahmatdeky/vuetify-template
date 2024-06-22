@@ -42,7 +42,8 @@
                                         <v-col cols="2">Kategori</v-col>
                                         <!-- <v-col><input v-model="editBerita.kategori" type="text" class="form-control" :disabled="isDisabled"></v-col> -->
                                         <v-col class="py-0">
-                                            <v-select :items="dataKategori" item-text="nama" item-value="id" v-model="editBerita.kategori" dense outlined :disabled="isDisabled" :rules="[rules.required]"></v-select>
+                                            <model-list-select :isDisabled="isDisabled" :list="dataKategori" :rules="[rules.required]" option-text="nama" option-value="id" v-model="editBerita.kategori" dense outlined></model-list-select>
+                                            <!-- <v-select :items="dataKategori" item-text="nama" item-value="id" v-model="editBerita.kategori" dense outlined :disabled="isDisabled" :rules="[rules.required]"></v-select> -->
                                         </v-col>
                                     </v-row>
                                     <v-row>
@@ -85,7 +86,8 @@
                                         <v-col cols="12" lg="2" md="2">Kategori</v-col>
                                         <!-- <v-col><input v-model="editBerita.kategori" type="text" class="form-control" :disabled="isDisabled"></v-col> -->
                                         <v-col class="py-0">
-                                            <v-select :items="dataKategori" item-text="nama" item-value="id" v-model="editBerita.kategori" dense outlined :disabled="isDisabled" :rules="[rules.required]"></v-select>
+                                            <model-list-select :isDisabled="isDisabled" :list="dataKategori" :rules="[rules.required]" option-text="nama" option-value="id" v-model="editBerita.kategori" dense outlined></model-list-select>
+                                            <!-- <v-select :items="dataKategori" item-text="nama" item-value="id" v-model="editBerita.kategori" dense outlined :disabled="isDisabled" :rules="[rules.required]"></v-select> -->
                                         </v-col>
                                     </v-row>
                                     <v-row>
@@ -135,8 +137,11 @@
 </style>
 <script>
 import Swal from 'sweetalert2'
-
+import {ModelListSelect} from 'vue-search-select' 
 export default {
+    components: {
+        'model-list-select': ModelListSelect
+    },
     data () {
         return {
             detailBerita: [],
@@ -192,10 +197,12 @@ export default {
                 formData.append('id_berita', this.editBerita.id_berita)
                 formData.append('judul_berita', this.editBerita.judul_berita)
                 formData.append('tanggal_berita', this.editBerita.tanggal_berita)
-                formData.append('kategori', this.editBerita.kategori)
+                formData.append('kategori', this.editBerita.kategori.id)
                 formData.append('isi_berita', this.editBerita.isi_berita)
-                formData.append('file', this.editBerita.file)
                 formData.append('url', this.detailBerita.gambar)
+                if (this.editBerita.file) {
+                    formData.append('file', this.editBerita.file);
+                }
                 Swal.fire({
                 title: 'Apa Anda Yakin?',
                 text: "Anda Akan Menyimpan Perubahan ini",

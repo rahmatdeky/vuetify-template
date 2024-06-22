@@ -96,7 +96,7 @@
                             </v-btn>
                         </v-toolbar>
                         <v-container class="form-tambah-1">
-                            <v-form ref="formTambahWarga" @submit.prevent="tambahWarga()">
+                            <v-form ref="formTambahWarga1" @submit.prevent="tambahWarga()">
                                 <v-row>
                                     <v-col cols="3">NIK</v-col>
                                     <v-col>
@@ -198,7 +198,7 @@
                             </v-form>
                         </v-container>
                         <v-container class="form-tambah-2">
-                            <v-form ref="formTambahWarga" @submit.prevent="tambahWarga()">
+                            <v-form ref="formTambahWarga2" @submit.prevent="tambahWarga()">
                                 <v-row>
                                     <!-- <v-col cols="3">NIK</v-col> -->
                                     <v-col>
@@ -239,7 +239,7 @@
                                         <!-- <v-text-field v-model="dataWargaBaru.organisasi" dense></v-text-field> -->
                                         <!-- <v-select label="Organisasi" dense :items="dataOrganisasi" v-model="dataWargaBaru.organisasi" :rules="[rules.required]" item-text="nama"
                                             item-value="kode_organisasi"></v-select> -->
-                                            <model-list-select label="Organisasi" :list="dataOrganisasi" :rules="[rules.required]" option-text="nama" option-value="kode_organisasi" v-model="dataWargaBaru.organisasi"></model-list-select>
+                                            <model-list-select label="Organisasi" :list="dataOrganisasi" :rules="[rules.required]" option-text="nama" option-value="kode_organisasi" v-model="dataWargaBaru.organisasi" placeholder="Pilih Organisasi"></model-list-select>
                                     </v-col>
                                 </v-row>
                                 <v-row>
@@ -430,7 +430,7 @@ export default {
             this.getOrganisasi()
         },
         tambahWarga() {
-            if (this.$refs.formTambahWarga.validate()) {
+            if (this.$refs.formTambahWarga1.validate() || this.$refs.formTambahWarga2.validate()) {
                 if (this.dataWargaBaru.password === this.dataWargaBaru.KonfirmasiPassword) {
                     Swal.fire({
                         title: 'Apa Anda Yakin?',
